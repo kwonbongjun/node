@@ -8,6 +8,20 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <title>예산관리</title>
   <script>
+      $(document).ready(function(){
+        var id;
+         $("li").click(function(e){
+              //var url = $(this).attr("url");
+             //history.pushState(null, null, url);
+             //event.preventDefault();
+             location.hash = $(this).children("a").attr("href");
+             $(id).css("display","none");
+             id = location.hash;//$(this).attr("href");
+             $(id).css("display","block");
+             $(location.hash).html();
+         });
+
+      });
   </script>
 </head>
 <body>
@@ -21,12 +35,44 @@
   </div>
   <nav>
     <ul>
-      <li><a href="index2_1.html">예산조회</a></li>
-      <li><a href="index2_2.html">예산입력</a></li>
-      <li><a href="index2_3.html">월별예산변동</a></li>
+      <li><a href="#c1">예산조회</a></li><br>
+      <li><a href="#c2">예산입력</a></li><br>
+      <li><a href="#c3">월별예산변동</a></li><br>
     </ul>
   </nav>
-  <section>
+  <section id="c1">
+    <table>
+      <tr>
+        <td>코드</td>
+        <td>발생기간</td>
+        <td>금액</td>
+        <td>용도</td>
+        <td>실적</td>
+        <td>수정</td>
+        <td>삭제</td>
+      </tr>
+    </table>
+  </section>
+  <section id="c2">
+    <div>
+      <p>코드    :<input type="text" placeholder="구분"></p>
+      <p>발생기간:<input type="text" placeholder="구분"></p>
+      <p>금액    :<input type="text" placeholder="구분"></p>
+      <p>용도    :<input type="text" placeholder="구분"></p>
+      <p>실적  :<input type="text" placeholder="구분"></p>
+      <button type="submit" val="저장" style="width: 50px; height:50px">
+      <button type="submit" val="취소" style="width: 50px; height : 50px">
+    </div>
+  </section>
+  <section id="c3">
+    <table>
+      <tr>
+        <td>코드</td>
+        <td>발생기간</td>
+        <td>금액</td>
+        <td>실적</td>
+      </tr>
+    </table>
   </section>
 </body>
 </html>

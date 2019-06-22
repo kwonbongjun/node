@@ -10,14 +10,30 @@
   <script>
       $(document).ready(function(){
         var id;
-         $("li").click(function(e){
+        $(location.hash).css("display","block");
+        $(location.hash).html();
+        id=location.hash;
+        $(window).on("popstate", function(e) {
+          console.log(location.hash);
+          $(id).css("display","none");
+          id = location.hash;//$(this).attr("href");
+          $(id).css("display","block");
+          $(location.hash).html();
+        });
 
-             //history.pushState(null, null, url);
-             //e.preventDefault();
+        //var url = $(this).attr("url");
+
+         $("li").click(function(e){
+              //var url = $(this).attr("url");
+             //history.replaceState(null, null, location.hash);
+
+             e.preventDefault();
              location.hash = $(this).children("a").attr("href");
-             //$(id).css("display","none");
-             //id = $(this).attr("href");
-             //$(id).css("display","block");
+             $(id).css("display","none");
+             id = location.hash;//$(this).attr("href");
+             $(id).css("display","block");
+             $(location.hash).html();
+
          });
 
       });
@@ -34,19 +50,50 @@
   </div>
   <nav>
     <ul>
+      <!--<li url="index1_1.html">자금계획관리</a></li><br>
+      <li url="index1_2.html">자금계획등록</a></li><br>
+      <li url="index1_3.html">월별자금변동</a></li>
       <li><a href="index1_1.html">자금계획관리</a></li><br>
       <li><a href="index1_2.html">자금계획등록</a></li><br>
-      <li><a href="index1_3.html">월별자금변동</a></li>
+      <li><a href="index1_3.html">월별자금변동</a></li>-->
+      <li><a href="#c1">자금계획관리</a></li><br>
+      <li><a href="#c2">자금계획등록</a></li><br>
+      <li><a href="#c3">월별자금변동</a></li>
     </ul>
   </nav>
   <section id="c1">
-    n1
+    <table>
+      <tr>
+        <td>구분</td>
+        <td>발생기간</td>
+        <td>금액</td>
+        <td>항목</td>
+        <td>거래처</td>
+        <td>수정</td>
+        <td>삭제</td>
+      </tr>
+    </table>
   </section>
   <section id="c2">
-    n2
+    <div class="i1">
+      <p>구분&nbsp;&nbsp;&nbsp&nbsp&nbsp&nbsp:<input type="text" placeholder="구분"></p>
+      <p>발생기간:<input type="text" placeholder="구분"></p>
+      <p>금액&nbsp;&nbsp;&nbsp&nbsp&nbsp:     <input type="text" placeholder="구분"></p>
+      <p>항목&nbsp;&nbsp;&nbsp&nbsp&nbsp:     <input type="text" placeholder="구분"></p>
+      <p>거래처&nbsp;&nbsp;&nbsp:<input type="text" placeholder="구분"></p>
+      <input type="submit" value="저장" style="width: 60px; height:30px">
+      <input type="submit" value="취소" style="width: 60px; height : 30px">
+    </div>
   </section>
   <section id="c3">
-    n3
+    <table>
+      <tr>
+        <td>구분</td>
+        <td>발생기간</td>
+        <td>금액</td>
+        <td>실적</td>
+      </tr>
+    </table>
   </section>
 </body>
 </html>
