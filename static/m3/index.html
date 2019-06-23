@@ -10,6 +10,57 @@
   <script>
       $(document).ready(function(){
         var id;
+        var list = [];
+                var v3;
+                if(location.search != ""){              //url가져옴
+
+                           var param = location.search.replace("?",""); // ?뒤로자름
+                           //console.log(param);
+                           var params = param.split("&");
+                           //console.log(params);
+                           var row = {};
+                           for(var i = 0; i < params.length; i++){
+                               var map = params[i].split("=");
+                               row[map[0]] = (((decodeURI(map[1]))));
+                           }
+                           //console.log(row);
+
+                            if(localStorage.getItem("list")==null) {
+                            console.log("데이터없음");
+                           } else {
+                              list=JSON.parse(localStorage.getItem("list"));
+                           }
+
+
+                           list[list.length] = row;
+                           localStorage.setItem("list", JSON.stringify(list));
+                           //location.search = "";
+
+                          /* $.ajax({
+                             url:"/m3/index.json",
+                             dataType : "json",
+                            method : "POST",
+                             data: {json :  JSON.stringify(list)},
+
+                           }).done(function(data){
+                             data.no="1";
+                             console.log(data.no);
+                           }).fail(function(data,b,c){
+                             data.no=2;
+                             console.log(data,b,c);
+                           });*/
+                           $.post("index.json",
+                              {
+                                name: "Donald Duck",
+                                city: "Duckburg"
+                              },
+                              function(data, status){
+                                alert("Data: " + data + "\nStatus: " + status);
+                              });
+
+                       }
+
+
         $(location.hash).css("display","block");
         $(location.hash).html();
         id=location.hash;
@@ -34,6 +85,46 @@
              $(id).css("display","block");
              $(location.hash).html();
 
+              if($("li").index(this)==0) {
+                  var v1=JSON.parse(localStorage.getItem("list"));
+
+                  var v="";
+                  var v3;
+                  v="<table><tr><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>수정</td><td>삭제</td></tr>"
+
+                  for(var i=0;i<v1.length;i++) {
+                      //v3=list[i]["#title"];
+                      v+="<tr><td>"+v1[i]["no"]+"</td><td>"+v1[i]["time"]+"</td><td>"+
+                      v1[i]["money"]+"</td><td>"+v1[i]["content"]+"</td><td>"+v1[i]["target"]+
+                      "</td><td>수정</td><td>삭제</td></tr><input id=\"cb\" type=\"checkbox\" name=\"chk_info\" value=\"del\">";
+                      //console.log(v);
+                  }
+                  $("#c1").html(function(i,origtext){
+                      v+="</table>"
+                      return v;
+                  });
+                  v+="</table>"
+
+              }
+             if($("li").index(this)==1) {
+               //console.log($("p").index().val());
+              /* $.ajax({
+                 url:"/m3/index.json"
+                 , dataType : 'html',
+                 type : 'GET',
+                 data: {no:"1"}
+               }).done(function(data){
+                 data.no=1;
+                 console.log(data.no);
+               }).fail(function(data,b,c){
+                 data.no=2;
+                 console.log(data.no,b,c);
+               });*/
+             }
+         });
+
+         $("form").submit(function(){
+            //location.reload();
          });
 
       });
@@ -76,13 +167,15 @@
   </section>
   <section id="c2">
     <div class="i1">
-      <p>구분&nbsp;&nbsp;&nbsp&nbsp&nbsp&nbsp:<input type="text" placeholder="구분"></p>
-      <p>발생기간:<input type="text" placeholder="구분"></p>
-      <p>금액&nbsp;&nbsp;&nbsp&nbsp&nbsp:     <input type="text" placeholder="구분"></p>
-      <p>항목&nbsp;&nbsp;&nbsp&nbsp&nbsp:     <input type="text" placeholder="구분"></p>
-      <p>거래처&nbsp;&nbsp;&nbsp:<input type="text" placeholder="구분"></p>
-      <input type="submit" value="저장" style="width: 60px; height:30px">
-      <input type="submit" value="취소" style="width: 60px; height : 30px">
+      <form action="index.html">
+        <p>구분&nbsp;&nbsp;&nbsp&nbsp&nbsp&nbsp:<input name="no" type="text" placeholder="구분"></p>
+        <p>발생기간:<input name="time" type="text" placeholder="구분"></p>
+        <p>금액&nbsp;&nbsp;&nbsp&nbsp&nbsp:     <input name="money" type="text" placeholder="구분"></p>
+        <p>항목&nbsp;&nbsp;&nbsp&nbsp&nbsp:     <input name="content" type="text" placeholder="구분"></p>
+        <p>거래처&nbsp;&nbsp;&nbsp:<input name="target" type="text" placeholder="구분"></p>
+        <input type="submit" value="저장" style="width: 60px; height:30px">
+        <input type="submit" value="취소" style="width: 60px; height : 30px">
+      </form>
     </div>
   </section>
   <section id="c3">
