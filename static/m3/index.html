@@ -12,8 +12,10 @@
         var id;
         var list = [];
                 var v3;
+                var v;
+                //url 받기
                 if(location.search != ""){              //url가져옴
-
+                          console.log(location.search);
                            var param = location.search.replace("?",""); // ?뒤로자름
                            //console.log(param);
                            var params = param.split("&");
@@ -34,7 +36,7 @@
 
                            list[list.length] = row;
                            localStorage.setItem("list", JSON.stringify(list));
-                           //location.search = "";
+                           location.search = "";
 
                           /* $.ajax({
                              url:"/m3/index.json",
@@ -49,30 +51,49 @@
                              data.no=2;
                              console.log(data,b,c);
                            });*/
-                           $.post("index.json",
-                              {
-                                name: "Donald Duck",
-                                city: "Duckburg"
-                              },
-                              function(data, status){
-                                alert("Data: " + data + "\nStatus: " + status);
-                              });
 
                        }
 
-
+        //화면에 뿌려주기
         $(location.hash).css("display","block");
         $(location.hash).html();
         id=location.hash;
         $(window).on("popstate", function(e) {
-          console.log(location.hash);
-          $(id).css("display","none");
-          id = location.hash;//$(this).attr("href");
-          $(id).css("display","block");
-          $(location.hash).html();
+          if(location.hash.length < 4 ) {
+            console.log(location.hash);
+            $(id).css("display","none");
+            id = location.hash;//$(this).attr("href");
+            $(id).css("display","block");
+            $(location.hash).html();
+          }else {
+            var url=location.hash.substring(location.hash.indexOf('?')+1, location.hash.length );
+
+            location.hash="#c2";
+            $(id).css("display","none");
+            id = location.hash;//$(this).attr("href");
+            $(id).css("display","block");
+
+            var param = location.search.replace("?",""); // ?뒤로자름
+            //console.log(param);
+            var params = param.split("&");
+            //console.log(params);
+            var row = {};
+            console.log($("input").index(0));
+            for(var i = 0; i < params.length; i++){
+                var map = params[i].split("=");
+                $("input").index(i).val(decodeURI(map[1]));
+            }
+          }
         });
 
         //var url = $(this).attr("url");
+        //메뉴 클릭시 효과
+        $("li").click(function(e){
+          $("li").css("backgroundColor","#00aaaa");
+          //$("#c2").css("backgroundColor","#00aaaa");
+          //$("#c3").css("backgroundColor","#00aaaa");
+            $(this).css("backgroundColor", "#11bbbb");
+        });
 
          $("li").click(function(e){
               //var url = $(this).attr("url");
@@ -84,19 +105,52 @@
              id = location.hash;//$(this).attr("href");
              $(id).css("display","block");
              $(location.hash).html();
-
+              //첫번재 출력했을 때
               if($("li").index(this)==0) {
                   var v1=JSON.parse(localStorage.getItem("list"));
 
-                  var v="";
-                  var v3;
-                  v="<table><tr><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>수정</td><td>삭제</td></tr>"
+                  /*function goPage(no,time,money,content,target, result) {
+                   // name이 paging인 태그
+                   var f = document.paging;
 
+                   // form 태그의 하위 태그 값 매개 변수로 대입
+                   $("#c2").attr("no").val(no);
+
+                   f.cate.value = cate;
+                   f.index.value = index;
+
+                   // input태그의 값들을 전송하는 주소
+                   f.action = "./index#c2"
+
+                   // 전송 방식 : post
+                   f.method = "post"
+                   f.submit();
+                  };
+                  */
+                  var v3;
+
+
+                  v="<div class=\"s1\"><form action=\"index.html#c1\">"+
+                  "<input type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
+                  "<input type=\"button\" value=\"검색\" style=\"width: 100px; height:30px\"></form></div>";
+
+                  v+="<table><tr><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>실적</td><td>수정</td><td>삭제</td></tr>"
+
+                  if(v1==null) return;
                   for(var i=0;i<v1.length;i++) {
+                    /*var modify="<a href=\"index.html#c2?no="+v1[v3]["no"]+"&contents="+
+                    v1[v3]["contents"]+"&i="+v3+"\""+" id=\"b\" onclick=\"chk()\";>"+
+                    "수정"+"</a></div>";*/
+                    var v5="index.html#c2?"+"no="+v1[i]["no"]+"&time="+v1[i]["time"]+"&money="+
+                    v1[i]["money"]+"&content="+v1[i]["content"]+"&target="+v1[i]["target"]+"&result="+v1[i]["result"];
+
                       //v3=list[i]["#title"];
                       v+="<tr><td>"+v1[i]["no"]+"</td><td>"+v1[i]["time"]+"</td><td>"+
                       v1[i]["money"]+"</td><td>"+v1[i]["content"]+"</td><td>"+v1[i]["target"]+
-                      "</td><td>수정</td><td>삭제</td></tr><input id=\"cb\" type=\"checkbox\" name=\"chk_info\" value=\"del\">";
+                      "</td><td>"+v1[i]["result"]+
+                      "</td><td><a href="+v5+"><button type=\"button\" class=\"btn"+i+"\">수정</a></td>"+
+                      "<td><button id=\"cb\" type=\"button\" class=\"btn"+i+"\">삭제</td></tr>";
+                      //"<input id=\"cb2\" type=\"checkbox\" name=\"chk_info\" value=\"del\">";
                       //console.log(v);
                   }
                   $("#c1").html(function(i,origtext){
@@ -106,6 +160,7 @@
                   v+="</table>"
 
               }
+              //두번째출력했을 때
              if($("li").index(this)==1) {
                //console.log($("p").index().val());
               /* $.ajax({
@@ -123,6 +178,96 @@
              }
          });
 
+         //수정 눌렀을 때
+         $("#c2").on("click","button",(function(e){
+
+              var v1=JSON.parse(localStorage.getItem("list"));
+              var html="";
+              var v="";
+
+              for(var i=0; i<v1.length;i++) {
+                  if(v1[i]["title"] ==  $(this).text()) {
+                      v3=i;
+                  }
+                  //console.log("<p>"+v1[i]["title"]+"</p>" , $(this).text());
+              }
+              var v4=v1[v3]["title"];
+              v=v1[v3]["contents"];
+              $(".contents").html(function(i,origtext){
+                  return v;
+              });
+             //console.log(v3);
+             function goPage(no, time, index,) {
+              // name이 paging인 태그
+              var f = document.paging;
+
+              // form 태그의 하위 태그 값 매개 변수로 대입
+              f.content.value = content;
+              f.cate.value = cate;
+              f.index.value = index;
+
+              // input태그의 값들을 전송하는 주소
+              f.action = "./content.do"
+
+              // 전송 방식 : post
+              f.method = "post"
+              f.submit();
+            };
+              var v5="<div id=\"d\" style=\"display:block; width:100%; height:100px; \" ><a href=\"index#c2\" id=\"b\" onclick=\"chk()\";>"+"수정"+"</a></div>";
+
+              //console.log(v5);
+              $(".contents").html(function(i,origtext){
+                  return v+=v5;
+              });
+
+          }));
+          //삭제
+
+        $("#c1").on("click","#cb",(function(e){
+          console.log("삭제");
+           var v5;
+           list=JSON.parse(localStorage.getItem("list"));
+           var c1=$("#c1").html();
+
+           var index = $("#cb").index(this);
+
+           //console.log(Math.abs(index));
+
+           list.splice(index,1);
+           localStorage.setItem("list",JSON.stringify(list));
+
+           var v1=JSON.parse(localStorage.getItem("list"));var v="";
+           v="<div class=\"s1\"><form action=\"index.html#c1\">"+
+           "<input type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
+           "<input type=\"button\" value=\"검색\" style=\"width: 100px; height:30px\"></form></div>";
+
+          v+="<table><tr><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>실적</td><td>수정</td><td>삭제</td></tr>";
+           var v3;
+           console.log(v1.length);
+
+           if(v1.length==0) {
+               $("#c1").html(v);return;
+           }
+           for(var i=0;i<v1.length;i++) {
+               //v3=list[i]["#title"];
+
+                 v+="<tr><td>"+v1[i]["no"]+"</td><td>"+v1[i]["time"]+"</td><td>"+
+                 v1[i]["money"]+"</td><td>"+v1[i]["content"]+"</td><td>"+v1[i]["target"]+
+                 "</td><td>"+v1[i]["result"]+
+                 "</td><td><a href=\"index.html#c2\"><button type=\"button\" class=\"btn"+i+"\">수정</a></td>"+
+                 "<td><button id=\"cb\" type=\"button\" class=\"btn"+i+"\">삭제</td></tr>";
+                 //console.log(v);
+               }
+               /*$("#s1").show();
+               $("#c1").html(function(i,origtext){
+                   v+="</table>"
+                   return v;
+               });*/
+               v+="</table>"
+               $("#c1").append(v);
+
+             }));
+
          $("form").submit(function(){
             //location.reload();
          });
@@ -132,6 +277,7 @@
 </head>
 <body>
   <div class="m1">
+      <h2 style="text-align : center;">자금/예산관리 프로그램</h2>
     <div class="m2">
     <a href="index.html"><h3>자금관리</h3></a>
     </div>
@@ -147,12 +293,18 @@
       <li><a href="index1_1.html">자금계획관리</a></li><br>
       <li><a href="index1_2.html">자금계획등록</a></li><br>
       <li><a href="index1_3.html">월별자금변동</a></li>-->
-      <li><a href="#c1">자금계획관리</a></li><br>
-      <li><a href="#c2">자금계획등록</a></li><br>
+      <li><a href="#c1">자금계획관리</a></li>
+      <li><a href="#c2">자금계획등록</a></li>
       <li><a href="#c3">월별자금변동</a></li>
     </ul>
   </nav>
   <section id="c1">
+    <div class="s1">
+    <form action="index.html#c1">
+    <input name="date" type="date" style="width: 200px; height:30px">
+    <input type="button" value="검색" style="width: 100px; height:30px">
+    </form>
+    </div>
     <table>
       <tr>
         <td>구분</td>
@@ -160,6 +312,7 @@
         <td>금액</td>
         <td>항목</td>
         <td>거래처</td>
+        <td>실적</td>
         <td>수정</td>
         <td>삭제</td>
       </tr>
@@ -168,17 +321,24 @@
   <section id="c2">
     <div class="i1">
       <form action="index.html">
-        <p>구분&nbsp;&nbsp;&nbsp&nbsp&nbsp&nbsp:<input name="no" type="text" placeholder="구분"></p>
-        <p>발생기간:<input name="time" type="text" placeholder="구분"></p>
-        <p>금액&nbsp;&nbsp;&nbsp&nbsp&nbsp:     <input name="money" type="text" placeholder="구분"></p>
-        <p>항목&nbsp;&nbsp;&nbsp&nbsp&nbsp:     <input name="content" type="text" placeholder="구분"></p>
-        <p>거래처&nbsp;&nbsp;&nbsp:<input name="target" type="text" placeholder="구분"></p>
+        <p>구분&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <input name="no" type="text" placeholder="구분"></p>
+        <p>발생기간: <input name="time" type="text" placeholder="구분"></p>
+        <p>금액&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <input name="money" type="text" placeholder="구분"></p>
+        <p>항목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <input name="content" type="text" placeholder="구분"></p>
+        <p>거래처&nbsp;&nbsp;: <input name="target" type="text" placeholder="구분"></p>
+        <p>실적&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <input name="result" type="text" placeholder="구분"></p>
         <input type="submit" value="저장" style="width: 60px; height:30px">
-        <input type="submit" value="취소" style="width: 60px; height : 30px">
+        <input type="button" value="취소" style="width: 60px; height : 30px">
       </form>
     </div>
   </section>
   <section id="c3">
+    <div class="s1">
+    <form action="index.html#c1">
+    <input name="date" type="date" style="width: 200px; height:30px">
+    <input type="button" value="검색" style="width: 100px; height:30px">
+    </form>
+    </div>
     <table>
       <tr>
         <td>구분</td>

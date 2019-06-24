@@ -26,21 +26,29 @@
 </head>
 <body>
   <div class="m1">
+      <h2 style="text-align : center;">자금/예산관리 프로그램</h2>
     <div class="m2">
-    <a href="index.html">자금관리</a>
+    <a href="index.html"><h3>자금관리</h3></a>
     </div>
     <div class="m2">
-    <a href="index2.html">예산관리</a>
+    <a href="index2.html"><h3>예산관리</h3></a>
     </div>
   </div>
   <nav>
     <ul>
-      <li><a href="#c1">예산조회</a></li><br>
-      <li><a href="#c2">예산입력</a></li><br>
-      <li><a href="#c3">월별예산변동</a></li><br>
+      <!--<li url="index1_1.html">자금계획관리</a></li><br>
+      <li url="index1_2.html">자금계획등록</a></li><br>
+      <li url="index1_3.html">월별자금변동</a></li>
+      <li><a href="index1_1.html">자금계획관리</a></li><br>
+      <li><a href="index1_2.html">자금계획등록</a></li><br>
+      <li><a href="index1_3.html">월별자금변동</a></li>-->
+      <li><a href="#c1">예산조회</a></li>
+      <li><a href="#c2">예산입력</a></li>
+      <li><a href="#c3">월별예산변동</a></li>
     </ul>
   </nav>
   <section id="c1">
+    <input type="date" value="날짜검색">
     <table>
       <tr>
         <td>코드</td>
@@ -54,14 +62,16 @@
     </table>
   </section>
   <section id="c2">
-    <div>
-      <p>코드    :<input type="text" placeholder="구분"></p>
-      <p>발생기간:<input type="text" placeholder="구분"></p>
-      <p>금액    :<input type="text" placeholder="구분"></p>
-      <p>용도    :<input type="text" placeholder="구분"></p>
-      <p>실적  :<input type="text" placeholder="구분"></p>
-      <button type="submit" val="저장" style="width: 50px; height:50px">
-      <button type="submit" val="취소" style="width: 50px; height : 50px">
+    <div class="i1">
+      <form action="index.html">
+        <p>코드    :<input type="text" placeholder="구분"></p>
+        <p>발생기간:<input type="text" placeholder="구분"></p>
+        <p>금액    :<input type="text" placeholder="구분"></p>
+        <p>용도    :<input type="text" placeholder="구분"></p>
+        <p>실적  :<input type="text" placeholder="구분"></p>
+         <input type="submit" value="저장" style="width: 60px; height:30px">
+        <input type="button" value="취소" style="width: 60px; height : 30px">
+      </form>
     </div>
   </section>
   <section id="c3">
