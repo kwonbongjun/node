@@ -188,48 +188,7 @@
          });
 
          //수정 눌렀을 때
-         $("#c2").on("click","button",(function(e){
-
-              var v1=JSON.parse(localStorage.getItem("list"));
-              var html="";
-              var v="";
-
-              for(var i=0; i<v1.length;i++) {
-                  if(v1[i]["title"] ==  $(this).text()) {
-                      v3=i;
-                  }
-                  //console.log("<p>"+v1[i]["title"]+"</p>" , $(this).text());
-              }
-              var v4=v1[v3]["title"];
-              v=v1[v3]["contents"];
-              $(".contents").html(function(i,origtext){
-                  return v;
-              });
-             //console.log(v3);
-             /*function goPage(no, time, index,) {
-              // name이 paging인 태그
-              var f = document.paging;
-
-              // form 태그의 하위 태그 값 매개 변수로 대입
-              f.content.value = content;
-              f.cate.value = cate;
-              f.index.value = index;
-
-              // input태그의 값들을 전송하는 주소
-              f.action = "./content.do"
-
-              // 전송 방식 : post
-              f.method = "post"
-              f.submit();
-            };*/
-              var v5="<div id=\"d\" style=\"display:block; width:100%; height:100px; \" ><a href=\"index#c2\" id=\"btn\" onclick=\"chk()\";>"+"수정"+"</a></div>";
-
-              //console.log(v5);
-              $(".contents").html(function(i,origtext){
-                  return v+=v5;
-              });
-
-          }));
+  
           //수정2
           $("#c1").on("click","#btn",(function(e){
 
