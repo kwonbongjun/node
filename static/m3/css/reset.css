@@ -37,7 +37,7 @@ nav {
   background-color: #00aaaa;
   position: fixed;
   text-align: center;
-  display: inline-block;
+
 }
 ul {
   list-style-type :none;
@@ -79,20 +79,18 @@ img {
 
 }
 #c2 {
-  clear:both;
-  width: calc(100% - 150px);
+  width: calc(100% - 152px);
   margin-left: 150px;
-
   display: none;
-
   <!-- display: none; -->
 }
 .i1 {
   text-align: center;
   width: 40%;
   padding: 5% 0%;
-  margin:10% 30%;
+  margin:100px 30%;
   border: 1px solid;
+  display: inline-block;
 }
 
 #c1 a{
