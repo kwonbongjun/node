@@ -412,28 +412,45 @@
           $("#menu").show();
 
       //메뉴1 팝업
-        $("body").on("click","table tr ",(function(e){
-          var colnm=8;
-          var idx=($("tr").index(this)-1)*colnm;
-            if($("tr").index(this) < idx+(colnm-2)) {
-              console.log($("tr td").index(this));
-              //console.log(idx+(colnm-2));
-          //  window.open("index3.html");
-          var c1= "<ul><li>구분:<input name=\"no\" type=\"radio\" value=\"입금\" placeholder=\"구분\" style=\"width:10%; height:20px\">입금"+
-                  "<input name=\"no\" type=\"radio\" value=\"출금\" placeholder=\"구분\" style=\"width:10%; height:20px\">출금</li>"+
-                  "<li>발생기간: <input name=\"time\" type=\"date\" placeholder=\"구분\" style=\"width:40%; height:20px\"></li></ul>"+
-                  "<ul><li>금액&nbsp;&nbsp;&nbsp;: <input name=\"money\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
-                  "<li>종목: <input name=\"content\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
-                  "<ul><li>거래처: <input name=\"target\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
-                  "<li>실적: <input name=\"result\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
-                  "<p>상세내용 : <input name=\"contents\" type=\"text\" placeholder=\"구분\" style=\"width:calc(80%); height:200px\"></p>"+
-                  "<ul class=\"i2\"><input  id= \"store\" type=\"submit\"  style=\"width: 60px; height:30px\" >"+
-                  "<input name=\"취소\" id=\"cancel\" type=\"button\" value=\"취소\" style=\"width: 60px; height : 30px\"><ul>";
+      var colnm=8;
+      var idx;
+      var idx2;
+        $("#c1 ").on("click","table tr",(function(e){
 
+          //var idx=($("tr").index(this)-1)*colnm;
+          idx=($("tr").index(this))*colnm;
+          //console.log( $("td").index("td"));
+        //  console.log($("tr").index("tr"));
+        //console.log(idx);
+        if(idx2 < idx+(colnm-2) ) {
+          console.log( $("td").index(this));
+          console.log(idx+(colnm-2));
+      //  window.open("index3.html");
+        var c1= "<ul><li>구분:<input name=\"no\" type=\"radio\" value=\"입금\" placeholder=\"구분\" style=\"width:10%; height:20px\">입금"+
+                "<input name=\"no\" type=\"radio\" value=\"출금\" placeholder=\"구분\" style=\"width:10%; height:20px\">출금</li>"+
+                "<li>발생기간: <input name=\"time\" type=\"date\" placeholder=\"구분\" style=\"width:40%; height:20px\"></li></ul>"+
+                "<ul><li>금액&nbsp;&nbsp;&nbsp;: <input name=\"money\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
+                "<li>종목: <input name=\"content\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
+                "<ul><li>거래처: <input name=\"target\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
+                "<li>실적: <input name=\"result\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
+                "<p>상세내용 : <input name=\"contents\" type=\"text\" placeholder=\"구분\" style=\"width:calc(80%); height:200px\"></p>"+
+                "<ul class=\"i2\"><input  id= \"store\" type=\"submit\"  style=\"width: 60px; height:30px\" >"+
+                "<input name=\"취소\" id=\"cancel\" type=\"button\" value=\"취소\" style=\"width: 60px; height : 30px\"><ul>";
 
-          $(".popup2").empty().append(c1);
-          popup();
-          }
+      $(".popup2").empty().append(c1);
+      popup();
+      }
+      }));
+        $("#c1 ").on("click","td",(function(e){
+        //var idx=($("tr").index(this)-1)*colnm;
+          //idx=($("tr").index(this)-1)*colnm;
+        //console.log( $("td").index(this));
+      //  console.log($("tr").index("tr"));
+
+            //console.log( $("td").index(this));
+            //console.log(idx+(colnm-2));
+            idx2=$("td").index(this);
+
         }));
         function popup() {
           $(".popup").css("display","block");
@@ -441,9 +458,9 @@
         if($(".popup").click("input",function(){
               $(".popup").css("display","none");
         }));
+        //$('td:nth-child(7)').hide();
+        //$('td:nth-child(8)').hide();
       });
-
-
   </script>
 </head>
 <body>
@@ -492,16 +509,18 @@
     </form>
     </div>
     <table>
+      <thead>
       <tr>
-        <td>구분</td>
-        <td>발생기간</td>
-        <td>금액</td>
-        <td>항목</td>
-        <td>거래처</td>
-        <td>실적</td>
-        <td>수정</td>
-        <td>삭제</td>
+        <th>구분</th>
+        <th>발생기간</th>
+        <th>금액</th>
+        <th>항목</th>
+        <th>거래처</th>
+        <th>실적</th>
+        <th class="t1">수정</th>
+        <th class="t1">삭제</th>
       </tr>
+      </thead>
     </table>
   </section>
   <section id="c2">
