@@ -34,7 +34,7 @@ nav {
   width: 150px;
   height: calc(100% - 82px);
   margin-top : 50px;
-  background-color: #00aaaa;
+  background-color: #94b0b9;
   position: fixed;
   text-align: center;
 
@@ -84,14 +84,41 @@ img {
   display: none;
   <!-- display: none; -->
 }
+#c2 ul{
+  color:black;
+  clear: both;
+  background-color: white;
+}
+#c2 li{
+  background-color: white;
+  float:left;
+  margin:0;
+  padding:0;
+  width:50%;
+  margin: 10px 0;
+  font-size: 16px;
+}
+#c2 li:hover{
+  opacity: 1.0;
+}
+#c2 p {
+
+}
+#c2 input{}
 .i1 {
-  text-align: center;
-  width: 40%;
-  padding: 5% 0%;
-  margin:100px 30%;
-  border: 1px solid;
+
+  width: 50%;
+  padding: 3% 0%;
+  margin:3% 25%;
+  border: 1px solid ;
   display: inline-block;
 }
+
+.i2 {
+  text-align: center;
+  font-size: 16px;
+}
+
 
 #c1 a{
   font-size:10px;
@@ -101,6 +128,7 @@ img {
   width : 100%;
   padding: 5px 0px;
 }
+
 #c3 {
   clear:both;
   width: calc(100% - 190px);
@@ -112,10 +140,11 @@ img {
 table, tr, td {
   border-spacing: 0px;
   text-align: center;
-  border: 0.5px solid;
+  border: 0.5px solid #888888;
 }
 table {
   width: 100%;
+  border:1px solid #888888;
 }
 
 button {
@@ -124,8 +153,23 @@ button {
   font-size:10px;
   color:black;
 }
-
-@media screen and (max-width:900px) {
+.popup {
+  margin-left:15%;
+  width :70%;
+  height:100%;
+  background-color: pink;
+  display: none;
+  position:absolute;
+  z-index: 1;
+}
+.popup ul {
+  margin:0;
+  padding:0;
+  width: 50%;
+  height: 50px;
+  font-size: 16px;
+}
+@media screen and (max-width:768px) {
   nav {
     margin:0 !important;
     padding:0;
@@ -155,6 +199,26 @@ button {
   nav ul:hover li{
 
   }
+  #c0 {
+    margin:0;
+    padding: 0;
+    width: 100%;
+  }
+  #c0 article{
+    text-align: center;
+    margin:0;
+    padding:0;
+    margin-left:0%;
+    margin-top : 10%;
+    width : 100%;
+    height:100%;
+  }
+  img {
+    padding-left: 0%;
+    height: 300px;
+    width: 350px;
+  }
+
   #c1 {
     margin: 0;
     padding :0;
@@ -163,9 +227,19 @@ button {
     display: none;
     <!-- display: none; -->
   }
-<<<<<<< HEAD
-  
-=======
+  #c2{
+    margin:0;
+    padding:0;
+    width:100%;
+  }
+  .i1{
+
+    margin: 0;
+    margin-top:20px;
+    padding:0;
+    width: 80%;
+    margin-left: 10%;
+  }
 
   #c3{
     margin: 0;
@@ -177,7 +251,7 @@ button {
   }
 }
 
-@media screen and (max-width:700px) {
+@media screen and (max-width:576px) {
   nav {
     margin:0 !important;
     padding:0;
@@ -216,8 +290,20 @@ button {
     display: none;
     <!-- display: none; -->
   }
+  form input{
+    width: 80px !important;
+  }
+  form .s3{
+    width:150px !important;
+  }
+#c2 li{
+  width: 100%;
+  text-align: center;
+}
+.i1 p{
+    text-align: center;
+}
 
->>>>>>> 634185ddbca969345d0255e820299a51a8fee19f
   #c3{
     margin: 0;
     padding :0;
