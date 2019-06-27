@@ -1,0 +1,34 @@
+body,header,nav,section,aside,article,footer,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select{margin:0;padding:0}
+section#contents {min-height: calc(100vh - (210px + 46px));}
+ul, li {list-style: none; margin: 0; padding: 0;}
+.dn {display: none;}
+/* 달력 */
+#contents .calendar_wrap{position:relative;width:452px;left:calc((100% - 452px) / 2);top:10px;}
+#contents .calendar_wrap::after {content:"";display:table;clear:both;}
+#contents .calendar_wrap>div{position:absolute;top:0;box-shadow:2px 4px 4px rgba(4,0,0,0.16);z-index:9}
+#contents .calendar_wrap .tab_menu li{float:left;background-color:#991f42;color:#fff;font-size:14px;text-align:center;width:225px;height:38px;line-height:38px;cursor:pointer}
+#contents .calendar_wrap .tab_menu li.on{background-color:#f8326a}
+#contents .calendar_wrap p{text-align:center;background-color:#f8326a;height:50px;font-size:17px;line-height:50px;color:#fff;font-weight:bold}
+#contents .calendar_wrap .btn_prev, #contents .calendar_wrap .btn_next {cursor: pointer;}
+#contents .calendar_month,#contents .calendar_day{position:relative;background-color:#fff;clear:both}
+#contents .calendar_month .btn_prev,#contents .calendar_month .btn_next,#contents .calendar_day .btn_prev,#contents .calendar_day .btn_next{position:absolute;top:0;line-height:50px;font-size:15px;font-weight:bold;color:#fff}
+#contents .calendar_month .btn_prev,#contents .calendar_day .btn_prev{left:20px}
+#contents .calendar_month .btn_next,#contents .calendar_day .btn_next{right:20px}
+#contents .calendar_month ol{width:450px;height:255px;padding:19px 0}
+#contents .calendar_month li{float:left;width:25%;text-align:center;padding:13px 0}
+#contents .calendar_month li>span,#contents .calendar_month li>a{display:block;margin:0 30%;padding:17px 0;font-size:18px;line-height:25px}
+#contents .calendar_month li>span:hover,#contents .calendar_month li>a:hover{background-color:#f6f6f6}
+#contents .calendar_month li>span{color:#818181}
+#contents .calendar_month li>a{color:#0b0b0b}
+#contents .calendar_month li>a.today{border-bottom:4px solid #f8326a;padding:17px 0 13px}
+#contents .calendar_month li>a.before{color:#818181}
+#contents .calendar_month li>a.choice{border-bottom:4px solid #444444;padding:17px 0 13px}
+#contents .calendar_day table{padding:0 1px;width:448px;height:293px}
+#contents .calendar_day th{color:#cfcccc;font-size:16px;height:48px}
+#contents .calendar_day td{width:64px;height:48px;text-align:center;position:relative}
+#contents .calendar_day td>span{font-size:15px;color:#cfcccc;}
+#contents .calendar_day td>a{display:block;margin:0 20%;padding:15px 0;font-size:15px;line-height:18px;color:#232323}
+#contents .calendar_day td>a:hover{background-color:#f6f6f6}
+#contents .calendar_day td>a.today{border-bottom:4px solid #f8326a;padding:15px 0 11px}
+#contents .calendar_day td>a.before{font-size:15px;color:#cfcccc;}
+#contents .calendar_day td>a.choice{border-bottom:4px solid #444444;padding:15px 0 11px}

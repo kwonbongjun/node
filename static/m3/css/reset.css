@@ -64,6 +64,7 @@ li {
   width : 95%;
   height:100%;
 }
+
 img {
   padding-left: 5%;
 }
@@ -137,11 +138,12 @@ img {
   <!-- display: none; -->
 
 }
-table, tr, td {
+table, th, tr, td {
   border-spacing: 0px;
   text-align: center;
   border: 0.5px solid #888888;
 }
+
 table {
   width: 100%;
   border:1px solid #888888;
@@ -156,20 +158,31 @@ button {
   color:black;
 }
 .popup {
+  margin-top: 10%;
   margin-left:15%;
   width :70%;
-  height:100%;
-  background-color: pink;
+  height:60%;
+  background-color: #eeffff;
   display: none;
   position:absolute;
   z-index: 1;
+  border: 1px solid;
 }
 .popup ul {
+  clear: both;
   margin:0;
   padding:0;
-  width: 50%;
-  height: 50px;
+  width: 100%;
   font-size: 16px;
+}
+.popup li{
+  width:40%;
+  color:black;
+  font-size:1rem;
+  float: left;
+}
+.popup p {
+  clear: both;
 }
 @media screen and (max-width:768px) {
   nav {
@@ -215,10 +228,10 @@ button {
     width : 100%;
     height:100%;
   }
-  img {
-    padding-left: 0%;
-    height: 300px;
-    width: 350px;
+  article img {
+    padding-left: 5%;
+    height: 500px;
+    width: 90% !important;
   }
 
   #c1 {
@@ -228,6 +241,11 @@ button {
     width: calc(100%);
     display: none;
     <!-- display: none; -->
+  }
+  table, th, tr, td {
+    border-spacing: 0px;
+/*테두리 사라짐 text-align: center; */
+    border: 1px solid #888888;
   }
   #c2{
     margin:0;
@@ -250,6 +268,9 @@ button {
     width: calc(100%);
     display: none;
     <!-- display: none; -->
+  }
+  .popup{
+    display: none !important;
   }
 }
 
@@ -283,7 +304,25 @@ button {
     display: block;
     background-color:#00aaaa;
   }
-
+  #c0 {
+    margin:0;
+    padding: 0;
+    width: 100%;
+  }
+  #c0 article{
+    text-align: center;
+    margin:0;
+    padding:0;
+    margin-left:0%;
+    margin-top : 10%;
+    width : 100%;
+    height:100%;
+  }
+  img {
+    padding-left: 0%;
+    height: 300px;
+    width: 350px;
+  }
   #c1 {
     margin: 0;
     padding :0;
@@ -295,8 +334,23 @@ button {
   form input{
     width: 80px !important;
   }
+/*
   form .s3{
     width:150px !important;
+  }
+
+
+  #page2 td:nth-child(7),th:nth-child(7){
+    display: none !important;
+  }
+  #page2 td:nth-child(5), th:nth-child(5){
+    display: none !important;
+  }*/
+  table[id="page2"] td:nth-child(6), th:nth-child(6) {
+    display: none !important;
+  }
+  th:nth-child(7){
+    display: none !important;
   }
   td:nth-child(7){
     display: none !important;
@@ -304,8 +358,12 @@ button {
   td:nth-child(8){
     display: none !important;
   }
+
+#c2 input[type="date"],input[type="text"]{
+  width: 70% !important;
+}
 #c2 li{
-  width: 100%;
+  width: 100% !important;
   text-align: center;
 }
 .i1 p{
