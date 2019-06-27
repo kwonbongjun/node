@@ -61,9 +61,8 @@ const server = {
                     });
                 }
             });
-
             라우터.route("/dbTest").get((req, res) => {
-                server.DB("select * from test1", [], (err, resultList) => {
+                server.DB("select * from test.ex;", [], (err, resultList) => {
                   if(err){
                       res.redirect("/main");
                       return;
