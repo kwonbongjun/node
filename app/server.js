@@ -38,7 +38,7 @@ const server = {
             const 라우터 = 서버.Router();
             라우터.route("/main").get((req, res) => {
                 if(req.session.user){
-                  res.render("./index2.html",{user : req.session.user});
+                  res.render("./m3/index.html",{user : req.session.user});
                 }else {
                   res.render("./index.html");
                 }
@@ -61,17 +61,39 @@ const server = {
                     });
                 }
             });
-
             라우터.route("/dbTest").get((req, res) => {
-                server.DB("select * from test1", [], (err, resultList) => {
+                server.DB("select * from test.test1", [], (err, resultList) => {
                   if(err){
                       res.redirect("/main");
                       return;
                   }
-                  console.log(resultList);
+                  //console.log(resultList);
+                  res.type("json");
                   res.render("./db.html", {data :resultList});
                 });
             });
+            라우터.route("/dbTest2").post((req,res) => {
+             console.log(JSON.stringify(req.body.no));
+            var no=JSON.stringify(req.body.no);
+            var time=JSON.stringify(req.body.time);
+            var money=JSON.stringify(req.body.money);
+            var content=JSON.stringify(req.body.content);
+            var result=JSON.stringify(req.body.result);
+            var target=JSON.stringify(req.body.target);
+            var contents=JSON.stringify(req.body.contents);
+//,"\"+time1+"\",'100000','1','구디','110000'
+            var commit="COMMIT;";
+            server.DB("insert test.test1 values ("+no+"\,"+time+"\,"+money+"\,"+content+"\,"+target+"\,"+result+"\,"+contents+");"+commit, [], (err, resultList) => {
+            if(err){
+                res.redirect("/main");
+                console.log(err);
+                return;
+            }
+            console.log(resultList);
+            res.type("json");
+            res.render("./db.html", {data :resultList});
+          });
+        });
             앱.use("/", 라우터);
             server.STEP_2();
         },
