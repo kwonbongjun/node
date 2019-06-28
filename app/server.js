@@ -62,7 +62,11 @@ const server = {
                 }
             });
             라우터.route("/dbTest").get((req, res) => {
+<<<<<<< HEAD
                 server.DB("select * from test.test1", [], (err, resultList) => {
+=======
+                server.DB("select * from test.ex;", [], (err, resultList) => {
+>>>>>>> 5a6461ca53d19182c07035407fa53f986f6dc447
                   if(err){
                       res.redirect("/main");
                       return;
