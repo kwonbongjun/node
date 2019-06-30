@@ -27,5 +27,6 @@ module.exports = {
       database:"test",
       debug:false,
       multipleStatements: true
+
     }
 };
