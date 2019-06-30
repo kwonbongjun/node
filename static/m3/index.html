@@ -89,28 +89,28 @@
           $("#c0").hide();
         }
 
-
-        v="<div class=\"s1\"><form action=\"index.html#c1\">"+
+        //1번째 메뉴 새로고침 했을 때 데이터 가져오기(1번 메뉴 클릭과 동일 이벤트)
+/*        v="<div class=\"s1\"><form action=\"index.html#c1\">"+
         "날짜 범위 <input name=\"date\" type=\"date\" style=\"width: 200px; height:30px\">"+
         "<input type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
         "<input type=\"button\" value=\"검색\" style=\"width: 100px; height:30px\"></form></div>";
 
         v+="<table><tr><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>실적</td><td>수정</td><td>삭제</td></tr>";
 
-/*        if(localStorage.getItem("list") !=null) {
-        var v1=JSON.parse(localStorage.getItem("list"));
+//       if(localStorage.getItem("list") !=null) {
+//        var v1=JSON.parse(localStorage.getItem("list"));
         //console.log(v1.length);
         //console.log(localStorage.getItem("list"));
-        for(var i=0;i<v1.length;i++) {
+//        for(var i=0;i<v1.length;i++) {
           /*var modify="<a href=\"index.html#c2?no="+v1[v3]["no"]+"&contents="+
           v1[v3]["contents"]+"&i="+v3+"\""+" id=\"b\" onclick=\"chk()\";>"+
           "수정"+"</a></div>";*/
           //v1[i]["no"]   $("input[name='no']:checked").val()   $("label[for='"+radioId+"']").text();
-
+/*
 //          var v5="index.html#c2?"+"no="+v1[i]["no"]+"&time="+v1[i]["time"]+"&money="+
 //          v1[i]["money"]+"&content="+v1[i]["content"]+"&target="+v1[i]["target"]+"&result="+v1[i]["result"];
-            var v5="index.html#c2?"+"no="+v1[i]["no"]+"&time="+v1[i]["time"]+"&money="+
-            v1[i]["money"]+"&content="+v1[i]["content"]+"&target="+v1[i]["target"]+"&result="+v1[i]["result"];
+//            var v5="index.html#c2?"+"no="+v1[i]["no"]+"&time="+v1[i]["time"]+"&money="+
+//            v1[i]["money"]+"&content="+v1[i]["content"]+"&target="+v1[i]["target"]+"&result="+v1[i]["result"];
 
             //v3=list[i]["#title"];
             v+="<tr><td>"+v1[i]["no"]+"</td><td>"+v1[i]["time"]+"</td><td>"+
@@ -118,7 +118,7 @@
             "</td><td>"+v1[i]["result"]+
             "</td><td><a href="+v5+"><button type=\"button\" class=\"btn\">수정</a></td>"+
             "<td><button id=\"cb\" type=\"button\" class=\"btn33\">삭제</td></tr>";
-            //"<input id=\"cb2\" type=\"checkbox\" name=\"chk_info\" value=\"del\">";
+*/            //"<input id=\"cb2\" type=\"checkbox\" name=\"chk_info\" value=\"del\">";
             //console.log(v);
 
             $.ajax({
@@ -128,40 +128,58 @@
               }).done(function(html){
                   data1 = html;
                   console.log(data1);
+                  v="<div class=\"s1\"><form action=\"index.html#c1\">"+
+                  "날짜 범위 <input name=\"date\" type=\"date\" style=\"width: 200px; height:30px\">"+
+                  "<input type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
+                  "<input type=\"button\" value=\"검색\" style=\"width: 100px; height:30px\"></form></div>";
+
+                  v+="<table><tr><td>번호</td><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>실적</td><td>수정</td><td>삭제</td></tr>";
+
+                  if(data1 !=null) {
                     for(var i=0;i<data1.length;i++) {
-                      var v5="index.html#c2?"+"no="+data1[i]["no"]+"&time="+data1[i]["time"]+"&money="+
+                      var v5="index.html#c2?"+"no="+data1[i]["no"]+"no1="+data1[i]["no1"]+"&time="+data1[i]["time"]+"&money="+
                       data1[i]["money"]+"&content="+data1[i]["content"]+"&target="+data1[i]["target"]+"&result="+data1[i]["result"]+data1[i]["contents"];
 
+                      v+="<tr><td>"+data1[i]["no"]+"</td><td>"+data1[i]["no1"]+"</td><td>"+data1[i]["time1"]+"</td><td>"+
+                      data1[i]["money"]+"</td><td>"+data1[i]["content"]+"</td><td>"+data1[i]["target"]+
+                      "</td><td>"+data1[i]["result"]+
+                      "</td><td><a href="+v5+"><button type=\"button\" class=\"btn\">수정</a></td>"+
+                      "<td><button id=\"cb\" type=\"button\" class=\"btn33\">삭제</td></tr>";
                     }
+                    $("#c1").html(function(i,origtext){
+                        v+="</table>"
+                        return v;
+                    });
+                  }
+
               }).fail(function(html,d2,d3){
                 console.log(html,d2,d3);
               });
-              console.log(data1);
-      //   });
-    //    }
-    //  }
-        $("#c1").html(function(i,origtext){
-            v+="</table>"
-            return v;
-        });
+              //console.log(data1);
+//         });
+//        }
+//      }
+
+        //새로고침 했을 때 이전 내용 숨기기
         id=location.hash;
         $(id).css("display","none");
         $(location.hash).css("display","block");
         $(location.hash).html();
 
-
+        //뒤로 가기 이벤트, 화면 전환, 주소 변경 시 마다 실행
         $(window).on("popstate", function(e) {
           if(location.hash.length < 4 ) {
             //console.log(location.hash);
             $(id).css("display","none");
             id = location.hash;//$(this).attr("href");
             $(id).css("display","block");
-            $(location.hash).html();
+            //$(location.hash).html();
             $("#c0").hide();
             if(location.hash=="") {
               $("#c0").show();
             }
           }else {
+            //수정눌렀을 때
             console.log(location.hash);
             var url=location.hash.substring(location.hash.indexOf('?')+1, location.hash.length );
             //console.log(url);
@@ -193,9 +211,8 @@
         });
 
         //var url = $(this).attr("url");
+
         //메뉴 클릭시 효과
-
-
          $("nav li").click(function(e){
               //var url = $(this).attr("url");
              //history.replaceState(null, null, location.hash);
@@ -209,9 +226,9 @@
              id = location.hash;//$(this).attr("href");
              $(id).css("display","block");
              $(location.hash).html();
-              //첫번재 출력했을 때
+              //첫번재 메뉴 출력했을 때
               if($("li").index(this)==0) {
-                  var v1=JSON.parse(localStorage.getItem("list"));
+/*                  var v1=JSON.parse(localStorage.getItem("list"));
 
                   /*function goPage(no,time,money,content,target, result) {
                    // name이 paging인 태그
@@ -231,7 +248,7 @@
                    f.submit();
                   };
                   */
-                  var v3;
+/*                  var v3;
 
 
                   v="<div class=\"s1\"><form action=\"index.html#c1\">"+
@@ -250,7 +267,7 @@
 
 
 
-                    var v5="index.html#c2?"+"no="+v1[i]["no"]+"&time="+v1[i]["time"]+"&money="+
+/*                    var v5="index.html#c2?"+"no="+v1[i]["no"]+"&time="+v1[i]["time"]+"&money="+
                     v1[i]["money"]+"&content="+v1[i]["content"]+"&target="+v1[i]["target"]+"&result="+v1[i]["result"];
                     var radioVal = $('input[name="no"]:checked').val();
 
@@ -268,7 +285,41 @@
                       v+="</table>"
                       return v;
                   });
-                  v+="</table>"
+                  v+="</table>"*/
+                  $.ajax({
+                      type:"get",
+                      url:"../dbTest",
+                      dataType:"JSON"
+                    }).done(function(html){
+                        data1 = html;
+                        console.log(data1);
+                        v="<div class=\"s1\"><form action=\"index.html#c1\">"+
+                        "날짜 범위 <input name=\"date\" type=\"date\" style=\"width: 200px; height:30px\">"+
+                        "<input type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
+                        "<input type=\"button\" value=\"검색\" style=\"width: 100px; height:30px\"></form></div>";
+
+                        v+="<table><tr><td>번호</td><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>실적</td><td>수정</td><td>삭제</td></tr>";
+
+                        if(data1 !=null) {
+                          for(var i=0;i<data1.length;i++) {
+                            var v5="index.html#c2?"+"no="+data1[i]["no"]+"no1="+data1[i]["no1"]+"&time="+data1[i]["time"]+"&money="+
+                            data1[i]["money"]+"&content="+data1[i]["content"]+"&target="+data1[i]["target"]+"&result="+data1[i]["result"]+data1[i]["contents"];
+
+                            v+="<tr><td>"+data1[i]["no"]+"</td><td>"+data1[i]["no1"]+"</td><td>"+data1[i]["time1"]+"</td><td>"+
+                            data1[i]["money"]+"</td><td>"+data1[i]["content"]+"</td><td>"+data1[i]["target"]+
+                            "</td><td>"+data1[i]["result"]+
+                            "</td><td><a href="+v5+"><button type=\"button\" class=\"btn\">수정</a></td>"+
+                            "<td><button id=\"cb\" type=\"button\" class=\"btn33\">삭제</td></tr>";
+                          }
+                          $("#c1").html(function(i,origtext){
+                              v+="</table>"
+                              return v;
+                          });
+                        }
+
+                    }).fail(function(html,d2,d3){
+                      console.log(html,d2,d3);
+                    });
 
               }
               //두번째출력했을 때
@@ -289,7 +340,7 @@
              }
          });
 
-         //수정 눌렀을 때
+         //x수정 눌렀을 때
          /*$("#c2").on("click","button",(function(e){
 
               var v1=JSON.parse(localStorage.getItem("list"));
@@ -334,14 +385,14 @@
           }));*/
           //수정2
           $("#c1").on("click","#btn",(function(e){
-
+/*
             //var v5;
             //list=JSON.parse(localStorage.getItem("list"));
 
             //index = $("#btn").index(this);
 
             //console.log(Math.abs(index));
-/*
+
             list.splice(index,1);
             localStorage.setItem("list",JSON.stringify(list));
 
@@ -360,7 +411,6 @@
                 });
             }*/
           }));
-          //저장
 
           //수정취소
           $("#c2").on("click","#cancel",(function(e){
@@ -368,26 +418,89 @@
           }));
 
           //삭제
-
-        $("#c1").on("click","#cb",(function(e){
+        $("#c1").on("click","td",(function(e){
           console.log("삭제");
-           var v5;
+/*           var v5;
            list=JSON.parse(localStorage.getItem("list"));
            var c1=$("#c1").html();
 
            var index = $("#cb").index(this);
 
-           //console.log(Math.abs(index));
+           console.log(Math.abs(index));
 
            list.splice(index,1);
            localStorage.setItem("list",JSON.stringify(list));
 
            var v1=JSON.parse(localStorage.getItem("list"));var v="";
-           v="<div class=\"s1\"><form action=\"index.html#c1\">"+
+*/
+          //console.log($("td").index(this));
+          if(($("td").index(this))%9 == 8) {
+          var index =($("td").index(this));
+          var val=$("td").eq(index-8).text();
+          $.ajax({
+              type:"get",
+              url:"../dbTest",
+              dataType:"JSON"
+            }).done(function(html){
+              //console.log(val);
+              data1=html;
+                for(var i =0; i<data1.length;i++) {
+                if(data1[i]["no"] ==val ) {
+
+                  $.ajax({
+                      type:"get",
+                      url:"../dbTest3",
+                      data:{"no":val},
+                      dataType:"JSON"
+                    }).done(function(html){
+                      $.ajax({
+                          type:"get",
+                          url:"../dbTest",
+                          dataType:"JSON"
+                        }).done(function(html){
+                          //console.log(val);
+                          data1=html;
+                          v="<div class=\"s1\"><form action=\"index.html#c1\">"+
+                           "<input type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
+                           "<input type=\"button\" value=\"검색\" style=\"width: 100px; height:30px\"></form></div>";
+
+                          v+="<table><tr><td>번호</td><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>실적</td><td>수정</td><td>삭제</td></tr>";
+
+
+                       for(var i=0;i<data1.length;i++) {
+                           //v3=list[i]["#title"];
+
+                             v+="<tr><td>"+data1[i]["no"]+"</td><td>"+data1[i]["no1"]+"</td><td>"+data1[i]["time1"]+"</td><td>"+
+                             data1[i]["money"]+"</td><td>"+data1[i]["content"]+"</td><td>"+data1[i]["target"]+
+                             "</td><td>"+data1[i]["result"]+
+                             "</td><td><a href=\"index.html#c2\"><button type=\"button\" class=\"btn\">수정</a></td>"+
+                             "<td><button id=\"cb\" type=\"button\" class=\"btn"+i+"\">삭제</td></tr>";
+                             //console.log(v);
+                           }
+                           //$("#s1").show();
+                           $("#c1").html(function(i,origtext){
+                               v+="</table>"
+                               return v;
+                           });
+                         }).fail(function(html,d2,d3){
+                           console.log(html,d2,d3);
+                         });
+                    }).fail(function(html,d2,d3){
+                      console.log(html,d2,d3);
+                    });
+                    return;
+                }
+              }
+            }).fail(function(html,d2,d3){
+              console.log(html,d2,d3);
+            });
+            }
+
+/*           v="<div class=\"s1\"><form action=\"index.html#c1\">"+
            "<input type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
            "<input type=\"button\" value=\"검색\" style=\"width: 100px; height:30px\"></form></div>";
 
-          v+="<table><tr><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>실적</td><td>수정</td><td>삭제</td></tr>";
+          v+="<table><tr><td>번호</td><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>실적</td><td>수정</td><td>삭제</td></tr>";
            var v3;
            console.log(v1.length);
 
@@ -397,7 +510,7 @@
            for(var i=0;i<v1.length;i++) {
                //v3=list[i]["#title"];
 
-                 v+="<tr><td>"+v1[i]["no"]+"</td><td>"+v1[i]["time"]+"</td><td>"+
+                 v+="<tr><td>"+data1[i]["no"]+"</td><td>"+data1[i]["no1"]+"</td><td>"+data1[i]["time"]+"</td><td>"+
                  v1[i]["money"]+"</td><td>"+v1[i]["content"]+"</td><td>"+v1[i]["target"]+
                  "</td><td>"+v1[i]["result"]+
                  "</td><td><a href=\"index.html#c2\"><button type=\"button\" class=\"btn\">수정</a></td>"+
@@ -410,7 +523,7 @@
                    return v;
                });
                v+="</table>"
-
+*/
 
              }));
 
@@ -435,34 +548,61 @@
           $("#menu").show();
 
       //메뉴1 팝업
-      var colnm=8;
+      var colnm=9;
       var idx;
       var idx2;
+      var key;
         $("#c1 ").on("click","table tr",(function(e){
 
           //var idx=($("tr").index(this)-1)*colnm;
           idx=($("tr").index(this))*colnm;
           //console.log( $("td").index("td"));
         //  console.log($("tr").index("tr"));
-        //console.log(idx);
-        if(8 <= idx2 && idx2 < idx+(colnm-2) ) {
+      //  console.log($("td").eq(idx).text());
+        if(9 <= idx2 && idx2 < idx+(colnm-2) ) {
           //console.log( $("td").index(this));
           //Wconsole.log(idx2, idx+(colnm-2));
       //  window.open("index3.html");
-        var c1= "<ul><li>구분:<input name=\"no\" type=\"radio\" value=\"입금\" placeholder=\"구분\" style=\"\">입금"+
-                "<input name=\"no\" type=\"radio\" value=\"출금\" placeholder=\"구분\" style=\"\">출금</li>"+
-                "<li>발생기간: <input name=\"time\" type=\"date\" placeholder=\"구분\" style=\"width:40%; height:20px\"></li></ul>"+
-                "<ul><li>금액&nbsp;&nbsp;&nbsp;: <input name=\"money\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
-                "<li>종목: <input name=\"content\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
-                "<ul><li>거래처: <input name=\"target\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
-                "<li>실적: <input name=\"result\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
-                "<p>상세내용 : <input name=\"contents\" type=\"text\" placeholder=\"구분\" style=\"width:calc(80%); height:200px\"></p>"+
-                "<ul class=\"i2\"><input  id= \"store\" type=\"submit\"  style=\"width: 60px; height:30px\" >"+
-                "<input name=\"취소\" id=\"cancel\" type=\"button\" value=\"취소\" style=\"width: 60px; height : 30px\"><ul>";
-
+      var c1= "<ul><li>구분:<input name=\"no\" type=\"radio\" value=\"입금\" placeholder=\"구분\" style=\"\">입금"+
+              "<input name=\"no\" type=\"radio\" value=\"출금\" placeholder=\"구분\" style=\"\">출금</li>"+
+              "<li>발생기간: <input name=\"time\" type=\"date\" placeholder=\"구분\" style=\"width:40%; height:20px\"></li></ul>"+
+              "<ul><li>금액&nbsp;&nbsp;&nbsp;: <input name=\"money\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
+              "<li>종목: <input name=\"content\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
+              "<ul><li>거래처: <input name=\"target\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
+              "<li>실적: <input name=\"result\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
+              "<p>상세내용 : <input name=\"contents\" type=\"text\" placeholder=\"구분\" style=\"width:calc(80%); height:200px\"></p>"+
+              "<ul class=\"i2\"><input  id= \"store\" type=\"submit\"  style=\"width: 60px; height:30px\" >"+
+              "<input name=\"취소\" id=\"cancel\" type=\"button\" value=\"취소\" style=\"width: 60px; height : 30px\"><ul>";
+      $.ajax({
+          type:"get",
+          url:"../dbTest",
+          dataType:"JSON"
+        }).done(function(html){
+          data1=html;
+          for(var i =0; i<data1.length;i++) {
+          if(data1[i]["no"] == $("td").eq(idx).text() ) {
+            if($(".popup input").eq(0).val()==data1[i]["no"]) {
+              //$(".popup input").eq(0).val(data1[i]["no1"]);
+              $(".popup input").eq(0).checked;
+            }else {
+              //$(".popup input").eq(1).val(data1[i]["no1"]);
+              $(".popup input").eq(1).checked;
+            }
+          $(".popup input").eq(2).val(data1[i]["time1"]);
+          $(".popup input").eq(3).val(data1[i]["money"]);
+          $(".popup input").eq(4).val(data1[i]["content"]);
+          $(".popup input").eq(5).val(data1[i]["target"]);
+          $(".popup input").eq(6).val(data1[i]["result"]);
+          $(".popup input").eq(7).val(data1[i]["contents"]);
+          break;
+          }
+        }
+      }).fail(function(html){
+        console.log(html);
+      });
       $(".popup2").empty().append(c1);
 
-      var data1=JSON.parse(localStorage.getItem("list"));
+  //    var data1=JSON.parse(localStorage.getItem("list"));
 
       //console.log(data1[$("tr").index(this)-1]["time"]);
       popup();
@@ -477,7 +617,8 @@
             //console.log( $("td").index(this));
             //console.log(idx+(colnm-2));
             idx2=$("td").index(this);
-
+            key=$("td").eq(idx2).text();
+            //console.log(idx2);
         }));
         function popup() {
           $(".popup").css("display","block");
@@ -488,37 +629,7 @@
         //$('td:nth-child(7)').hide();
         //$('td:nth-child(8)').hide();
 
-        //ajax로 데이터 가져오기
-        var data1=[];
-        /*$.ajax({
-            type:"get",
-            url:"./dbTest",
-            data:{no1:'출금',time1:'2019년07월02일',money:'100000',target:'1',result:'구디',contents:'110000'},
-            dataType:"JSON"
-          }).done(function(html){
-              data1 = html;
-              console.log(data1);
-              $("nav").append(data1);
-          }).fail(function(html,d2,d3){
-            console.log(html,d2,d3);
-          });
-          console.log(data1);
-      });
 
-      //ajax로 데이터 보내기
-      $.ajax({
-          type:"post",
-          url:"./dbTest2",
-          data:{no:'출금',time:'2019년07월02일',money:'100000',content:'r&d',target:'1',result:'구디',contents:'110000'},
-          dataType:"JSON"
-        }).done(function(html){
-            data1 = html;
-            console.log(data1);
-            //$("nav").append(data1);
-        }).fail(function(html,d2,d3){
-          console.log(html,d2,d3);
-        });*/
-        //console.log(data1);
     });
   </script>
 </head>

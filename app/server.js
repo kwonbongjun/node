@@ -18,7 +18,7 @@ const 서버 = require("express"),
       설정 = require("./config.js"),
       디비 = require('mariadb'),
       앱 = 서버();
-
+console.log(서버);
 const server = {
         RUN : () => {
             // 앱 설정 하기.
@@ -62,7 +62,11 @@ const server = {
                 }
             });
             라우터.route("/dbTest").get((req, res) => {
-                server.DB("select * from test.test1", [], (err, resultList) => {
+
+                //server.DB("select * from test.test1", [], (err, resultList) => {
+
+                server.DB("select * from test.test1;", [], (err, resultList) => {
+
                   if(err){
                       res.redirect("/main");
                       return;
@@ -83,7 +87,7 @@ const server = {
             var contents=JSON.stringify(req.body.contents);
 //,"\"+time1+"\",'100000','1','구디','110000'
             var commit="COMMIT;";
-            server.DB("insert test.test1 values ("+no+"\,"+time+"\,"+money+"\,"+content+"\,"+target+"\,"+result+"\,"+contents+");"+commit, [], (err, resultList) => {
+            server.DB("insert into test.test1(no1,time1,money,content,target,result,contents) values ("+no+"\,"+time+"\,"+money+"\,"+content+"\,"+target+"\,"+result+"\,"+contents+");"+commit, [], (err, resultList) => {
             if(err){
                 res.redirect("/main");
                 console.log(err);
@@ -94,6 +98,25 @@ const server = {
             res.render("./db.html", {data :resultList});
           });
         });
+        라우터.route("/dbTest3").get((req, res) => {
+          var split1=req._parsedOriginalUrl.query.split("=");
+          var val=split1[1];
+          var commit="COMMIT;";
+            var no=val*1;
+            server.DB("delete from test.test1 where no="+no+";"+commit, [], (err, resultList) => {
+
+              if(err){
+                  res.redirect("/main");
+                  return;
+              }
+              //console.log(resultList);
+              console.log(resultList);
+              res.type("json");
+              res.render("./db.html", {data :resultList});
+            });
+        });
+
+
             앱.use("/", 라우터);
             server.STEP_2();
         },
@@ -116,11 +139,13 @@ const server = {
             var 풀 = 디비.createPool(설정.jdbc);
             풀.getConnection().then((conn) => {
                   conn.query(sql, paramMap).then((res) => {
-                      conn.end();
+                      conn.release();
+                      //conn.end();
                       callback(null, res);
                   }).catch((err) => {
                       console.log(err);
-                      conn.end();
+                      conn.release();
+                      //conn.end();
                       callback(err, null);
                   });
             }).catch((err) => {
