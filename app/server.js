@@ -18,7 +18,7 @@ const 서버 = require("express"),
       설정 = require("./config.js"),
       디비 = require('mariadb'),
       앱 = 서버();
-console.log(서버);
+//console.log(서버);
 const server = {
         RUN : () => {
             // 앱 설정 하기.

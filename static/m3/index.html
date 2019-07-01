@@ -13,6 +13,85 @@
         var list = [];
         var v;
         var data1=[];
+        var value="<div class=\"s1\"><form action=\"index.html#c1\">"+
+        "날짜 범위 <input name=\"date\" type=\"date\" style=\"width: 200px; height:30px\">"+
+        "<input type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
+        "<input type=\"button\" value=\"검색\" style=\"width: 100px; height:30px\"></form></div>";
+
+        value+="<table><tr><td>번호</td><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>실적</td><td>수정</td><td>삭제</td></tr>";
+
+        var totaldata=5;
+        var dataperpage=2;
+        var pageCount=5;
+
+        //출력
+        function printPage(){
+        var page1="<ul><li><</li>"
+        for(var i=1;i<=pageCount;i++) {
+        page1+="<li>["+i+"]</li>";
+        }
+        page1+="<li>></li></ul>"
+        $("#c1").append(page1);
+        console.log(page1);
+        }
+        printPage();
+        $("#c1 li").click(function(){
+          var item=$(this);
+          var selectedPage=item.text();
+          printPage();
+        });
+        
+        function send(value) {
+          $.ajax({
+              type:"post",
+              url:"../dbTest2",
+              data:value,
+              dataType:"JSON"
+            }).done(function(html){
+                data1 = html;
+                console.log(data1);
+                //$("nav").append(data1);
+            }).fail(function(html,d2,d3){
+              console.log(html,d2,d3);
+            });
+        }
+        function display() {
+          $(id).css("display","none");
+          id = location.hash;//$(this).attr("href");
+          $(id).css("display","block");
+        }
+        function printmoneyplan() {
+          v=value;
+          if(data1 !=null) {
+            for(var i=0;i<data1.length;i++) {
+              var v5="index.html#c2?"+"no="+data1[i]["no"]+"no1="+data1[i]["no1"]+"&time="+data1[i]["time"]+"&money="+
+              data1[i]["money"]+"&content="+data1[i]["content"]+"&target="+data1[i]["target"]+"&result="+data1[i]["result"]+data1[i]["contents"];
+
+              v+="<tr><td>"+data1[i]["no"]+"</td><td>"+data1[i]["no1"]+"</td><td>"+data1[i]["time1"]+"</td><td>"+
+              data1[i]["money"]+"</td><td>"+data1[i]["content"]+"</td><td>"+data1[i]["target"]+
+              "</td><td>"+data1[i]["result"]+
+              "</td><td><a href="+v5+"><button type=\"button\" class=\"btn\">수정</a></td>"+
+              "<td><button id=\"cb\" type=\"button\" class=\"btn33\">삭제</td></tr>";
+            }
+            $("#c1").html(function(i,origtext){
+                v+="</table>"
+                return v;
+            });
+          }
+        }
+        function getdata() {
+          $.ajax({
+              type:"get",
+              url:"../dbTest",
+              dataType:"JSON"
+            }).done(function(html){
+                data1 = html;
+                console.log(data1);
+                printmoneyplan();
+            }).fail(function(html,d2,d3){
+              console.log(html,d2,d3);
+            });
+        }
         //get 방식으로 url 데이터받기
          if(location.search != ""){              //url가져옴
             console.log(location.search);
@@ -40,18 +119,7 @@
 
              //ajax로 데이터 보내기
           console.log(row);
-             $.ajax({
-                 type:"post",
-                 url:"../dbTest2",
-                 data:row,
-                 dataType:"JSON"
-               }).done(function(html){
-                   data1 = html;
-                   console.log(data1);
-                   //$("nav").append(data1);
-               }).fail(function(html,d2,d3){
-                 console.log(html,d2,d3);
-               });
+            send(row);
                //console.log(data1);
             location.search = "";
          }
@@ -62,10 +130,8 @@
             console.log(location.hash);
             var url=location.hash.substring(location.hash.indexOf('?')+1, location.hash.length );
             //console.log(url);
-            location.hash="#c2";   //문제
-            $(id).css("display","none");
-            id = location.hash;//$(this).attr("href");
-            $(id).css("display","block");
+            location.hash="#c2"; //문제
+            display();
 
             //var param = location.search.replace("?",""); // ?뒤로자름
             //console.log(param);
@@ -120,59 +186,24 @@
             "<td><button id=\"cb\" type=\"button\" class=\"btn33\">삭제</td></tr>";
 */            //"<input id=\"cb2\" type=\"checkbox\" name=\"chk_info\" value=\"del\">";
             //console.log(v);
+        getdata();
 
-            $.ajax({
-                type:"get",
-                url:"../dbTest",
-                dataType:"JSON"
-              }).done(function(html){
-                  data1 = html;
-                  console.log(data1);
-                  v="<div class=\"s1\"><form action=\"index.html#c1\">"+
-                  "날짜 범위 <input name=\"date\" type=\"date\" style=\"width: 200px; height:30px\">"+
-                  "<input type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
-                  "<input type=\"button\" value=\"검색\" style=\"width: 100px; height:30px\"></form></div>";
-
-                  v+="<table><tr><td>번호</td><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>실적</td><td>수정</td><td>삭제</td></tr>";
-
-                  if(data1 !=null) {
-                    for(var i=0;i<data1.length;i++) {
-                      var v5="index.html#c2?"+"no="+data1[i]["no"]+"no1="+data1[i]["no1"]+"&time="+data1[i]["time"]+"&money="+
-                      data1[i]["money"]+"&content="+data1[i]["content"]+"&target="+data1[i]["target"]+"&result="+data1[i]["result"]+data1[i]["contents"];
-
-                      v+="<tr><td>"+data1[i]["no"]+"</td><td>"+data1[i]["no1"]+"</td><td>"+data1[i]["time1"]+"</td><td>"+
-                      data1[i]["money"]+"</td><td>"+data1[i]["content"]+"</td><td>"+data1[i]["target"]+
-                      "</td><td>"+data1[i]["result"]+
-                      "</td><td><a href="+v5+"><button type=\"button\" class=\"btn\">수정</a></td>"+
-                      "<td><button id=\"cb\" type=\"button\" class=\"btn33\">삭제</td></tr>";
-                    }
-                    $("#c1").html(function(i,origtext){
-                        v+="</table>"
-                        return v;
-                    });
-                  }
-
-              }).fail(function(html,d2,d3){
-                console.log(html,d2,d3);
-              });
               //console.log(data1);
 //         });
 //        }
 //      }
 
         //새로고침 했을 때 이전 내용 숨기기
-        id=location.hash;
-        $(id).css("display","none");
-        $(location.hash).css("display","block");
+//        id=location.hash;
+//        $(id).css("display","none");
+//        $(location.hash).css("display","block");
+        display();
         $(location.hash).html();
 
         //뒤로 가기 이벤트, 화면 전환, 주소 변경 시 마다 실행
         $(window).on("popstate", function(e) {
           if(location.hash.length < 4 ) {
-            //console.log(location.hash);
-            $(id).css("display","none");
-            id = location.hash;//$(this).attr("href");
-            $(id).css("display","block");
+            display();
             //$(location.hash).html();
             $("#c0").hide();
             if(location.hash=="") {
@@ -184,9 +215,7 @@
             var url=location.hash.substring(location.hash.indexOf('?')+1, location.hash.length );
             //console.log(url);
             location.hash="#c2";
-            $(id).css("display","none");
-            id = location.hash;//$(this).attr("href");
-            $(id).css("display","block");
+            display();
 
             //var param = location.search.replace("?",""); // ?뒤로자름
             //console.log(param);
@@ -222,70 +251,11 @@
                $(this).css("backgroundColor", "#84a0b9");
              e.preventDefault();
              location.hash = $(this).children("a").attr("href");
-             $(id).css("display","none");
-             id = location.hash;//$(this).attr("href");
-             $(id).css("display","block");
+             display();
              $(location.hash).html();
               //첫번재 메뉴 출력했을 때
               if($("li").index(this)==0) {
-/*                  var v1=JSON.parse(localStorage.getItem("list"));
-
-                  /*function goPage(no,time,money,content,target, result) {
-                   // name이 paging인 태그
-                   var f = document.paging;
-
-                   // form 태그의 하위 태그 값 매개 변수로 대입
-                   $("#c2").attr("no").val(no);
-
-                   f.cate.value = cate;
-                   f.index.value = index;
-
-                   // input태그의 값들을 전송하는 주소
-                   f.action = "./index#c2"
-
-                   // 전송 방식 : post
-                   f.method = "post"
-                   f.submit();
-                  };
-                  */
-/*                  var v3;
-
-
-                  v="<div class=\"s1\"><form action=\"index.html#c1\">"+
-                  "날짜 범위 <input name=\"date\" type=\"date\" style=\"width: 200px; height:30px\">"+
-                  "<input type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
-                  "<input type=\"button\" value=\"검색\" style=\"width: 100px; height:30px\"></form></div>";
-
-                  v+="<table><tr><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>실적</td><td>수정</td><td>삭제</td></tr>"
-
-                  if(v1==null) return;
-                  for(var i=0;i<v1.length;i++) {
-                    /*var modify="<a href=\"index.html#c2?no="+v1[v3]["no"]+"&contents="+
-                    v1[v3]["contents"]+"&i="+v3+"\""+" id=\"b\" onclick=\"chk()\";>"+
-                    "수정"+"</a></div>";*/
-                    //v1[i]["no"]   $("input[name='no']:checked").val()   $("label[for='"+radioId+"']").text();
-
-
-
-/*                    var v5="index.html#c2?"+"no="+v1[i]["no"]+"&time="+v1[i]["time"]+"&money="+
-                    v1[i]["money"]+"&content="+v1[i]["content"]+"&target="+v1[i]["target"]+"&result="+v1[i]["result"];
-                    var radioVal = $('input[name="no"]:checked').val();
-
-                      //v3=list[i]["#title"];
-                      v+="<tr><td>"+v1[i]["no"]+"</td><td>"+v1[i]["time"]+"</td><td>"+
-                      v1[i]["money"]+"</td><td>"+v1[i]["content"]+"</td><td>"+v1[i]["target"]+
-                      "</td><td>"+v1[i]["result"]+
-                      "</td><td><a href="+v5+"><button type=\"button\" class=\"btn\">수정</a></td>"+
-                      "<td><button id=\"cb\" type=\"button\" class=\"btn33\">삭제</td></tr>";
-                      //"<input id=\"cb2\" type=\"checkbox\" name=\"chk_info\" value=\"del\">";
-                      //console.log(v);
-                  }
-
-                  $("#c1").html(function(i,origtext){
-                      v+="</table>"
-                      return v;
-                  });
-                  v+="</table>"*/
+/*                 var v1=JSON.parse(localStorage.getItem("list"));
                   $.ajax({
                       type:"get",
                       url:"../dbTest",
@@ -319,70 +289,17 @@
 
                     }).fail(function(html,d2,d3){
                       console.log(html,d2,d3);
-                    });
-
+                    });*/
+                getdata();
               }
               //두번째출력했을 때
              if($("li").index(this)==1) {
-               //console.log($("p").index().val());
-              /* $.ajax({
-                 url:"/m3/index.json"
-                 , dataType : 'html',
-                 type : 'GET',
-                 data: {no:"1"}
-               }).done(function(data){
-                 data.no=1;
-                 console.log(data.no);
-               }).fail(function(data,b,c){
-                 data.no=2;
-                 console.log(data.no,b,c);
-               });*/
+
              }
          });
 
          //x수정 눌렀을 때
-         /*$("#c2").on("click","button",(function(e){
-
-              var v1=JSON.parse(localStorage.getItem("list"));
-              var html="";
-              var v="";
-
-              for(var i=0; i<v1.length;i++) {
-                  if(v1[i]["title"] ==  $(this).text()) {
-                      v3=i;
-                  }
-                  //console.log("<p>"+v1[i]["title"]+"</p>" , $(this).text());
-              }
-              var v4=v1[v3]["title"];
-              v=v1[v3]["contents"];
-              $(".contents").html(function(i,origtext){
-                  return v;
-              });
-             //console.log(v3);
-             /*function goPage(no, time, index,) {
-              // name이 paging인 태그
-              var f = document.paging;
-
-              // form 태그의 하위 태그 값 매개 변수로 대입
-              f.content.value = content;
-              f.cate.value = cate;
-              f.index.value = index;
-
-              // input태그의 값들을 전송하는 주소
-              f.action = "./content.do"
-
-              // 전송 방식 : post
-              f.method = "post"
-              f.submit();
-            };
-              var v5="<div id=\"d\" style=\"display:block; width:100%; height:100px; \" ><a href=\"index#c2\" id=\"btn\" onclick=\"chk()\";>"+"수정"+"</a></div>";
-
-              //console.log(v5);
-              $(".contents").html(function(i,origtext){
-                  return v+=v5;
-              });
-
-          }));*/
+         /*
           //수정2
           $("#c1").on("click","#btn",(function(e){
 /*
@@ -409,8 +326,8 @@
                 $(".contents").html(function(i,origtext){
                     return v;
                 });
-            }*/
-          }));
+            }
+          }));*/
 
           //수정취소
           $("#c2").on("click","#cancel",(function(e){
@@ -427,13 +344,13 @@
            var index = $("#cb").index(this);
 
            console.log(Math.abs(index));
-
            list.splice(index,1);
            localStorage.setItem("list",JSON.stringify(list));
 
            var v1=JSON.parse(localStorage.getItem("list"));var v="";
 */
           //console.log($("td").index(this));
+
           if(($("td").index(this))%9 == 8) {
           var index =($("td").index(this));
           var val=$("td").eq(index-8).text();
@@ -495,36 +412,6 @@
               console.log(html,d2,d3);
             });
             }
-
-/*           v="<div class=\"s1\"><form action=\"index.html#c1\">"+
-           "<input type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
-           "<input type=\"button\" value=\"검색\" style=\"width: 100px; height:30px\"></form></div>";
-
-          v+="<table><tr><td>번호</td><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>실적</td><td>수정</td><td>삭제</td></tr>";
-           var v3;
-           console.log(v1.length);
-
-           if(v1.length==0) {
-               $("#c1").html(v);return;
-           }
-           for(var i=0;i<v1.length;i++) {
-               //v3=list[i]["#title"];
-
-                 v+="<tr><td>"+data1[i]["no"]+"</td><td>"+data1[i]["no1"]+"</td><td>"+data1[i]["time"]+"</td><td>"+
-                 v1[i]["money"]+"</td><td>"+v1[i]["content"]+"</td><td>"+v1[i]["target"]+
-                 "</td><td>"+v1[i]["result"]+
-                 "</td><td><a href=\"index.html#c2\"><button type=\"button\" class=\"btn\">수정</a></td>"+
-                 "<td><button id=\"cb\" type=\"button\" class=\"btn"+i+"\">삭제</td></tr>";
-                 //console.log(v);
-               }
-               $("#s1").show();
-               $("#c1").html(function(i,origtext){
-                   v+="</table>"
-                   return v;
-               });
-               v+="</table>"
-*/
-
              }));
 
          $("form").submit(function(){
@@ -532,9 +419,7 @@
          });
          $("nav ul").click(function(){
            var width=$(window).width();
-         //var mql = window.matchMedia("screen and (max-width: 700px)");
-         //mql.addListener(function(e) {
-         //console.log(width);
+
            if(width <= "576") {
              $("#menu").toggle();
              //$("li").css("display","block");
@@ -544,7 +429,6 @@
            }
          //})
         });
-
           $("#menu").show();
 
       //메뉴1 팝업
@@ -554,15 +438,11 @@
       var key;
         $("#c1 ").on("click","table tr",(function(e){
 
-          //var idx=($("tr").index(this)-1)*colnm;
           idx=($("tr").index(this))*colnm;
-          //console.log( $("td").index("td"));
-        //  console.log($("tr").index("tr"));
-      //  console.log($("td").eq(idx).text());
+
+
         if(9 <= idx2 && idx2 < idx+(colnm-2) ) {
-          //console.log( $("td").index(this));
-          //Wconsole.log(idx2, idx+(colnm-2));
-      //  window.open("index3.html");
+
       var c1= "<ul><li>구분:<input name=\"no\" type=\"radio\" value=\"입금\" placeholder=\"구분\" style=\"\">입금"+
               "<input name=\"no\" type=\"radio\" value=\"출금\" placeholder=\"구분\" style=\"\">출금</li>"+
               "<li>발생기간: <input name=\"time\" type=\"date\" placeholder=\"구분\" style=\"width:40%; height:20px\"></li></ul>"+
@@ -609,13 +489,7 @@
       }
       }));
         $("#c1 ").on("click","td",(function(e){
-        //var idx=($("tr").index(this)-1)*colnm;
-          //idx=($("tr").index(this)-1)*colnm;
-        //console.log( $("td").index(this));
-      //  console.log($("tr").index("tr"));
 
-            //console.log( $("td").index(this));
-            //console.log(idx+(colnm-2));
             idx2=$("td").index(this);
             key=$("td").eq(idx2).text();
             //console.log(idx2);
@@ -628,7 +502,6 @@
         }));
         //$('td:nth-child(7)').hide();
         //$('td:nth-child(8)').hide();
-
 
     });
   </script>
@@ -679,6 +552,7 @@
     <table id="page1">
       <thead>
       <tr>
+        <th>번호</th>
         <th>구분</th>
         <th>발생기간</th>
         <th>금액</th>

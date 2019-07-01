@@ -19,7 +19,15 @@
              id = location.hash;//$(this).attr("href");
              $(id).css("display","block");
              $(location.hash).html();
+             $("#c0").hide();
+             if(location.hash=="") {
+               $("#c0").show();
+             }else {
+               $("#c0").hide();
+             }
          });
+        //$('td:nth-child(6)').hide();
+      //   $('td:nth-child(6)').hide();
 
       });
   </script>
@@ -35,53 +43,108 @@
     </div>
   </div>
   <nav>
-    <ul>
-      <!--<li url="index1_1.html">자금계획관리</a></li><br>
-      <li url="index1_2.html">자금계획등록</a></li><br>
-      <li url="index1_3.html">월별자금변동</a></li>
-      <li><a href="index1_1.html">자금계획관리</a></li><br>
-      <li><a href="index1_2.html">자금계획등록</a></li><br>
-      <li><a href="index1_3.html">월별자금변동</a></li>-->
+    <ul id="menu2">메뉴</ul>
+    <ul id="menu">
       <li><a href="#c1">예산조회</a></li>
       <li><a href="#c2">예산입력</a></li>
       <li><a href="#c3">월별예산변동</a></li>
     </ul>
   </nav>
+  <section id="c0">
+    <article>
+      안녕하세요 봉준의 회계 관리 프로그램입니다.
+      <img src="./img/main.jpg" width= "100%"; height= "600px"; >
+    </article>
+  </section>
+  <div class="popup">
+    <form action="index2.html#c1">
+      <input name="취소" id="cancel" type="button" value="취소" style="width: 60px; height : 30px">
+    </form>
+    <div class="popup2">
+    </div>
+  </div>
   <section id="c1">
-    <input type="date" value="날짜검색">
-    <table>
+    <div class="s1">
+    <form action="index2.html#c1">
+      날짜 범위<input class="s2" name="date" type="date" style="width:200px; height:30px;">
+      <input class="s2" name="date" type="date" style="width: 200px; height:30px">
+      <input class="s3" type="button" value="검색" style="width: 100px; height:30px">
+    </form>
+    </div>
+    <table id="page2">
+      <thead>
       <tr>
-        <td>코드</td>
-        <td>발생기간</td>
-        <td>금액</td>
-        <td>용도</td>
-        <td>실적</td>
-        <td>수정</td>
-        <td>삭제</td>
+        <th>코드</th>
+        <th>발생기간</th>
+        <th>금액</th>
+        <th>용도</th>
+        <th>실적</th>
+        <th>수정</th>
+        <th>삭제</th>
       </tr>
+      </thead>
+      <tr>
+        <td>100</td>
+        <td>2019년07월02일</td>
+        <td>100000</td>
+        <td>IT개발팀</td>
+        <td>110000</td>
+        <td><button type="button">수정</td>
+        <td><button type="button">삭제</td>
+      </tr>
+      <tbody>
+
+      </tbody>
     </table>
   </section>
   <section id="c2">
     <div class="i1">
-      <form action="index.html">
-        <p>코드    :<input type="text" placeholder="구분"></p>
+      <form action="index2.html#c1">
+        <ul><li>발생기간: <input name="time" type="date" placeholder="구분" style="width:40%; height:20px"></li>
+        <li>금액: <input name="money" type="text" placeholder="구분" style="width:50%; height:20px"></li></ul>
+        <ul><li>종목: <input name="content" type="text" placeholder="구분" style="width:50%; height:20px"></li>
+        <li>실적: <input name="result" type="text" placeholder="구분" style="width:50%; height:20px"></li></ul>
+        <p>상세내용 : <input name="contents" type="text" placeholder="구분" style="width:calc(80%); height:200px"></p>
+        <ul class="i2"><input  id= "store" type="submit"  style="width: 60px; height:30px" >
+        <input name="취소" id="cancel" type="button" value="취소" style="width: 60px; height : 30px"><ul>
+
+
+<!--    <p>코드    :<input type="text" placeholder="구분"></p>
         <p>발생기간:<input type="text" placeholder="구분"></p>
         <p>금액    :<input type="text" placeholder="구분"></p>
         <p>용도    :<input type="text" placeholder="구분"></p>
         <p>실적  :<input type="text" placeholder="구분"></p>
-         <input type="submit" value="저장" style="width: 60px; height:30px">
+        <input type="submit" value="저장" style="width: 60px; height:30px">
         <input type="button" value="취소" style="width: 60px; height : 30px">
+-->
       </form>
     </div>
   </section>
   <section id="c3">
-    <table>
+    <div class="s1">
+    <form action="index2.html#c1">
+    날짜 범위 <input name="date" type="date" style="width: 200px; height:30px">
+    <input name="date" type="date" style="width: 200px; height:30px">
+    <input type="button" value="검색" style="width: 100px; height:30px">
+    </form>
+    </div>
+    <table id="page2">
+      <thead>
       <tr>
-        <td>코드</td>
-        <td>발생기간</td>
-        <td>금액</td>
-        <td>실적</td>
+        <th>발생기간</th>
+        <th>금액</th>
+        <th>종목</th>
+        <th>실적</th>
       </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2019년07월</td>
+        <td>100000</td>
+        <td>IT개발팀</td>
+        <td>110000</td>
+      </tr>
+    </tbody>
     </table>
   </section>
 </body>
