@@ -20,27 +20,24 @@
 
         value+="<table><tr><td>번호</td><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>실적</td><td>수정</td><td>삭제</td></tr>";
 
-        var totaldata=5;
+        var totaldata;
         var dataperpage=2;
         var pageCount=5;
-
-        //출력
-        function printPage(){
-        var page1="<ul><li><</li>"
-        for(var i=1;i<=pageCount;i++) {
-        page1+="<li>["+i+"]</li>";
-        }
-        page1+="<li>></li></ul>"
-        $("#c1").append(page1);
-        console.log(page1);
-        }
-        printPage();
-        $("#c1 li").click(function(){
-          var item=$(this);
-          var selectedPage=item.text();
-          printPage();
-        });
-        
+        var curPage=0;
+        var curPageCount=totaldata/dataperpage;
+        var curData=0;
+        //페이지 출력
+        function printPage(v){
+          var page1="<ul class=\"page\"><li><a href=\"#c1\"><</a></li>"
+          for(var i=1;i<=pageCount;i++) {
+          page1+="<li><a href=\"#c1\">["+i+"]</a></li>";
+          }
+          page1+="<li><a href=\"#c1\">></a></li></ul>"
+          v+=page1;
+          //console.log(page1);
+          return v;
+          }
+          //printPage(v);
         function send(value) {
           $.ajax({
               type:"post",
@@ -60,10 +57,22 @@
           id = location.hash;//$(this).attr("href");
           $(id).css("display","block");
         }
-        function printmoneyplan() {
+        function printmoneyplan(curData) {
           v=value;
           if(data1 !=null) {
-            for(var i=0;i<data1.length;i++) {
+            if(totaldata - curData < dataperpage) {
+              for(var i=curData;i<curData+totaldata - curData;i++) {
+                var v5="index.html#c2?"+"no="+data1[i]["no"]+"no1="+data1[i]["no1"]+"&time="+data1[i]["time"]+"&money="+
+                data1[i]["money"]+"&content="+data1[i]["content"]+"&target="+data1[i]["target"]+"&result="+data1[i]["result"]+data1[i]["contents"];
+
+                v+="<tr><td>"+data1[i]["no"]+"</td><td>"+data1[i]["no1"]+"</td><td>"+data1[i]["time1"]+"</td><td>"+
+                data1[i]["money"]+"</td><td>"+data1[i]["content"]+"</td><td>"+data1[i]["target"]+
+                "</td><td>"+data1[i]["result"]+
+                "</td><td><a href="+v5+"><button type=\"button\" class=\"btn\">수정</a></td>"+
+                "<td><button id=\"cb\" type=\"button\" class=\"btn33\">삭제</td></tr>";
+              }
+            }else {
+            for(var i=curData;i<curData+dataperpage;i++) {
               var v5="index.html#c2?"+"no="+data1[i]["no"]+"no1="+data1[i]["no1"]+"&time="+data1[i]["time"]+"&money="+
               data1[i]["money"]+"&content="+data1[i]["content"]+"&target="+data1[i]["target"]+"&result="+data1[i]["result"]+data1[i]["contents"];
 
@@ -73,9 +82,12 @@
               "</td><td><a href="+v5+"><button type=\"button\" class=\"btn\">수정</a></td>"+
               "<td><button id=\"cb\" type=\"button\" class=\"btn33\">삭제</td></tr>";
             }
+          }
+
             $("#c1").html(function(i,origtext){
                 v+="</table>"
-                return v;
+                return printPage(v);
+
             });
           }
         }
@@ -86,12 +98,15 @@
               dataType:"JSON"
             }).done(function(html){
                 data1 = html;
+                totaldata=data1.length;
                 console.log(data1);
-                printmoneyplan();
+                printmoneyplan(curData);
+                //console.log(curPage);
             }).fail(function(html,d2,d3){
               console.log(html,d2,d3);
             });
         }
+
         //get 방식으로 url 데이터받기
          if(location.search != ""){              //url가져옴
             console.log(location.search);
@@ -126,7 +141,7 @@
 
         //화면에 뿌려주기
           //수정 눌렀을 때 데이터 넣기
-          if(location.hash.length>=4) {
+        /*  if(location.hash.length>=4) {
             console.log(location.hash);
             var url=location.hash.substring(location.hash.indexOf('?')+1, location.hash.length );
             //console.log(url);
@@ -145,7 +160,7 @@
                             //console.log(i);
                 $("#c2 input").eq(i).val(decodeURI(map[1]));
             }
-          };
+          };*/
 
         //메인화면 숨기기
         $("#c0").hide();
@@ -209,7 +224,7 @@
             if(location.hash=="") {
               $("#c0").show();
             }
-          }else {
+          }/*else {
             //수정눌렀을 때
             console.log(location.hash);
             var url=location.hash.substring(location.hash.indexOf('?')+1, location.hash.length );
@@ -236,7 +251,7 @@
                 $("#c2 input").eq(i).val(decodeURI(map[1]));
                 //console.log($("#c2 input").eq(i).val(decodeURI(map[1])));
             }
-          }
+          }*/
         });
 
         //var url = $(this).attr("url");
@@ -298,7 +313,7 @@
              }
          });
 
-         //x수정 눌렀을 때
+         //1 x수정 눌렀을 때
          /*
           //수정2
           $("#c1").on("click","#btn",(function(e){
@@ -503,6 +518,16 @@
         //$('td:nth-child(7)').hide();
         //$('td:nth-child(8)').hide();
 
+        //페이지 이동
+        $("#c1").on("click",".page li",function() {
+            curPage=$(".page li").index(this);
+            var item=$(this);
+            console.log(curPage);
+            var selectedPage=item.text();
+            curData=(curPage-1)*2;
+            getdata();
+            printPage();
+        });
     });
   </script>
 </head>

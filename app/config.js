@@ -11,7 +11,7 @@ module.exports = {
       }
     },
     jdbc : {
-      connectionLimit:3,
+      connectionLimit:5,
 
   /*    host:"192.168.3.31",
       user:"root",
@@ -20,8 +20,8 @@ module.exports = {
       debug:false,
       multipleStatements: true
 */
-      host:"192.168.3.32",
-      //host:"172.30.1.10",
+      //host:"192.168.3.32",
+      host:"172.30.1.10",
       user:"root",
       password:"1234",
       database:"test",
