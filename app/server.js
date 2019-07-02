@@ -115,7 +115,31 @@ const server = {
               res.render("./db.html", {data :resultList});
             });
         });
-
+        라우터.route("/update").post((req,res) => {
+           console.log(JSON.stringify(req.body.no));
+          var no=JSON.stringify(req.body.no);
+          var no1=JSON.stringify(req.body.no1);
+          var time=JSON.stringify(req.body.time1);
+          var money=JSON.stringify(req.body.money);
+          var content=JSON.stringify(req.body.content);
+          var result=JSON.stringify(req.body.result);
+          var target=JSON.stringify(req.body.target);
+          var contents=JSON.stringify(req.body.contents);
+          //,"\"+time1+"\",'100000','1','구디','110000'
+          var commit="COMMIT;";
+          server.DB("update test.test1 set no1="+no1+",time1="+time+",money="+money+
+          ",content="+content+",target="+target+",result="+result+",contents="+contents+
+          "where no="+no+";"+commit, [], (err, resultList) => {
+          if(err){
+              res.redirect("/main");
+              console.log(err);
+              return;
+          }
+          console.log(resultList);
+          res.type("json");
+          res.render("./db.html", {data :resultList});
+          });
+        });
 
             앱.use("/", 라우터);
             server.STEP_2();
