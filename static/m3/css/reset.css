@@ -192,6 +192,9 @@ button {
 .popup p {
   clear: both;
 }
+table[id="page1"] td:nth-child(1), table[id="page1"] th:nth-child(1) {
+  display: none !important;
+}
 @media screen and (max-width:800px) {
   nav {
     margin:0 !important;
