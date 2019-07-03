@@ -64,8 +64,29 @@ const server = {
             라우터.route("/dbTest").get((req, res) => {
 
                 //server.DB("select * from test.test1", [], (err, resultList) => {
-
-                server.DB("select * from test.test1;", [], (err, resultList) => {
+                var sflag;
+                var sdate={};
+                var edate={};
+                //var obj={};
+                //var obj=req._parsedOriginalUrl.query.split("&");
+                //var sdate=obj[0].split("=");
+                //var edate=obj[1].split("=");
+                var query1="select * from test.test1;";
+                if(obj !=req._parsedOriginalUrl.query) {
+                var obj=JSON.stringify(req._parsedOriginalUrl.query);
+                console.log(obj);
+                obj=obj.substring(1,obj.length-1);
+                var obj2=(obj.split("&"));
+                var map=obj2[0].split("=");
+                sdate[map[0]]=map[1].replace("-","");
+                sdate[map[0]]=sdate[map[0]].replace("-","");
+                var map2=obj2[1].split("=");
+                edate[map2[0]]=map2[1].replace("-","");;
+                edate[map2[0]]=edate[map2[0]].replace("-","");
+                console.log(edate[map2[0]]);
+                query1="select * from test.test1 where time1>="+sdate[map[0]]+" && time1<"+edate[map2[0]]+";";
+              }
+                server.DB(query1, [], (err, resultList) => {
 
                   if(err){
                       res.redirect("/main");
@@ -87,6 +108,7 @@ const server = {
             var contents=JSON.stringify(req.body.contents);
 //,"\"+time1+"\",'100000','1','구디','110000'
             var commit="COMMIT;";
+
             server.DB("insert into test.test1(no1,time1,money,content,target,result,contents) values ("+no+"\,"+time+"\,"+money+"\,"+content+"\,"+target+"\,"+result+"\,"+contents+");"+commit, [], (err, resultList) => {
             if(err){
                 res.redirect("/main");
@@ -110,7 +132,7 @@ const server = {
                   return;
               }
               //console.log(resultList);
-              console.log(resultList);
+              //console.log(resultList);
               res.type("json");
               res.render("./db.html", {data :resultList});
             });

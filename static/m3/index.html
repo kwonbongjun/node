@@ -13,10 +13,10 @@
         var list = [];
         var v;
         var data1=[];
-        var value="<div class=\"s1\"><form action=\"index.html#c1\">"+
-        "날짜 범위 <input name=\"date\" type=\"date\" style=\"width: 200px; height:30px\">"+
-        "<input type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
-        "<input type=\"button\" value=\"검색\" style=\"width: 100px; height:30px\"></form></div>";
+        var value="<div class=\"s1\">"+
+        "날짜 범위 <input id=\"sdate\" name=\"date\" type=\"date\" style=\"width: 200px; height:30px\">"+
+        "<input id=\"edate\" type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
+        "<input id=\"moneydatesearch\" type=\"submit\" value=\"검색\" style=\"width: 100px; height:30px\"></div>";
 
         value+="<table><tr><td>번호</td><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>실적</td><td>수정</td><td>삭제</td></tr>";
 
@@ -26,6 +26,7 @@
         var curPage=0;
         var curPageCount=totaldata/dataperpage;
         var curData=0;
+        var obj2={};
         //페이지 출력
         function printPage(v){
           var page1="<ul class=\"page\"><li><a href=\"#c1\"><</a></li>"
@@ -91,21 +92,34 @@
             });
           }
         }
-        function getdata() {
+        function getdata(obj2) {
           $.ajax({
               type:"get",
               url:"../dbTest",
+              data:obj2,
               dataType:"JSON"
             }).done(function(html){
                 data1 = html;
                 totaldata=data1.length;
                 console.log(data1);
+                console.log(obj2);
                 printmoneyplan(curData);
                 //console.log(curPage);
             }).fail(function(html,d2,d3){
               console.log(html,d2,d3);
             });
         }
+        $("#c1").on("click","#moneydatesearch",function(){
+
+          var sdate;
+          var edate;
+          obj2={
+              sdate:$("#sdate").val().replace("\"",""),
+              edate:$("#edate").val().replace("\"","")
+          };
+
+              getdata(obj2);
+        });
         function update(obj1) {
           $.ajax({
               type:"post",
@@ -620,7 +634,7 @@
     <form action="index.html#c1">
     날짜 범위<input class="s2" name="date" type="date" style="width:200px; height:30px;">
     <input class="s2" name="date" type="date" style="width: 200px; height:30px">
-    <input class="s3" type="button" value="검색" style="width: 100px; height:30px">
+    <input id="moneydatesearch" class="s3" type="button" value="검색" style="width: 100px; height:30px">
     </form>
     </div>
     <table id="page1">
@@ -671,7 +685,7 @@
     <form action="index.html#c1">
     날짜 범위 <input name="date" type="date" style="width: 200px; height:30px">
     <input name="date" type="date" style="width: 200px; height:30px">
-    <input type="button" value="검색" style="width: 100px; height:30px">
+    <input id="search2" type="button" value="검색" style="width: 100px; height:30px">
     </form>
     </div>
     <table>
