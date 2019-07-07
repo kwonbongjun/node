@@ -24,8 +24,8 @@ const server = {
             // 앱 설정 하기.
             로그.info(">> Server init");
             앱.set("port", 설정.server_port);
-            앱.set("views", 경로.join(__dirname, "../static"));
-            앱.use(서버.static(경로.join(__dirname, "../static")));//미들웨어 함수 호출, (req,res)
+            앱.set("views", 경로.join(__dirname, "./static"));
+            앱.use(서버.static(경로.join(__dirname, "./static")));
             앱.use(요청값.urlencoded({extended:false}));
             앱.use(요청값.json());
             앱.engine("html", 엔진.renderFile);
