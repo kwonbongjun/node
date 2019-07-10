@@ -38,16 +38,19 @@
 
         $("#c1 ").on("click","table tr",(function(e){
           idx=($("tr").index(this))*colnm;
-          var c1= "<ul><li>구분:<input name=\"no\" type=\"radio\" value=\"입금\" placeholder=\"구분\" style=\"\">입금"+
-                  "<input name=\"no\" type=\"radio\" value=\"출금\" placeholder=\"구분\" style=\"\">출금</li>"+
-                  "<li>발생기간: <input name=\"time\" type=\"date\" placeholder=\"구분\" style=\"width:40%; height:20px\"></li></ul>"+
+          var c1= "<p>예산내역</p>"+
+                  "<ul><li>번호: <input name=\"money\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
+                  "<li>발생일자: <input name=\"time\" type=\"date\" placeholder=\"구분\" style=\"width:40%; height:20px\"></li></ul>"+
                   "<ul><li>금액&nbsp;&nbsp;&nbsp;: <input name=\"money\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
-                  "<li>종목: <input name=\"content\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
-                  "<ul><li>거래처: <input name=\"target\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
-                  "<li>실적: <input name=\"result\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
-                  "<p>상세내용 : <input name=\"contents\" type=\"text\" placeholder=\"구분\" style=\"width:calc(80%); height:200px\"></p>";
+                  "<li>부서: <input name=\"money\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
+                  "<p>추가예산내역</p>"+
+                  "<ul><li>예산관리번호: <input name=\"target\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
+                  "<li>추가금액: <input name=\"result\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
+                  "<ul><li>상세내용: <input name=\"target\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
+                  "<li>승인여부: <input name=\"result\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul><p></p>";
+
           if(b1==1) {c1+="<ul class=\"i2\"><input  id= \"store\" type=\"submit\"  style=\"width: 60px; height:30px\" >";};
-              c1+="<input name=\"취소\" id=\"cancel\" type=\"button\" value=\"취소\" style=\"width: 60px; height : 30px\"><ul>";
+              c1+="<input name=\"취소\" id=\"cancel\" type=\"button\" value=\"취소\" style=\"width: 60px; height : 30px;text-align:center;\" ><ul>";
         console.log(idx2,idx);
         if((1 <= idx2 && idx2 < idx-1) || b1 == 1 ) {
           b1=0;
@@ -161,7 +164,8 @@
     <ul id="menu">
       <li><a href="#c1">예산조회</a></li>
       <li><a href="#c2">예산입력</a></li>
-      <li><a href="#c3">월별예산변동</a></li>
+      <li><a href="#c3">추가예산조회</a></li>
+
     </ul>
   </nav>
   <div class="popup">
@@ -190,11 +194,10 @@
     <table id="page2">
       <thead>
       <tr>
-        <th>코드</th>
-        <th>발생기간</th>
+        <th>번호</th>
+        <th>연도</th>
         <th>금액</th>
         <th>부서</th>
-        <th>용도</th>
         <th>수정</th>
         <th>삭제</th>
       </tr>
@@ -204,8 +207,12 @@
         <td>2019년07월02일</td>
         <td>100000</td>
         <td>IT개발팀</td>
+<<<<<<< HEAD
         <td>급여</td>
         <td><button type="button" class="btn">수정</td>
+=======
+        <td><button type="button" class=".btn">수정</td>
+>>>>>>> f58ee64e6ae761683704e3c40138fe09aa119b78
         <td><button type="button">삭제</td>
       </tr>
       <tbody>
@@ -216,11 +223,10 @@
   <section id="c2">
     <div class="i1">
       <form action="index2.html#c1">
-        <ul><li>발생기간: <input name="time" type="date" placeholder="구분" style="width:40%; height:20px"></li>
+        <ul><li>지급일: <input name="time" type="date" placeholder="구분" style="width:40%; height:20px"></li>
         <li>금액: <input name="money" type="text" placeholder="구분" style="width:50%; height:20px"></li></ul>
-        <ul><li>종목: <input name="content" type="text" placeholder="구분" style="width:50%; height:20px"></li>
-        <li>실적: <input name="result" type="text" placeholder="구분" style="width:50%; height:20px"></li></ul>
-        <p>상세내용 : <input name="contents" type="text" placeholder="구분" style="width:calc(80%); height:200px"></p>
+        <ul><li>부서: <input name="content" type="text" placeholder="구분" style="width:50%; height:20px"></li>
+        
         <ul class="i2"><input  id= "store" type="submit"  style="width: 60px; height:30px" >
         <input name="취소" id="cancel" type="button" value="취소" style="width: 60px; height : 30px"><ul>
 
@@ -239,27 +245,35 @@
   <section id="c3">
     <div class="s1">
     <form action="index2.html#c1">
-    날짜 범위 <input name="date" type="date" style="width: 200px; height:30px">
-    <input name="date" type="date" style="width: 200px; height:30px">
-    <input type="button" value="검색" style="width: 100px; height:30px">
+      날짜 범위<input class="s2" name="date" type="date" style="width:200px; height:30px;">
+      <input class="s2" name="date" type="date" style="width: 200px; height:30px">
+      <input class="s3" type="button" value="검색" style="width: 100px; height:30px">
     </form>
     </div>
     <table id="page2">
       <thead>
       <tr>
-        <th>발생기간</th>
+        <th>번호</th>
+        <th>부서</th>
         <th>금액</th>
-        <th>종목</th>
+        <th>상세내용</th>
+        <th>승인여부</th>
+        <th>수정</th>
+        <th>삭제</th>
       </tr>
-    </thead>
-    <tbody>
+      </thead>
       <tr>
-        <td>2019년07월</td>
+        <td>1</td>
+        <td>회계</td>
         <td>100000</td>
-        <td>IT개발팀</td>
+        <td>a사업</td>
+        <td>승인</td>
+        <td><button type="button" class=".btn">수정</td>
+        <td><button type="button">삭제</td>
       </tr>
-    </tbody>
+      <tbody>
     </table>
   </section>
+
 </body>
 </html>

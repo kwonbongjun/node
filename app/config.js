@@ -20,8 +20,14 @@ module.exports = {
       debug:false,
       multipleStatements: true
 */
+<<<<<<< HEAD
       //host:"192.168.3.31",
       host:"172.30.1.10",
+=======
+      host:"192.168.3.31",
+      //host:"172.30.1.10",
+      port:53306,
+>>>>>>> f58ee64e6ae761683704e3c40138fe09aa119b78
       user:"root",
       password:"1234",
       database:"test",

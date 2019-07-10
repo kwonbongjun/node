@@ -18,7 +18,7 @@
         "<input id=\"edate\" type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
         "<input id=\"moneydatesearch\" type=\"submit\" value=\"검색\" style=\"width: 100px; height:30px\"></div>";
 
-        value+="<table id=\"page1\"><tr><td>번호</td><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>실적</td><td>수정</td><td>삭제</td></tr>";
+        value+="<table id=\"page1\"><tr><td>번호</td><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>대상</td><td>부서</td></tr>";//<td>수정</td><td>삭제</td></tr>";
 
         var totaldata;
         var dataperpage=2;
@@ -29,11 +29,11 @@
         var obj2={};
         //페이지 출력
         function printPage(v){
-          var page1="<ul class=\"page\"><li><a href=\"#c1\"><</a></li>"
+          var page1="<div class=\"page\"><ul><li><a href=\"#c1\"><</a></li>"
           for(var i=1;i<=pageCount;i++) {
           page1+="<li><a href=\"#c1\">["+i+"]</a></li>";
           }
-          page1+="<li><a href=\"#c1\">></a></li></ul>"
+          page1+="<li><a href=\"#c1\">></a></li></ul></div>"
           v+=page1;
           //console.log(page1);
           return v;
@@ -68,9 +68,10 @@
 
                 v+="<tr><td>"+data1[i]["no"]+"</td><td>"+data1[i]["no1"]+"</td><td>"+data1[i]["time1"]+"</td><td>"+
                 data1[i]["money"]+"</td><td>"+data1[i]["content"]+"</td><td>"+data1[i]["target"]+
-                "</td><td>"+data1[i]["result"]+
-                "</td><td><button type=\"button\" class=\"btn\">수정</td>"+
-                "<td><button id=\"cb\" type=\"button\" class=\"btn33\">삭제</td></tr>";
+                "</td><td>"+data1[i]["result"]//+
+                //"</td><td><button type=\"button\" class=\"btn\">수정</td>"+
+                //"<td><button id=\"cb\" type=\"button\" class=\"btn33\">삭제</td></tr>"
+                ;
               }
             }else {
             for(var i=curData;i<curData+dataperpage;i++) {
@@ -79,16 +80,16 @@
 
               v+="<tr><td>"+data1[i]["no"]+"</td><td>"+data1[i]["no1"]+"</td><td>"+data1[i]["time1"]+"</td><td>"+
               data1[i]["money"]+"</td><td>"+data1[i]["content"]+"</td><td>"+data1[i]["target"]+
-              "</td><td>"+data1[i]["result"]+
-              "</td><td><button type=\"button\" class=\"btn\">수정</td>"+
-              "<td><button id=\"cb\" type=\"button\" class=\"btn33\">삭제</td></tr>";
+              "</td><td>"+data1[i]["result"]//+
+              //"</td><td><button type=\"button\" class=\"btn\">수정</td>"+
+              //"<td><button id=\"cb\" type=\"button\" class=\"btn33\">삭제</td></tr>"
+              ;
             }
           }
 
             $("#c1").html(function(i,origtext){
                 v+="</table>"
                 return printPage(v);
-
             });
           }
         }
@@ -109,6 +110,21 @@
               console.log(html,d2,d3);
             });
         }
+<<<<<<< HEAD
+=======
+
+        $("#c1").on("click","#moneydatesearch",function(){
+
+          var sdate;
+          var edate;
+          obj2={
+              sdate:$("#sdate").val().replace("\"",""),
+              edate:$("#edate").val().replace("\"","")
+          };
+
+              getdata(obj2);
+        });
+>>>>>>> f58ee64e6ae761683704e3c40138fe09aa119b78
         function update(obj1) {
           $.ajax({
               type:"post",
@@ -582,9 +598,9 @@
       <li><a href="index1_2.html">자금계획등록</a></li><br>
       <li><a href="index1_3.html">월별자금변동</a></li>-->
       <li><a href="#c1">자금계획관리</a></li>
-      <li><a href="#c2">자금계획등록</a></li>
+<!--      <li><a href="#c2">자금계획등록</a></li>  -->
       <li><a href="#c3">월별자금변동</a></li>
-      <li><a href="#c4">자산현황</a></li>
+    <!--  <li><a href="#c4">자산현황</a></li>-->
     </ul>
   </nav>
   <section id="c0">
@@ -622,7 +638,7 @@
       </thead>
     </table>
   </section>
-  <section id="c2">
+<!--  <section id="c2">
     <div class="i1">
       <form action="../m3/index.html#c1">
 <!--        <p>구분&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <input name="no" type="radio" value="입금" placeholder="구분" style="width:50px; height:20px">입금
@@ -635,7 +651,7 @@
         <p>상세내용 : <input name="contents" type="text" placeholder="구분" style="width:80%; height:200px"></p>
         <input  id= "store" type="submit"  style="width: 60px; height:30px" >
         <input name="취소" id="cancel" type="button" value="취소" style="width: 60px; height : 30px">
--->
+
         <ul><li>구분:<input name="no" type="radio" value="입금" placeholder="구분" style="width:10%; height:20px">입금
         <input name="no" type="radio" value="출금" placeholder="구분" style="width:10%; height:20px">출금</li>
         <li>발생기간: <input name="time" type="date" placeholder="구분" style="width:40%; height:20px"></li></ul>
@@ -649,6 +665,7 @@
       </form>
     </div>
   </section>
+-->
   <section id="c3">
     <div class="s1">
     <form action="index.html#c1">
