@@ -18,7 +18,7 @@
         "<input id=\"edate\" type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
         "<input id=\"moneydatesearch\" type=\"submit\" value=\"검색\" style=\"width: 100px; height:30px\"></div>";
 
-        value+="<table id=\"page1\"><tr><td>번호</td><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>대상</td><td>부서</td></tr>";//<td>수정</td><td>삭제</td></tr>";
+        value+="<table id=\"page1\"><tr><td>번호</td><td>구분</td><td>부서</td><td>발생기간</td><td>금액</td><td>대상</td><td>항목</td></tr>";//<td>수정</td><td>삭제</td></tr>";
 
         var totaldata;
         var dataperpage=2;
@@ -110,8 +110,6 @@
               console.log(html,d2,d3);
             });
         }
-<<<<<<< HEAD
-=======
 
         $("#c1").on("click","#moneydatesearch",function(){
 
@@ -124,7 +122,6 @@
 
               getdata(obj2);
         });
->>>>>>> f58ee64e6ae761683704e3c40138fe09aa119b78
         function update(obj1) {
           $.ajax({
               type:"post",
@@ -450,7 +447,7 @@
           $("#menu").show();
 
       //메뉴1 팝업 및 수정
-      var colnm=9;
+      var colnm=7;
       var idx;
       var idx2;
       var key;var b1=0;
@@ -479,7 +476,9 @@
         }).done(function(html){
           data1=html;
           for(var i =0; i<data1.length;i++) {
+                //console.log($("td").eq(idx).text());
           if(data1[i]["no"] == $("td").eq(idx).text() ) {
+
             if($(".popup input").eq(0).val()==data1[i]["no"]) {
               //$(".popup input").eq(0).val(data1[i]["no1"]);
               $(".popup input").eq(0).checked;
@@ -493,6 +492,7 @@
           $(".popup input").eq(5).val(data1[i]["target"]);
           $(".popup input").eq(6).val(data1[i]["result"]);
           $(".popup input").eq(7).val(data1[i]["contents"]);
+
           break;
           }
         }
