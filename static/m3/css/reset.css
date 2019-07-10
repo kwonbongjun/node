@@ -87,6 +87,18 @@ img {
 #c1 li {
   float: left;
 }
+#cancel {
+  text-align: center;
+  margin-left: 45%;
+}
+
+#c1 .page{
+  display: inline-block;
+  margin-left: calc(30%);
+}
+#c1 .page a{
+  font-size: 16px;
+}
 #c2 {
   width: calc(100% - 152px);
   margin-left: 150px;

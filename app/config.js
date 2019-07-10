@@ -22,6 +22,7 @@ module.exports = {
 */
       host:"192.168.3.31",
       //host:"172.30.1.10",
+      port:53306,
       user:"root",
       password:"1234",
       database:"test",
