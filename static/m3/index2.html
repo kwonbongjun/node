@@ -29,7 +29,121 @@
         //$('td:nth-child(6)').hide();
       //   $('td:nth-child(6)').hide();
 
+
+      var colnm=7;
+      var idx;
+      var idx2;
+      var key;var b1=0;
+
+
+        $("#c1 ").on("click","table tr",(function(e){
+          idx=($("tr").index(this))*colnm;
+          var c1= "<ul><li>구분:<input name=\"no\" type=\"radio\" value=\"입금\" placeholder=\"구분\" style=\"\">입금"+
+                  "<input name=\"no\" type=\"radio\" value=\"출금\" placeholder=\"구분\" style=\"\">출금</li>"+
+                  "<li>발생기간: <input name=\"time\" type=\"date\" placeholder=\"구분\" style=\"width:40%; height:20px\"></li></ul>"+
+                  "<ul><li>금액&nbsp;&nbsp;&nbsp;: <input name=\"money\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
+                  "<li>종목: <input name=\"content\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
+                  "<ul><li>거래처: <input name=\"target\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
+                  "<li>실적: <input name=\"result\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
+                  "<p>상세내용 : <input name=\"contents\" type=\"text\" placeholder=\"구분\" style=\"width:calc(80%); height:200px\"></p>";
+          if(b1==1) {c1+="<ul class=\"i2\"><input  id= \"store\" type=\"submit\"  style=\"width: 60px; height:30px\" >";};
+              c1+="<input name=\"취소\" id=\"cancel\" type=\"button\" value=\"취소\" style=\"width: 60px; height : 30px\"><ul>";
+        console.log(idx2,idx);
+        if((1 <= idx2 && idx2 < idx-1) || b1 == 1 ) {
+          b1=0;
+      $.ajax({
+          type:"get",
+          url:"../dbTest",
+          dataType:"JSON"
+        }).done(function(html){
+          data1=html;
+          for(var i =0; i<data1.length;i++) {
+          if(data1[i]["no"] == $("td").eq(idx).text() ) {
+            if($(".popup input").eq(0).val()==data1[i]["no"]) {
+              //$(".popup input").eq(0).val(data1[i]["no1"]);
+              $(".popup input").eq(0).checked;
+            }else {
+              //$(".popup input").eq(1).val(data1[i]["no1"]);
+              $(".popup input").eq(1).checked;
+            }
+          $(".popup input").eq(2).val(data1[i]["time1"]);
+          $(".popup input").eq(3).val(data1[i]["money"]);
+          $(".popup input").eq(4).val(data1[i]["content"]);
+          $(".popup input").eq(5).val(data1[i]["target"]);
+          $(".popup input").eq(6).val(data1[i]["result"]);
+          $(".popup input").eq(7).val(data1[i]["contents"]);
+          break;
+          }
+        }
+      }).fail(function(html){
+        console.log(html);
       });
+
+
+      $(".popup2").empty().append(c1);
+
+    //    var data1=JSON.parse(localStorage.getItem("list"));
+
+      //console.log(data1[$("tr").index(this)-1]["time"]);
+      popup();
+      }
+
+      }));
+      var tdflag=0;
+        $("#c1 ").on("click","td",(function(e){
+
+            idx2=$("td").index(this);
+            key=$("td").eq(idx2).text();
+        }));
+        $("#c1 ").on("click",".btn",(function(e){
+          console.log("1");
+              b1=1*1;
+              $("#c1 ").on("click","td",(function(e){
+
+                  idx2=$("td").index(this);
+                  key=$("td").eq(idx2).text();
+              }));
+              var idx3=$("td").index(this);
+              console.log($("td").eq(idx2-7).text());
+              var3=$("td").eq(idx2-7).text();
+        }));
+        $(".popup").on("click","#store",function(){
+            var obj1= {
+              no:var3,
+              no1:$(".popup input").eq(0).val(),
+              time1:$(".popup input").eq(2).val(),
+              money:$(".popup input").eq(3).val(),
+              content:$(".popup input").eq(4).val(),
+              target:$(".popup input").eq(5).val(),
+              result:$(".popup input").eq(6).val(),
+              contents:$(".popup input").eq(7).val()
+            };
+            //console.log(var3);
+            update(obj1);
+            $(".popup").css("display","none");
+
+        });
+        function popup() {
+          $(".popup").css("display","block");
+        }
+        if($(".popup").on("click","#cancel",function(){
+              $(".popup").css("display","none");
+        }));
+        //$('td:nth-child(7)').hide();
+        //$('td:nth-child(8)').hide();
+
+        //페이지 이동
+        $("#c1").on("click",".page li",function() {
+            curPage=$(".page li").index(this);
+            var item=$(this);
+            console.log(curPage);
+            var selectedPage=item.text();
+            curData=(curPage-1)*2;
+            getdata();
+            printPage();
+        });
+
+});
   </script>
 </head>
 <body>
@@ -50,6 +164,10 @@
       <li><a href="#c3">월별예산변동</a></li>
     </ul>
   </nav>
+  <div class="popup">
+    <div class="popup2">
+    </div>
+  </div>
   <section id="c0">
     <article>
       안녕하세요 봉준의 회계 관리 프로그램입니다.
@@ -57,9 +175,7 @@
     </article>
   </section>
   <div class="popup">
-    <form action="index2.html#c1">
-      <input name="취소" id="cancel" type="button" value="취소" style="width: 60px; height : 30px">
-    </form>
+
     <div class="popup2">
     </div>
   </div>
@@ -79,7 +195,6 @@
         <th>금액</th>
         <th>부서</th>
         <th>용도</th>
-        <th>실적</th>
         <th>수정</th>
         <th>삭제</th>
       </tr>
@@ -90,8 +205,7 @@
         <td>100000</td>
         <td>IT개발팀</td>
         <td>급여</td>
-        <td>110000</td>
-        <td><button type="button">수정</td>
+        <td><button type="button" class="btn">수정</td>
         <td><button type="button">삭제</td>
       </tr>
       <tbody>
@@ -136,7 +250,6 @@
         <th>발생기간</th>
         <th>금액</th>
         <th>종목</th>
-        <th>실적</th>
       </tr>
     </thead>
     <tbody>
@@ -144,7 +257,6 @@
         <td>2019년07월</td>
         <td>100000</td>
         <td>IT개발팀</td>
-        <td>110000</td>
       </tr>
     </tbody>
     </table>

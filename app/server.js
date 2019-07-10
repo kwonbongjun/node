@@ -24,11 +24,11 @@ const server = {
             // 앱 설정 하기.
             로그.info(">> Server init");
             앱.set("port", 설정.server_port);
-            앱.set("views", 경로.join(__dirname, "../static"));
+            앱.set("views", 경로.join(__dirname, "../static"));//html위치
             앱.use(서버.static(경로.join(__dirname, "../static")));//미들웨어 함수 호출, (req,res)
-            앱.use(요청값.urlencoded({extended:false}));
+            앱.use(요청값.urlencoded({extended:false}));//중첩객체사용x
             앱.use(요청값.json());
-            앱.engine("html", 엔진.renderFile);
+            앱.engine("html", 엔진.renderFile);//html 템플릿으로 사용
             앱.use(섹션(설정.server_session));
             server.STEP_1();
         },
@@ -84,7 +84,7 @@ const server = {
                 edate[map2[0]]=map2[1].replace("-","");;
                 edate[map2[0]]=edate[map2[0]].replace("-","");
                 console.log(edate[map2[0]]);
-                query1="select * from test.test1 where time1>="+sdate[map[0]]+" && time1<"+edate[map2[0]]+";";
+                query1="select no,no1,DATE_FORMAT(time1,'%Y-%m-%d') as time1,money,content,target,result,contents from test.test1 where time1>="+sdate[map[0]]+" && time1<"+edate[map2[0]]+";";
               }
                 server.DB(query1, [], (err, resultList) => {
 

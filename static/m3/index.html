@@ -109,17 +109,6 @@
               console.log(html,d2,d3);
             });
         }
-        $("#c1").on("click","#moneydatesearch",function(){
-
-          var sdate;
-          var edate;
-          obj2={
-              sdate:$("#sdate").val().replace("\"",""),
-              edate:$("#edate").val().replace("\"","")
-          };
-
-              getdata(obj2);
-        });
         function update(obj1) {
           $.ajax({
               type:"post",
@@ -414,38 +403,7 @@
                       data:{"no":val},
                       dataType:"JSON"
                     }).done(function(html){
-                      $.ajax({
-                          type:"get",
-                          url:"../dbTest",
-                          dataType:"JSON"
-                        }).done(function(html){
-                          //console.log(val);
-                          data1=html;
-                          v="<div class=\"s1\"><form action=\"index.html#c1\">"+
-                           "<input type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
-                           "<input type=\"button\" value=\"검색\" style=\"width: 100px; height:30px\"></form></div>";
-
-                          v+="<table><tr><td>번호</td><td>구분</td><td>발생기간</td><td>금액</td><td>항목</td><td>거래처</td><td>실적</td><td>수정</td><td>삭제</td></tr>";
-
-
-                       for(var i=0;i<data1.length;i++) {
-                           //v3=list[i]["#title"];
-
-                             v+="<tr><td>"+data1[i]["no"]+"</td><td>"+data1[i]["no1"]+"</td><td>"+data1[i]["time1"]+"</td><td>"+
-                             data1[i]["money"]+"</td><td>"+data1[i]["content"]+"</td><td>"+data1[i]["target"]+
-                             "</td><td>"+data1[i]["result"]+
-                             "</td><td><a href=\"index.html#c2\"><button type=\"button\" class=\"btn\">수정</a></td>"+
-                             "<td><button id=\"cb\" type=\"button\" class=\"btn"+i+"\">삭제</td></tr>";
-                             //console.log(v);
-                           }
-                           //$("#s1").show();
-                           $("#c1").html(function(i,origtext){
-                               v+="</table>"
-                               return v;
-                           });
-                         }).fail(function(html,d2,d3){
-                           console.log(html,d2,d3);
-                         });
+                    getdata();
                     }).fail(function(html,d2,d3){
                       console.log(html,d2,d3);
                     });
@@ -590,7 +548,17 @@
         });
 
         //날짜검색
+        $("#c1").on("click","#moneydatesearch",function(){
 
+          var sdate;
+          var edate;
+          obj2={
+              sdate:$("#sdate").val().replace("\"",""),
+              edate:$("#edate").val().replace("\"","")
+          };
+
+              getdata(obj2);
+        });
     });
   </script>
 </head>
@@ -705,6 +673,9 @@
       </tbody>
     </thead>
     </table>
+  </section>
+  <section id="c4">
+
   </section>
 </body>
 </html>
