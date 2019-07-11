@@ -9,8 +9,94 @@
   <title>예산관리</title>
   <script>
       $(document).ready(function(){
-        var id;
-         $("li").click(function(e){
+        //var id;
+        var list = [];
+        var v;
+        var data1=[];
+        var value="<div class=\"s1\">"+
+        "날짜 범위 <input id=\"sdate\" name=\"date\" type=\"date\" style=\"width: 200px; height:30px\">"+
+        "<input id=\"edate\" type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
+        "<input id=\"moneydatesearch\" type=\"submit\" value=\"검색\" style=\"width: 100px; height:30px\"></div>";
+
+        value+="<table id=\"page1\"><tr><td>번호</td><td>연도</td><td>부서</td><td>금액</td><td>금액</td><td>대상</td><td>항목</td></tr>";//<td>수정</td><td>삭제</td></tr>";
+
+        var totaldata;
+        var dataperpage=2;
+        var pageCount=5;
+        var curPage=1;
+        var curPageCount=totaldata/dataperpage;
+        var curData=0;
+        var obj2={};
+
+        function getdata() {
+          $.ajax({
+              type:"get",
+              url:"../dbTest",
+              data:obj2,
+              dataType:"JSON"
+            }).done(function(html){
+                data1 = html;
+                totaldata=data1.length;
+                //console.log(data1);
+                //console.log(obj2);
+                printmoneyplan(curData);
+                //console.log(curPage);
+            }).fail(function(html,d2,d3){
+              console.log(html,d2,d3);
+            });
+        }
+        function printmoneyplan(curData) {
+          v=value;
+          if(data1 !=null) {
+            if(totaldata - curData < dataperpage) {
+              for(var i=curData;i<curData+totaldata - curData;i++) {
+                var v5="index2.html#c2?"+"no="+data1[i]["no"]+"no1="+data1[i]["no1"]+"&time="+data1[i]["time"]+"&money="+
+                data1[i]["money"]+"&content="+data1[i]["content"]+"&target="+data1[i]["target"]+"&result="+data1[i]["result"]+data1[i]["contents"];
+
+                v+="<tr><td>"+data1[i]["no"]+"</td><td>"+data1[i]["no1"]+"</td><td>"+data1[i]["time1"]+"</td><td>"+
+                data1[i]["money"]+"</td><td>"+data1[i]["content"]+"</td><td>"+data1[i]["target"]+
+                "</td><td>"+data1[i]["result"]//+
+                //"</td><td><button type=\"button\" class=\"btn\">수정</td>"+
+                //"<td><button id=\"cb\" type=\"button\" class=\"btn33\">삭제</td></tr>"
+                ;
+              }
+            }else {
+            for(var i=curData;i<curData+dataperpage;i++) {
+              var v5="index2.html#c2?"+"no="+data1[i]["no"]+"no1="+data1[i]["no1"]+"&time="+data1[i]["time"]+"&money="+
+              data1[i]["money"]+"&content="+data1[i]["content"]+"&target="+data1[i]["target"]+"&result="+data1[i]["result"]+data1[i]["contents"];
+
+              v+="<tr><td>"+data1[i]["no"]+"</td><td>"+data1[i]["no1"]+"</td><td>"+data1[i]["time1"]+"</td><td>"+
+              data1[i]["money"]+"</td><td>"+data1[i]["content"]+"</td><td>"+data1[i]["target"]+
+              "</td><td>"+data1[i]["result"]//+
+              //"</td><td><button type=\"button\" class=\"btn\">수정</td>"+
+              //"<td><button id=\"cb\" type=\"button\" class=\"btn33\">삭제</td></tr>"
+              ;
+            }
+          }
+
+            $("#c1").html(function(i,origtext){
+                v+="</table>"
+                return printPage(v);
+            });
+          }
+        }
+        function printPage(v){
+          var page1="<div class=\"page\"><ul><li class=\"leftpage\"><a href=\"#c1\"><</a></li>"
+          //console.log(curPage);
+          if((parseInt(curPage)+4)%5 != 0 ) {
+            curPage=curPage-(parseInt(curPage)+4)%5;
+          }else {
+          }
+          for(var i=curPage;i<=curPage+pageCount-1;i++) {
+          page1+="<li class=\"pageno\"><a href=\"#c1\">["+i+"]</a></li>";
+          }
+          page1+="<li class=\"rightpage\"><a href=\"#c1\">></a></li></ul></div>"
+          v+=page1;
+          //console.log(page1);
+          return v;
+          }
+        //
+         $("nav li").click(function(e){
               //var url = $(this).attr("url");
              //history.pushState(null, null, url);
              //event.preventDefault();
@@ -24,6 +110,9 @@
                $("#c0").show();
              }else {
                $("#c0").hide();
+             }
+             if($("li").index(this)==0) {
+                getdata();
              }
          });
         //$('td:nth-child(6)').hide();
@@ -135,17 +224,56 @@
         //$('td:nth-child(7)').hide();
         //$('td:nth-child(8)').hide();
 
+
+
         //페이지 이동
-        $("#c1").on("click",".page li",function() {
-            curPage=$(".page li").index(this);
+        $("#c1").on("click",".page .pageno",function() {
+
+            curPage=$(".page .pageno").index(this)+1;
+            //console.log(curPage);
+            var pageno1=$("li.pageno").eq(curPage-1).text().replace("[","");
+            var pageno2=pageno1.replace("]","");
+            curPage=parseInt(pageno2);
+            console.log(pageno2);
+
             var item=$(this);
-            console.log(curPage);
+            //console.log(curPage);
             var selectedPage=item.text();
             curData=(curPage-1)*2;
             getdata();
-            printPage();
+            //printPage();
+        });
+        $("#c1").on("click",".page .leftpage",function() {
+          //curPage=$(".page li").index(this);
+          curPage=parseInt(curPage-(5+(curPage+4)%5));
+          if(curPage<1) {
+            curPage=1;
+          }
+          curData=(curPage-1)*2;
+          getdata();
+          printPage();
+        });
+        $("#c1").on("click",".page .rightpage",function() {
+          //curPage=$(".page li").index(this);
+          curPage=curPage-(curPage+(pageCount-1))%pageCount+pageCount;
+          console.log(curPage);
+          curData=(curPage-1)*2;
+          getdata();
+          printPage();
         });
 
+        //날짜검색
+        $("#c1").on("click","#moneydatesearch",function(){
+
+          var sdate;
+          var edate;
+          obj2={
+              sdate:$("#sdate").val().replace("\"",""),
+              edate:$("#edate").val().replace("\"","")
+          };
+
+              getdata(obj2);
+        });
 });
   </script>
 </head>
