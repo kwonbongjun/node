@@ -23,22 +23,17 @@
         var totaldata;
         var dataperpage=2;
         var pageCount=5;
-        var curPage=1;
+        var curPage=0;
         var curPageCount=totaldata/dataperpage;
         var curData=0;
         var obj2={};
         //페이지 출력
         function printPage(v){
-          var page1="<div class=\"page\"><ul><li class=\"leftpage\"><a href=\"#c1\"><</a></li>"
-          console.log(curPage);
-          if((parseInt(curPage)+4)%5 != 0 ) {
-            curPage=curPage-(parseInt(curPage)+4)%5;
-          }else {
+          var page1="<div class=\"page\"><ul><li><a href=\"#c1\"><</a></li>"
+          for(var i=1;i<=pageCount;i++) {
+          page1+="<li><a href=\"#c1\">["+i+"]</a></li>";
           }
-          for(var i=curPage;i<=curPage+pageCount-1;i++) {
-          page1+="<li class=\"pageno\"><a href=\"#c1\">["+i+"]</a></li>";
-          }
-          page1+="<li class=\"rightpage\"><a href=\"#c1\">></a></li></ul></div>"
+          page1+="<li><a href=\"#c1\">></a></li></ul></div>"
           v+=page1;
           //console.log(page1);
           return v;
@@ -108,7 +103,7 @@
                 data1 = html;
                 totaldata=data1.length;
                 console.log(data1);
-                //console.log(obj2);
+                console.log(obj2);
                 printmoneyplan(curData);
                 //console.log(curPage);
             }).fail(function(html,d2,d3){
@@ -341,7 +336,7 @@
                     }).fail(function(html,d2,d3){
                       console.log(html,d2,d3);
                     });*/
-                //getdata();
+                getdata();
               }
               //두번째출력했을 때
              if($("li").index(this)==1) {
@@ -558,39 +553,14 @@
         //$('td:nth-child(8)').hide();
 
         //페이지 이동
-        $("#c1").on("click",".page .pageno",function() {
-
-            curPage=$(".page .pageno").index(this)+1;
-            //console.log(curPage);
-            var pageno1=$("li.pageno").eq(curPage-1).text().replace("[","");
-            var pageno2=pageno1.replace("]","");
-            curPage=parseInt(pageno2);
-            console.log(pageno2);
-
+        $("#c1").on("click",".page li",function() {
+            curPage=$(".page li").index(this);
             var item=$(this);
-            //console.log(curPage);
+            console.log(curPage);
             var selectedPage=item.text();
             curData=(curPage-1)*2;
             getdata();
-            //printPage();
-        });
-        $("#c1").on("click",".page .leftpage",function() {
-          //curPage=$(".page li").index(this);
-          curPage=parseInt(curPage-(5+(curPage+4)%5));
-          if(curPage<1) {
-            curPage=1;
-          }
-          curData=(curPage-1)*2;
-          getdata();
-          printPage();
-        });
-        $("#c1").on("click",".page .rightpage",function() {
-          //curPage=$(".page li").index(this);
-          curPage=curPage-(curPage+(pageCount-1))%pageCount+pageCount;
-          console.log(curPage);
-          curData=(curPage-1)*2;
-          getdata();
-          printPage();
+            printPage();
         });
 
         //날짜검색
@@ -704,18 +674,21 @@
     <input id="search2" type="button" value="검색" style="width: 100px; height:30px">
     </form>
     </div>
-    <table id="page1">
+    <table>
       <thead>
       <tr>
-        <th>번호</th>
         <th>구분</th>
-        <th>부서</th>
         <th>발생기간</th>
         <th>금액</th>
-        <th>대상</th>
-        <th>항목</th>
+        <th>실적</th>
       </tr>
-      </thead>
+      <tbody>
+        <td>입금</td>
+        <td>2019년07월</td>
+        <td>100000</td>
+        <td>110000</td>
+      </tbody>
+    </thead>
     </table>
   </section>
   <section id="c4">
