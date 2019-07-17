@@ -17,7 +17,7 @@ m[1] = {                        // 모듈 리스트에 넣기
         m[1].step1(req, res);   // step1 호출
     },
     step1: function(req, res){
-        var index = req.body.index;
+        var index = Number(req.body.index);
         var sql = `select * from test where DEL_YN = 'N' LIMIT ?, 5`;
         var result = {state : true};
         db("GET", sql, [index]).then(function(rows){

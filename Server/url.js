@@ -12,7 +12,7 @@ const url = function(){
         app.use(bodyParser.json());                 // for parsing application/json
         app.use(bodyParser.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded
         app.engine("html", ejs.renderFile);         // 뷰엔진 html : ejs 매핑 정의
-        app.use(express.static(dirPath.join(__dirname, "../Views"))); // 정적파일 경로 정의
+        app.use(express.static(dirPath.join(__dirname, "../views"))); // 정적파일 경로 정의
 
         app.use(session({
             secret: 'keyboard cat',
@@ -22,7 +22,7 @@ const url = function(){
 
         const router = express.Router();            // URL 패턴 Router 생성
         router.route("/").get(function(req, res){   // 기본 페이지 정의
-            res.send("Main");
+            res.render("./index.html");
         });
         for(var i = 0; i < list.length; i++){       // 동적 URL 매핑 시작 (반복문)
             var row = list[i];                      // 관리 대상 모듈 가져오기
