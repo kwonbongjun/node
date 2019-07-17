@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="css/reset.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="../js/commons.js"></script>
   <title>예산관리</title>
   <script>
       $(document).ready(function(){
@@ -18,7 +19,7 @@
         "<input id=\"edate\" type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
         "<input id=\"moneydatesearch\" type=\"submit\" value=\"검색\" style=\"width: 100px; height:30px\"></div>";
 
-        value+="<table id=\"page1\"><thead><tr><th>번호</th><th>연도</th><th>부서</th><th>금액</th><th>금액</th><th>대상</th><th>항목</th><th>수정</th><th>삭제</th></tr></thead>";
+        value+="<table id=\"page1\"><thead><tr><th>번호</th><th>연도</th><th>부서</th><th>금액</th><th>수정</th><th>삭제</th></tr></thead>";
 
         var totaldata;
         var dataperpage=2;
@@ -29,21 +30,21 @@
         var obj2={};
 
         function getdata() {
-          $.ajax({
-              type:"get",
-              url:"../dbTest",
-              data:obj2,
-              dataType:"JSON"
-            }).done(function(html){
-                data1 = html;
-                totaldata=data1.length;
-                //console.log(data1);
-                //console.log(obj2);
-                printmoneyplan(curData);
-                //console.log(curPage);
-            }).fail(function(html,d2,d3){
-              console.log(html,d2,d3);
-            });
+          var index=0;
+           var param = {
+               // 'budgets_id' : budgets_id,
+               // 'date' : date,
+               // 'division' : division,
+               // 'money' : money
+               "index": index
+           }
+          fNet("/m3/select", "POST", param, function (data) {
+          console.log(data.list[0].budgets_id);
+          v5=value+`<tbody><tr><td>`+data.list[0].budgets_id+`</td><td>`+
+          data.list[0].date+`</td><td>`+data.list[0].division+`</td><td>`+
+          data.list[0].money+`</td></tr></tbody>`
+          $("#c1").html(v5);
+      });
         }
         function printmoneyplan(curData) {
           v=value;
@@ -95,7 +96,30 @@
           //console.log(page1);
           return v;
           }
-        //
+      //화면 전환
+        $("#c0").hide();
+        if(location.hash=="") {
+          $("#c0").show();
+        }else {
+          $("#c0").hide();
+        }
+        $(id).css("display","none");
+        id = location.hash;//$(this).attr("href");
+        $(id).css("display","block");
+        $(location.hash).html();
+        $(window).on("popstate", function(e) {
+          if(location.hash.length < 4 ) {
+            $(id).css("display","none");
+            id = location.hash;//$(this).attr("href");
+            $(id).css("display","block");
+            //$(location.hash).html();
+            $("#c0").hide();
+            if(location.hash=="") {
+              $("#c0").show();
+            }
+          }
+        });
+
          $("nav li").click(function(e){
               //var url = $(this).attr("url");
              //history.pushState(null, null, url);
@@ -117,6 +141,14 @@
          });
         //$('td:nth-child(6)').hide();
       //   $('td:nth-child(6)').hide();
+
+      //예산 입력
+      $("#c2 form").submit(function(event) {
+          event.preventDefault();
+          var param = {"date" : $("#date").val(), "division" : $("#division").val(),
+          "money" : $("#money").val() };
+          fNet("/m3/insert", "POST", param, fSet);
+      });
 
 
       var colnm=9;
@@ -323,17 +355,15 @@
     </tr>
     </thead>
 
-    <tbody>
-
-    </tbody>
   </table>
 </section>
 <section id="c2">
   <div class="i1">
-    <form action="index2.html#c1">
-      <ul><li>지급일: <input name="time" type="date" placeholder="구분" style="width:40%; height:20px"></li>
-      <li>금액: <input name="money" type="text" placeholder="구분" style="width:50%; height:20px"></li></ul>
-      <ul><li>부서: <input name="content" type="text" placeholder="구분" style="width:50%; height:20px"></li>
+    <form action="../m3/index2.html#c1">
+      <ul><li>지급일: <input name="date" id="date" type="date" placeholder="구분" style="width:40%; height:20px"></li>
+      <li>부서: <input name="division" id="division" type="text" placeholder="구분" style="width:50%; height:20px"></li></ul>
+      <ul><li>금액: <input name="money" id="money" type="text" placeholder="구분" style="width:50%; height:20px"></li></ul>
+
 
       <ul class="i2"><input  id= "store" type="submit"  style="width: 60px; height:30px" >
       <input name="취소" id="cancel" type="button" value="취소" style="width: 60px; height : 30px"><ul>

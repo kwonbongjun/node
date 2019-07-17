@@ -6,19 +6,19 @@ m[0] = {                        // 모듈 리스트에 넣기
     path: "/index",             // URL 주소 정의
     type: "GET",                // 통신 방식 정의
     fun: function(req, res){    // 실행 내용 정의
-        commons.viewResult(req, res, "./dbTest.html");
+        commons.viewResult(req, res, "./m3/index.html");
     }
 }
 
 m[1] = {                        // 모듈 리스트에 넣기
     path: "/select",            // URL 주소 정의
     type: "POST",               // 통신 방식 정의
-    fun: function(req, res){    // 실행 내용 정의        
+    fun: function(req, res){    // 실행 내용 정의
         m[1].step1(req, res);   // step1 호출
     },
     step1: function(req, res){
         var index = Number(req.body.index);
-        var sql = `select * from test where DEL_YN = 'N' LIMIT ?, 5`;
+        var sql = `select * from a_budgets LIMIT ?, 5`;
         var result = {state : true};
         db("GET", sql, [index]).then(function(rows){
             if(rows.state){
@@ -31,7 +31,7 @@ m[1] = {                        // 모듈 리스트에 넣기
         });
     },
     step2: function(req, res, result){
-        sql = "select count(*) as cnt from test where DEL_YN = 'N'";
+        sql = "select count(*) as cnt from a_budgets";
         db("GET", sql, []).then(function(rows){     // 함수 실행 후 동작 부분
             if(rows.state){
                 result.paging = rows.rows[0].cnt;
@@ -48,11 +48,13 @@ m[2] = {
     path: "/insert",
     type: "POST",
     fun: function(req, res){
-        var nm = req.body.nm;
-        var id = req.session.user.id;
-        var sql = 'insert into test (NM, ID) values (?, ?)';
-        db("SET", sql, [nm, id]).then(function(rows){
-            commons.msgResult(res, rows, "msg1", "/m0/index");
+        var date = req.body.date;
+        var division = req.body.division;
+        var money =  req.body.money;
+
+        var sql = 'insert into a_budgets (`date`, `division`,`money`) values (?, ?, ?)';
+        db("SET", sql, [date, division, money]).then(function(rows){
+            commons.msgResult(res, rows, "msg1", "../m3/index2.html#c1");//이동주소
         });
     }
 }
@@ -68,7 +70,7 @@ m[3] = {
             if(rows.rows.length > 0){
                 req.session.user = rows.rows[0];
             }
-            commons.msgResult(res, rows, "msg0", "/m0/index");
+            commons.msgResult(res, rows, "msg0", "/m3/index");
         });
     }
 }
@@ -133,7 +135,7 @@ m[7] = {                        // 모듈 리스트에 넣기
     path: "/index2",             // URL 주소 정의
     type: "GET",                // 통신 방식 정의
     fun: function(req, res){    // 실행 내용 정의
-        commons.viewResult(req, res, "./m3/index.html");
+        commons.viewResult(req, res, "./m3/index2.html");
     }
 }
 /*
