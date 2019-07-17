@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="/js/commons.js"></script>
+        <style>
+            #list li {cursor: pointer;}
+        </style>
+        <script>
+            $(document).ready(function(){
+                var reTime;
+                $("form").submit(function(event) {
+                    event.preventDefault();
+                    var param = {"nm" : $("#NM").val()};
+                    fNet("/m0/insert", "POST", param, fSet);
+                });
+
+                $("#logout").click(function(){
+                    location.href = "/m0/logout";
+                });
+
+                function init(){
+                    clearTimeout(reTime);
+                    fNet("/m0/select", "POST", {}, function (data) {
+                        if(data.state) {
+                            $("#list").empty();
+                            var rows = data.rows;
+                            for(var i = 0; i < rows.length; i++){
+                                var html = "<li>" + rows[i].NM + "</li>";
+                                $("#list").prepend(html);
+                            }
+                            /* 리스트 이벤트 생성 */
+                            $("#list li").click(function(){
+                                var t = $(this).text();
+                                var index = $("#list li").index(this);
+                                index = (rows.length - index) - 1; 
+                                // console.log(t, rows[index], rows[index].NO, rows[index].ID);
+                                var no = rows[index].NO;
+                                var id = rows[index].ID;
+
+                            });
+
+                            $("#cnt").html(rows.length);
+                            startTime();
+                        } else {
+                            alert(data.text);
+                            history.back();
+                        }
+                    });
+                }
+                function startTime(){
+                    reTime = setTimeout(function(){
+                        init();
+                    }, 500);
+                }
+                init();
+            });
+        </script>
+    </head>
+    <body>
+        <h1>디비테스트</h1><button type="button" id="logout">로그아웃</button>
+        <form>
+            <input type="text" name="NM" id="NM" placeholder="이름이 작성하세요." required>
+            <input type="submit" value="저장">
+        </form>
+        <hr>
+        <h3>회원 수 : <span id="cnt">0</span></h3>
+        <ul id="list"></ul>
+    </body>
+</html>

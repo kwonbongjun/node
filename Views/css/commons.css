@@ -1,0 +1,11 @@
+html, body, p, h1 {margin: 0; padding: 0; text-align: center;}
+header {padding: 30px 0; text-align: center; background-color: #6a8476;}
+header img {height: 46px;}
+section {background-color: #72af2c;}
+footer {height: 210px; text-align: center; background-color: #434b58; color: white;}
+.sns-area, .sns-box {padding: 30px 0;}
+.sns-box a {text-decoration: none; color: white; padding: 0 15px;}
+.sns-box a:hover {color: #72af2c;}
+input, textarea {-webkit-appearance: none; -webkit-border-radius: 0;}
+.align_center {text-align: center;}
+.dis-none {display: block;}
