@@ -5,10 +5,14 @@
         <script src="/js/commons.js"></script>
         <style>
             #list li {cursor: pointer;}
+            .dn {display: none;}
+            #paging {list-style: none;}
+            #paging li {width: 30px; float: left; text-align: center; cursor: pointer;}
         </style>
         <script>
             $(document).ready(function(){
                 var reTime;
+                var param = {};
                 $("form").submit(function(event) {
                     event.preventDefault();
                     var param = {"nm" : $("#NM").val()};
@@ -19,41 +23,97 @@
                     location.href = "/m0/logout";
                 });
 
-                function init(){
-                    clearTimeout(reTime);
-                    fNet("/m0/select", "POST", {}, function (data) {
-                        if(data.state) {
-                            $("#list").empty();
-                            var rows = data.rows;
-                            for(var i = 0; i < rows.length; i++){
-                                var html = "<li>" + rows[i].NM + "</li>";
-                                $("#list").prepend(html);
-                            }
-                            /* 리스트 이벤트 생성 */
-                            $("#list li").click(function(){
-                                var t = $(this).text();
-                                var index = $("#list li").index(this);
-                                index = (rows.length - index) - 1; 
-                                // console.log(t, rows[index], rows[index].NO, rows[index].ID);
-                                var no = rows[index].NO;
-                                var id = rows[index].ID;
-
+                $("form input[type=button]").click(function(){
+                    var index = $("form input[type=button]").index(this);
+                    switch (index) {
+                        case 0:
+                            param.nm = $("#NM").val();
+                            fNet("/m0/update", "POST", param, function(data){
+                                if(data.state){
+                                    alert(data.text);
+                                } else {
+                                    alert(data.text);
+                                }
                             });
+                            break;
+                        case 1:
+                            fNet("/m0/delete", "POST", param, function(data){
+                                if(!data.state){
+                                    alert(data.text);
+                                }
+                            });
+                            break;
+                        default:
+                            break;
+                    }
 
-                            $("#cnt").html(rows.length);
-                            startTime();
+                    $("form input[type=button]").addClass("dn");
+                    $("form input[type=submit]").removeClass("dn");
+                    $("#NM").val("");
+                });
+
+                function init(index){
+                    //clearTimeout(reTime);
+                    var param = {"index": index};
+                    fNet("/m0/select", "POST", param, function (data) {
+                        listView(data.list);
+                        if(data.state){                            
+                            pagingView(data.paging);
                         } else {
-                            alert(data.text);
-                            history.back();
+                            pagingView(0);
+                            alert("네트워크 불안합니다.");
                         }
+                        //startTime();
+                    });                    
+                }
+                function listView(rows){
+                    $("#list").empty();
+                    for(var i = 0; i < rows.length; i++){
+                        var html = "<li>" + rows[i].NM + "</li>";
+                        $("#list").prepend(html);
+                    }
+
+                    $("#list li").click(function(){
+                        var t = $(this).text();
+                        var index = $("#list li").index(this);
+                        index = (rows.length - index) - 1; 
+                        // console.log(t, rows[index], rows[index].NO, rows[index].ID);
+                        var no = rows[index].NO;
+                        var id = rows[index].ID;
+                        param = {
+                            'no' : no,
+                            'id' : id
+                        }
+                        $("form input[type=button]").removeClass("dn");
+                        $("form input[type=submit]").addClass("dn");
+                        $("#NM").val(rows[index].NM);
                     });
                 }
+                function pagingView(tot){
+                    var p = Math.ceil(tot / 5);
+                    $("#paging").empty();
+                    for(var i = 0; i < p; i++){
+                        var html = "<li>" + (i + 1) + "</li>";
+                        $("#paging").append(html);
+                    }
+                    $("#paging li").click(function(){
+                        /**
+                         *  1(0) , 2(1) , 3(2) , 4(3) , 5(4) 
+                         *  0    , 5    , 10   , 15   , 20
+                         *  0*5    1*5    2*5    3*5    4*5
+                         */
+                        var index = $("#paging li").index(this);
+                        index = index * 5;
+                        init(index);
+                    });
+                }
+
                 function startTime(){
                     reTime = setTimeout(function(){
-                        init();
+                        init(0);
                     }, 500);
                 }
-                init();
+                init(0);
             });
         </script>
     </head>
@@ -63,8 +123,13 @@
             <input type="text" name="NM" id="NM" placeholder="이름이 작성하세요." required>
             <input type="submit" value="저장">
         </form>
+        <form>
+            <input type="button" value="수정" class="dn">
+            <input type="button" value="삭제" class="dn">
+            <input type="button" value="취소" class="dn">
+        </form>
         <hr>
-        <h3>회원 수 : <span id="cnt">0</span></h3>
         <ul id="list"></ul>
+        <ul id="paging"></ul>
     </body>
 </html>

@@ -2,7 +2,8 @@ const msg = {
     msgList : {
         msg0: ["", "데이터 가져 오는 중 오류 발생!"],
         msg1: ["저장 완료!", "저장 중 오류 발생!"],
-        msg2: ["수정 완료!", "수정 중 오류 발생!"]
+        msg2: ["수정 완료!", "수정 중 오류 발생!"],
+        msg3: ["삭제 완료!", "삭제 중 오류 발생!"]
     },
     msgResult : function(res, rows, msgCode, url){
         if(rows.state){
