@@ -19,7 +19,7 @@
         "<input id=\"edate\" type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
         "<input id=\"moneydatesearch\" type=\"submit\" value=\"검색\" style=\"width: 100px; height:30px\"></div>";
 
-        value+="<table id=\"page1\"><tr><td>번호</td><td>구분</td><td>부서</td><td>발생기간</td><td>금액</td><td>대상</td><td>항목</td></tr>";//<td>수정</td><td>삭제</td></tr>";
+        value+="<table id=\"page1\"><tr><td>구분</td><td>부서</td><td>발생일자</td><td>금액</td><td>대상</td><td>항목</td></tr>";//<td>수정</td><td>삭제</td></tr>";
 
         var totaldata;
         var dataperpage=2;
@@ -28,6 +28,7 @@
         var curPageCount=totaldata/dataperpage;
         var curData=0;
         var obj2={};
+        var index=0;
         //페이지 출력
         function printPage(v){
           var page1="<div class=\"page\"><ul><li><a href=\"#c1\"><</a></li>"
@@ -112,42 +113,55 @@
             });
             */
             //var param = {"nm" : $("#NM").val()};
+            var v5=value;
+          var dataperpage=5;
+          var page=0;
+          var pagingIndex=0;
 
-            var index=5;
-            var param = {"index": index};
-            fNet("/m3/select", "POST", param, function (data) {
-              //var v5="index.html#c2?"+"NO="+data1[i]["NO"]+"NM="+data1[i]["NM"];
-                /*var v5="";
-
-                if(data.state) {
-                    $("#list").empty();
-                    var rows = data.rows;
-                    for(var i = 0; i < rows.length; i++){
-                        var html = "<li>" + rows[i].NM + "</li>";
-                        $("#list").prepend(html);
-                        v5+="<tr><td>"+rows[i]["NO"]+"</td><td>"+rows[i]["NM"];
-                    }
-                    console.log(JSON.stringify(rows[0]));
-
-                    $("#c1").html(v5);
-                    //printmoneyplan(curData);
-                    //startTime();
-                } else {
-                    alert(data.text);
-                    history.back();
-                }*/
-                var t = $(this).text();
-                index=0;
-                // console.log(t, rows[index], rows[index].NO, rows[index].ID);
-                var no = 1;
-                var id = 1;
-                param = {
-                    'no' : no,
-                    'id' : id
-                }
-                $("#c1").html(v+JSON.stringify(data));
-                console.log(data);
-            });
+          $("#c1").on("click",".pageno",function(){
+             index = $(".pageno").index(this);
+             //console.log(index);
+          });
+          pagingIndex=index*dataperpage;
+          
+            var param = {
+                  // 'budgets_id' : budgets_id,
+                  // 'date' : date,
+                  // 'division' : division,
+                  // 'money' : money
+                  "index": pagingIndex
+              }
+            fNet("/m3/createview", "POST", param, function (data) {
+              if(data.state){                            
+              page=Math.ceil(data.paging/dataperpage);
+              }else {
+                page=0;
+              }
+              if(data.paging<dataperpage) {
+                dataperpage=data.paging;
+              }
+              //console.log(dataperpage);
+              for(var i=0;i<data.list.length;i++) {
+              v5+=`<tbody><tr><td>`+data.list[i].구분+`</td><td>`+
+              data.list[i].부서+`</td><td>`+data.list[i].발생일자+`</td><td>`+
+              data.list[i].금액+"</td><td>"+data.list[i].항목+"</td><td>"+data.list[i].대상;
+              }
+              v5+=`</table>`;
+              
+              var page1="<div class=\"page\"><ul><li class=\"leftpage\"><a href=\"#c1\"><</a></li>"
+              //console.log(curPage);
+              // if((parseInt(curPage)+4)%5 != 0 ) {
+              //   curPage=curPage-(parseInt(curPage)+4)%5;
+              // }else {
+              // }
+              for(var i = 0; i < page; i++){
+                page1+="<li class=\"pageno\"><a href=\"#c1\">["+i+"]</a></li>";
+              }
+              page1+="<li class=\"rightpage\"><a href=\"#c1\">></a></li></ul></div>"
+              v5+=page1;
+              //
+              $("#c1").html(v5);
+              });
         }
 
         $("#c1").on("click","#moneydatesearch",function(){
@@ -421,7 +435,7 @@
 
           //삭제
         $("#c1").on("click","td",(function(e){
-          console.log("삭제");
+ //         console.log("삭제");
 /*           var v5;
            list=JSON.parse(localStorage.getItem("list"));
            var c1=$("#c1").html();
@@ -436,7 +450,7 @@
 */
           //console.log($("td").index(this));
 
-          if(($("td").index(this))%9 == 8) {
+   /*       if(($("td").index(this))%9 == 8) {
           var index =($("td").index(this));
           var val=$("td").eq(index-8).text();
           $.ajax({
@@ -465,7 +479,7 @@
             }).fail(function(html,d2,d3){
               console.log(html,d2,d3);
             });
-            }
+            }*/
              }));
 
          $("form").submit(function(){
@@ -486,7 +500,7 @@
           $("#menu").show();
 
       //메뉴1 팝업 및 수정
-      var colnm=7;
+      var colnm=6;
       var idx;
       var idx2;
       var key;var b1=0;
@@ -498,7 +512,7 @@
           var c1= "<ul><li>구분:<input name=\"no\" type=\"radio\" value=\"입금\" placeholder=\"구분\" style=\"\">입금"+
                   "<input name=\"no\" type=\"radio\" value=\"출금\" placeholder=\"구분\" style=\"\">출금</li>"+
                   "<li>발생기간: <input name=\"time\" type=\"date\" placeholder=\"구분\" style=\"width:40%; height:20px\"></li></ul>"+
-                  "<ul><li>금액&nbsp;&nbsp;&nbsp;: <input name=\"money\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
+                  "<ul><li>부서: <input name=\"divison\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
                   "<li>종목: <input name=\"content\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
                   "<ul><li>거래처: <input name=\"target\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
                   "<li>실적: <input name=\"result\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
@@ -508,7 +522,7 @@
 
         if((9 <= idx2 && idx2 < idx+(colnm-2)) || b1 == 1 ) {
           b1=0;
-      $.ajax({
+/*      $.ajax({
           type:"get",
           url:"../dbTest",
           dataType:"JSON"
@@ -538,7 +552,7 @@
       }).fail(function(html){
         console.log(html);
       });
-
+*/
 
       $(".popup2").empty().append(c1);
 
