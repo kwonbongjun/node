@@ -34,20 +34,31 @@
         var curData=0;
         var obj2={};
         var index=0;
+        var ab_index=0;
         var d1;
         var searchflag=0;
         var searchparam;
+        var sn;//검색 넘버
+        var a_budget;
+        var whichpage;//페이지종류(검색,기본);
+        var dataperpage=5;
+        var page=0;
+        var pagingIndex=0;
         //데이터 가져오기
         $("#c1").on("click",".pageno",function(){
-             index = $(".pageno").index(this);
-             getdata();
+             if(whichpage==1) {
+              ab_index = $(".pageno").index(this);
+                searchdate(sn);
+             }else{
+              index= $(".pageno").index(this);
+               getdata();
+               
+             }
         });
         function getdata() {
           var v5=value;
-          var dataperpage=5;
-          var page=0;
-          var pagingIndex=0;
-
+          
+          whichpage=0;
 
           pagingIndex=index*dataperpage;
 
@@ -84,7 +95,7 @@
           // }else {
           // }
           for(var i = 0; i < page; i++){
-            page1+="<li class=\"pageno\"><a href=\"#c1\">["+i+"]</a></li>";
+            page1+="<li class=\"pageno\"><a href=\"#c1\">["+(i+1)+"]</a></li>";
           }
           page1+="<li class=\"rightpage\"><a href=\"#c1\">></a></li></ul></div>"
           v5+=page1;
@@ -92,7 +103,7 @@
           $("#c1").html(v5);
           //console.log("1");
           });
-
+          getaddbudget();
         }
         function getaddbudget() {
           var v5=value2;
@@ -101,8 +112,7 @@
           var pagingIndex=0;
 
 
-          pagingIndex=index*dataperpage;
-
+          pagingIndex=ab_index*dataperpage;
            var param = {
                // 'budgets_id' : budgets_id,
                // 'date' : date,
@@ -111,9 +121,9 @@
                "index": pagingIndex
            }
           fNet("/m3/selectaddbudget", "POST", param, function (data) {
-            d1=data;
+            a_budget=data;
 
-                        console.log(data);
+          //console.log(a_budget);
           if(data.state){
             page=Math.ceil(data.paging/dataperpage);
           }else {
@@ -211,21 +221,21 @@
                 getdata();
            });
         }
-        function searchdate() {
+        function searchdate(sn) {
           var v5=value;
           var dataperpage=5;
           var page=0;
           var pagingIndex=0;
 
-
           pagingIndex=index*dataperpage;
 
            var param = {
+             sn : sn,
                  sdate:$("#sdate").val().replace("\"",""),
                  edate:$("#edate").val().replace("\"",""),
                "index": pagingIndex
            }
-           console.log(param.sdate);
+           console.log(param.sn);
           fNet("/m3/searchdate", "POST", param, function (data) {
             d1=data;
           if(data.state){
@@ -304,6 +314,7 @@
              }
              if($("li").index(this)==0) {
                 getdata();
+                getaddbudget();
              }
              if($("li").index(this)==2) {
                 getaddbudget();
@@ -321,7 +332,7 @@
       });
 
 
-      var colnm=6;
+    var colnm=6;
    var idx;
    var idx2;
    var key;var b1=0;
@@ -332,17 +343,19 @@
    $("#c1 ").on("click",".btn",(function(e){
       console.log("1");
       //c1+=
+      b1=1;
   }));
   //function pop(data){
      $("#c1 ").on("click","table tr",(function(e){
       idx3=$("tr").index(this)-1;
        idx=($("tr").index(this))*colnm;
-       var c1= "<form method=`post`><p>예산내역</p>"+
+       var c1= "<form method=`post` action=`index2.html#c1`><p>예산내역</p>"+
                "<ul><li>번호: <input id=`budgets_id` name=\"money\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
                "<li>발생일자: <input id=`date` name=\"time\" type=\"date\" placeholder=\"구분\" style=\"width:40%; height:20px\"></li></ul>"+
                "<ul><li>부서: <input id=`division` name=\"money\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
                "<li>금액: <input id=`money` name=\"money\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
                "<p>추가예산내역</p>"+
+               "<ul><li>추가예산번호: <input id=`add_budgets_id` name=\"money\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
                "<ul><li>예산관리번호: <input id=`a_budgets_id` name=\"target\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
                "<li>추가금액: <input id=`a_money` name=\"result\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li></ul>"+
                "<ul><li>상세내용: <input id=`contents` name=\"target\" type=\"text\" placeholder=\"구분\" style=\"width:50%; height:20px\"></li>"+
@@ -351,25 +364,43 @@
        if(b1==1) {c1+="<ul class=\"i2\"><input  id=\"store\" type=\"submit\"  style=\"width: 60px; height:30px\" >";};
            c1+="<input name=\"취소\" id=\"cancel\" type=\"button\" value=\"취소\" style=\"width: 60px; height : 30px;text-align:center;\" ><ul></form>";
      //console.log(idx2,idx);
+
      if((1 <= idx2 && idx2 < idx-1) || b1 == 1 ) {
+      
        b1=0;
        data1=d1;
-       //console.log(data1.list[idx3].budgets_id);
+       console.log(a_budget);
         //console.log(contents3);
+      $(".popup2").empty().append(c1);
        $(".popup input").eq(0).val(data1.list[idx3].budgets_id);
        $(".popup input").eq(1).val(data1.list[idx3]["date"]);
        $(".popup input").eq(2).val(data1.list[idx3]["division"]);
        $(".popup input").eq(3).val(data1.list[idx3].money);
 
-
+       console.log(a_budget.list.length);
+       if(idx3<a_budget.list.length ) {
+         if(a_budget.list[idx3].budgets_id==data1.list[idx3].budgets_id) {
+       $(".popup input").eq(4).val(a_budget.list[idx3].add_budgets_id);    
+       $(".popup input").eq(5).val(a_budget.list[idx3].budgets_id);
+       $(".popup input").eq(6).val(a_budget.list[idx3].money);
+       $(".popup input").eq(7).val(a_budget.list[idx3]["contents"]);
+       $(".popup input").eq(8).val(a_budget.list[idx3]["approval_flag"]);
+         }
+       }else {
+        $(".popup input").eq(4).val("");
+       $(".popup input").eq(5).val("");
+       $(".popup input").eq(6).val("");
+       $(".popup input").eq(7).val("");
+       $(".popup input").eq(8).val("");
+       }
+       //console.log($(".popup input"));
        //console.log(data1.list[idx3]["date"]);
+       popup();
      }
-   $(".popup2").append(c1);
+   
  //    var data1=JSON.parse(localStorage.getItem("list"));
 
    //console.log(data1[$("tr").index(this)-1]["time"]);
-   popup();
-
    }));
 
   //}
@@ -424,13 +455,15 @@
     $(".popup").on("submit","form",function(event) {
           tt=1;
           event.preventDefault();
-          // parambudget = {"budgets_id" : $(".popup input").eq(0).val(), "date" : $(".popup input").eq(1).val(), "division" : $(".popup input").eq(2).val(),
-          //    "money" : $(".popup input").eq(3).val() };
-          // fNet("/m3/update", "POST", parambudget, fSet);
+           parambudget = {"budgets_id" : $(".popup input").eq(0).val(), "date" : $(".popup input").eq(1).val(), "division" : $(".popup input").eq(2).val(),
+              "money" : $(".popup input").eq(3).val() };
+           fNet("/m3/update", "POST", parambudget, fSet);
           //console.log(parambudget);
-          paramaddbudget = {"budgets_id" : $(".popup input").eq(4).val(), "money" : $(".popup input").eq(5).val(),
-          "contents" : $(".popup input").eq(6).val(), "flag" : $(".popup input").eq(7).val() };
-          fNet("/m3/insertaddbudget", "POST", paramaddbudget, fSet);
+          
+          paramaddbudget = {"add_budgets_id":  $(".popup input").eq(4).val(), "budgets_id" : $(".popup input").eq(5).val(), "money" : $(".popup input").eq(6).val(),
+          "contents" : $(".popup input").eq(7).val(), "flag" : $(".popup input").eq(8).val() };
+          setTimeout(fNet("/m3/insertaddbudget", "POST", paramaddbudget, fSet),1000);
+          $(".popup").css("display","none");
       });
 
 
@@ -467,7 +500,17 @@
        }
        curData=(curPage-1)*2;
        //getdata;
-       printPage();
+        if(parseInt(page)-5 >0) {
+
+          if(whichpage==1) {
+              ab_index -=5;
+                searchdate(sn);
+             }else{
+              index -= 5;
+               getdata();
+             }
+        }        
+       //printPage();
      });
      $("#c1").on("click",".page .rightpage",function() {
        //curPage=$(".page li").index(this);
@@ -480,10 +523,11 @@
 
      //날짜검색
      $("#c1").on("click","#moneydatesearch",function(){
-
+       var sn=3;
        var sdate;
        var edate;
-       searchdate();
+       searchdate(sn);
+       whichpage=1;
         console.log("검색");
 
      });
@@ -505,7 +549,7 @@
     <ul id="menu">
       <li><a href="#c1">예산조회</a></li>
       <li><a href="#c2">예산입력</a></li>
-      <li><a href="#c3">추가예산조회</a></li>
+      <!--<li><a href="#c3">추가예산조회</a></li>-->
     </ul>
   </nav>
   <section id="c0">

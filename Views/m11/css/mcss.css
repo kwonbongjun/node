@@ -1,0 +1,83 @@
+@media screen and (max-width: 800px){
+  .sl_ar .m_c, .sl_ar .y_c, .data_all{
+    width: 30%;
+    text-align: right;
+    float: right;
+    margin-left: 20px;
+    display: inline-block;
+  }
+  .sl_ar .m_c select{
+      height: 60px;
+      width: 50%;
+      float: left;
+  }
+  .sl_ar .tm_bt{
+    width: 100%;
+  }
+  .sl_ar .y_c select{
+      height: 60px;
+      width: 100%;
+      float: left;
+  }
+  .sl_ar .tm_bt{
+    width: 100%;
+  }
+  .data_all{
+    padding-top: 30px;
+  }
+  table td{
+    height: 50px;
+  }
+
+}
+@media screen and (max-width: 576px){
+  nav{
+    display: inline-block;
+    height: 60px;
+    position: inherit;
+  }
+  nav .pc_bt{
+    display: none;
+  }
+  header{
+    height: 150px;
+  }
+  header div{
+    padding-top: 50px;
+  }
+  header, section, footer, nav, body, .Box2{
+    padding: 0;
+    margin: 0;
+    width: 100% !important;
+  }
+  table{
+    font-size: 11px;
+  }
+  .sl_ar{
+    margin: 0;
+    padding: 0;
+    width: 100%
+    display: inline-block;
+  }
+  .sl_ar .y_c, .sl_ar .m_c, .sl_ar .data_all{
+    width: 27%;
+    float: right;
+  }
+  .sl_ar button, .sl_ar select{
+    height: 30px !important;
+    font-size: 12px;
+  }
+  .data_all{
+    padding-top: 15px;
+  }
+  #md{
+    width: 70%;
+  }
+  .bt_li{
+    text-align: right;
+    padding-top: 5px;
+  }
+  .bt_li p{
+    display: block;
+  }
+}

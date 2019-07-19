@@ -1,0 +1,305 @@
+.blind {
+		display: none;
+}
+
+.flex_container {
+		display: flex;
+		background-color: rgb(195, 193, 178);
+}
+
+.flex-item {
+		flex: none;
+}
+
+.flex-item-gnb {
+		margin-left: auto;
+}
+
+.fe {
+		flex: 1;
+}
+
+.footer-flex {
+		display: flex;
+		flex-direction: column;
+}
+
+.footer-item {
+		margin-top: auto;
+}
+
+.input-flex {
+		display: flex;
+		align-items: center;
+		height: 50px;
+
+}
+
+.input-flex>input{
+		height: 70%;
+		margin-left: 30px;
+		border:2px solid rgb(38, 82, 195);
+}
+
+.flex-ss{
+		display: block;
+		flex: 1;
+		text-align: center;
+		text-weight:bold;
+		font-size: 1.5em;
+		border:2px solid #00FF00;
+		background: white;
+		/* margin-right: 6px; */
+}
+
+.input-flex>input,
+.input-flex>.div-flex {
+		flex: 6;
+		margin-right: 20px;
+}
+
+.div-flex {
+		display: flex;
+		justify-content:space-around;
+}
+
+.div-flex>span {
+		flex: 1 0 0;
+		min-width: 10px;
+		border: 1px solid black;
+		box-sizing: border-box;
+}
+.div-flex>label {
+		flex: 0 0 auto;
+		/* flex-basis: 30px; */
+		padding: 8px 16px;
+		/* margin: 16px 16px; */
+		background-color: #74b9ff;
+		font-size: 1.3em;
+		font-weight: bold;
+		color: white;
+		/* margin: 0.5em auto; */
+		/* padding: 2em 6em; */
+}
+.div-flex>label:hover{
+		cursor: pointer;
+}
+
+/* 0703 */
+
+.flex-container_them1{
+	background-color: rgb(255, 233, 179);
+	padding:20px 10px;
+	border: 2px solid black;
+	box-sizing: border-box;
+	min-height: 30vh;
+}
+
+.flex-solo{
+	flex: 0 0 auto;
+	display: flex;
+  align-items: center;
+  width: 50px;
+  height: 40px;
+  font-weight: bold;
+}
+.flex-height{
+	height: 400px;
+}
+.flex-textarea{
+	flex:1;
+	height: 400px;
+	font-size: 1.5em;
+}
+.flex-temp1{
+	justify-content: flex-end;
+}
+.flex-right{
+	flex:0 0 auto;
+	margin: 0 10px;
+}
+.flex-row{
+	display: flex;
+	justify-content: space-around;
+}
+
+.flex-row>img{
+	padding:4% 6%;
+	max-width: 200px;
+	min-width:100px;
+}
+
+.flex-box{
+	margin: 30px 0px;
+	height: 200px;
+	background-color:rgb(126, 191, 251);
+}
+/* 나중에 여기 건드리기 backgr - border -  */
+.flex-boxs{
+		display: flex;
+		flex:0 0 auto;
+		/* text-align: center; */
+		text-weight:bold;
+		font-size: 1.5em;
+		border:1px solid #00FF00;
+		background: white;
+		/* margin-right: 6px; */
+}
+
+.center-box{
+	/* flex:1; */
+	font-family:sans-serif!important;
+	font-size: 3.5em;
+	margin: auto;
+	padding:10px 30px;
+	border-radius: 90px;
+}
+.center2-box{
+	flex:1;
+	font-size: 2em;
+	align-items: center;				/*나중에 여기 꼭 보기*/
+}
+.center3-box{
+	flex:1;
+	font-size: 1em;
+	margin:auto 0px;
+}
+.center4-box{
+	/* display: block; */				/*이거 넣으면 중앙정렬이 안됨*/
+	flex:3;
+	align-items: center;				/*나중에 여기 꼭 보기*/
+}
+
+.flex-container2{
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+.flex_item_list {
+  flex-basis: 33.3%;
+  display: flex;
+  flex-direction: column;
+}
+
+.flex_item_image {
+  flex: auto;
+}
+
+
+/* 오늘 끝 */
+
+/* 0704시작 */
+.flex-box2{
+	margin: 10px 0px;
+	height: 150px;
+	background-color:rgb(126, 191, 251);
+	flex:1;
+	align-items: center;
+}
+
+/* 끝 */
+
+.containerH{
+	height: 500px;
+	margin: 0 auto;
+
+}
+
+.rowH{
+	display: flex;
+	/* flex-direction:column;
+	flex-wrap: wrap;
+ justify-content: space-around;
+ align-content: space-around; */
+/* justify-content:space-between; */
+}
+
+.rowH2{
+	flex:0 1 auto;
+	background-color:rgb(118, 148, 133);
+	height: 100px;
+}
+.rowH3{
+	flex:1;
+	display: flex;
+	background-color: rgb(221, 70, 46);
+}
+.rowH4{
+	display: flex;
+	align-items: center;
+}
+.rowH5{
+	/* flex:1; */
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.rowH6{
+	/* text-align: center; */
+	/* margin:auto; */
+}
+.rowH7{
+	justify-content: center;
+}
+.f1{
+	flex:1;
+}
+.f2{
+	flex:2;
+}
+.f3{
+	flex:3;
+}
+.f4{
+	flex:4;
+}
+.f5{
+	flex:5;
+}
+.row_wrap {
+    width: 450px;
+    margin: 0 auto;
+}
+
+.txtfield.big{
+	height: 150px;
+}
+.title_content.big{
+	height: 150px;
+}
+.title_content{
+    display: flex;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    font-weight: bold;
+}
+.txtfield{
+		flex: 1;
+    background-color: white;
+    width: 300px;
+    height: 38px;
+    font-size: 13px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.border1{
+	flex: 1;
+	border:1px solid black;
+	box-sizing: border-box;
+	margin-left:20px;
+	padding-top: 10px;
+	height: 40px;
+	text-align: center;
+}
+
+.border2{
+	flex: 8;
+	border:1px solid black;
+	box-sizing: border-box;
+	margin-left:20px;
+	padding-top: 10px;
+	height: 40px;
+}

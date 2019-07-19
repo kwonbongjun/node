@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
+  <link rel="stylesheet" href="./css/commons.css">
+  <link rel="stylesheet" media="only screen and (max-width: 768px)" href="./css/main_768.css">
+	<link rel="stylesheet" media="only screen and (max-width: 576px)" href="./css/main_576.css">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="./js/Main.js"></script>
+  <script src='../js/commons.js'></script>  
+</head>
+<body>
+  <header>
+    <h1 style="color: white;">LOGO</h1>
+  </header>
+  <div class="main_container">
+    <div class="nav_container">
+      <nav>
+        <span id="nav_id">BOM</span>
+        <ul>
+          <li><a href="./"> 조회 </a></li>
+          <li><a href="./bomadd"> 등록 </a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="section_container">
+      <div class="text_container">
+        <h2>Main</h2>
+      </div>
+      <div class="check_container">
+        <div class="select_container">
+          <div class="inner">
+            <p style="text-align: center; margin : 0; padding: 0;">대분류 :</p>
+            <select id="main_cate" name="main_cate">
+            </select>
+          </div>
+          <div class="inner">
+            <p style="text-align: center; margin : 0; padding: 0;">중분류 :</p>
+            <select id="mid_cate" name="mid_cate">
+            </select>
+          </div>
+          <div class="inner">
+            <p style="text-align: center; margin : 0; padding: 0;">소분류 :</p>
+            <select id="small_cate" name="small_cate">
+            </select>
+          </div>
+        </div>
+      </div>
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+        <span id="modal_title">index</span><span name="detail_index" id="modal_data"></span>
+        <span id="modal_title">품명</span><span name="detail_catename" id="modal_data"></span>
+        <span id="modal_title">품목코드</span><span name="detail_catecode" id="modal_data"></span>
+        <span id="modal_title">소요수량</span><span name="detail_reqstock" id="modal_data"></span>
+        <span id="modal_title">금액</span><span name="detail_availstock" id="modal_data"></span>
+        <span id="modal_title">규격</span><span name="detail_spec" id="modal_data"></span>
+        <span id="modal_title">단위</span><span name="detail_unit" id="modal_data"></span>
+        <span style="width: 100%; border: 0;">
+          <button class="update">수정</button>
+          <button class="delete">삭제</button>
+          <button class="close">닫기</button>
+        </span>
+        </div>
+      </div>
+      <table id="data_table" style="width: 80%; margin-left:10%;">
+
+      </table>
+    </div>
+  </div>
+</body>
+</html>

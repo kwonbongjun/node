@@ -1,0 +1,26 @@
+2019-07-19 16:42:44.715 +0900 - info:  message=(conn=3283, no: 1064, SQLState: 42000) You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-25, 5' at line 1
+sql: select budgets_id,DATE_FORMAT(date,'%Y-%m-%d') as date ,division,money from a_budgets order by budgets_id desc LIMIT ?, 5 - parameters:[-25], stack=Error: (conn=3283, no: 1064, SQLState: 42000) You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-25, 5' at line 1
+sql: select budgets_id,DATE_FORMAT(date,'%Y-%m-%d') as date ,division,money from a_budgets order by budgets_id desc LIMIT ?, 5 - parameters:[-25]
+    at Object.module.exports.createError (D:\node\node_modules\mariadb\lib\misc\errors.js:55:10)
+    at PacketNodeEncoded.readError (D:\node\node_modules\mariadb\lib\io\packet.js:510:19)
+    at Query.readResponsePacket (D:\node\node_modules\mariadb\lib\cmd\resultset.js:46:28)
+    at PacketInputStream.receivePacket (D:\node\node_modules\mariadb\lib\io\packet-input-stream.js:84:9)
+    at PacketInputStream.onData (D:\node\node_modules\mariadb\lib\io\packet-input-stream.js:140:20)
+    at Socket.emit (events.js:198:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17), fatal=false, errno=1064, sqlState=42000, code=ER_PARSE_ERROR
+2019-07-19 16:43:00.358 +0900 - info:  message=(conn=3283, no: 1064, SQLState: 42000) You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-25, 5' at line 1
+sql: select budgets_id,DATE_FORMAT(date,'%Y-%m-%d') as date ,division,money from a_budgets order by budgets_id desc LIMIT ?, 5 - parameters:[-25], stack=Error: (conn=3283, no: 1064, SQLState: 42000) You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-25, 5' at line 1
+sql: select budgets_id,DATE_FORMAT(date,'%Y-%m-%d') as date ,division,money from a_budgets order by budgets_id desc LIMIT ?, 5 - parameters:[-25]
+    at Object.module.exports.createError (D:\node\node_modules\mariadb\lib\misc\errors.js:55:10)
+    at PacketNodeEncoded.readError (D:\node\node_modules\mariadb\lib\io\packet.js:510:19)
+    at Query.readResponsePacket (D:\node\node_modules\mariadb\lib\cmd\resultset.js:46:28)
+    at PacketInputStream.receivePacket (D:\node\node_modules\mariadb\lib\io\packet-input-stream.js:84:9)
+    at PacketInputStream.onData (D:\node\node_modules\mariadb\lib\io\packet-input-stream.js:140:20)
+    at Socket.emit (events.js:198:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17), fatal=false, errno=1064, sqlState=42000, code=ER_PARSE_ERROR

@@ -1,0 +1,196 @@
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+           -webkit-appearance: none;
+           -webkit-border-radius: 0;
+        }
+
+        .bar {
+            width: 100%;
+            height: 50px;
+            border-bottom: 2px solid grey;
+        }
+
+        .logo {
+            font-size: 30px;
+            text-align: center;
+            width: 60px;
+            margin: 40px 0px 10px 120px
+
+        }
+
+        .login {
+            float: right;
+            padding: 10px 20px;
+            margin-right: 100px;
+            background-color: dodgerblue;
+            cursor: pointer;
+            border: none;
+            color: white;
+            border-radius: 8px;
+
+        }
+
+        .subject {
+                    margin: 70px 0px 10px 3%;
+                    padding: 0px 40px;
+                    float: left;
+                    font-size: 32px;
+
+                }
+
+
+        .search {
+                    margin: 75px 0px 5px 0px;
+                    width: 30%;
+                    height: 40px;
+                    float: right;
+                    font-size: 15px;
+                    border-radius: 10px;
+        }
+
+        .schbutton {
+                    content: url(../img/search.png);
+                    margin: 75px 5% 5px 0px;
+        /*            padding: 0px 20px;*/
+                    cursor: pointer;
+                    height: 40px;
+                    float: right;
+                    font-size: 15px;
+
+                    border: none;
+
+        }
+
+        .inneredge {
+            position: inherit;
+            border: 2px solid grey;
+            display: block;
+/*            height: 500px;*/
+            margin: 0px 20px 60px 20px;
+            padding: 70px 0px 80px 0px;
+            clear: both;
+            overflow-x: auto;
+            overflow-y: auto;
+            text-align: center;
+
+        }
+
+.button2 {
+            height: 50px;
+            width: 200px;
+            font-size: 20px;
+            color: white;
+            border-radius: 8px;
+            background-color: dodgerblue;
+            cursor: pointer;
+            border: none;
+            margin: 10px;
+            display: none;
+}
+
+        .button {
+
+            height: 50px;
+            width: 200px;
+            font-size: 20px;
+            color: white;
+            border-radius: 8px;
+            background-color: dodgerblue;
+            cursor: pointer;
+            border: none;
+            margin-top: 40px;
+
+        }
+
+        #molelist {
+            border-collapse: collapse;
+              width: 90%;
+            margin: auto;
+        }
+
+        #molelist th {
+            background-color:#668fa0;
+            color: white;
+        }
+
+        #molelist td, #molelist th {
+            border: 1px solid white;
+            padding: 8px;
+        }
+
+        #molelist tr:nth-child(even){background-color: #f5f9ff;}
+
+        #molelist tr:hover {background-color: #c3e2fd;}
+
+
+@media screen and (max-width: 900px) {
+    .subject {
+        margin: 0px 0px 0px 3%;
+    }
+
+    .inneredge {
+        padding: 0;
+        height: 450px;
+    }
+    .search {
+        margin: 0px 0px 5px 0px;
+    }
+    .schbutton {
+        margin: 0px 5% 5px 0px;
+    }
+}
+
+        @media screen and (max-width: 600px) {
+                    .logo {
+                        display: none;
+                    }
+                    .inneredge {
+                        height: 420px;
+                        padding: 0;
+                        margin: 0;
+                        border-bottom-color: white;
+                        border-left-color: white;
+                        border-right-color: white;
+
+                    }
+                    .login {
+                        display: none;
+                    }
+
+                    .bar {
+                        border-bottom: none;
+                    }
+
+
+                    .subject {
+                        margin: 0px 0px 10px 0px;
+                        padding: 0px 0px 0px 0px;
+
+                    }
+
+                    .schbutton {
+                        margin: 5px 3% 5px 0px;
+                        width: 35px;
+                        height: 35px;
+                    }
+
+                    .search {
+                        margin: 5px 0px 5px 0px;
+                        width: 120px;
+                    }
+
+            .button {
+                display: none;
+            }
+
+            .button2 {
+                display: inline-block;
+            }
+/*            $('.inneredge .button').insertAfter('.inneredge #molelist:first');*/
+
+}

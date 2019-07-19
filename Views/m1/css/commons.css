@@ -1,0 +1,142 @@
+html, body, h1, h2{
+  padding: 0;
+  margin: 0;
+}
+a:link { color: red; text-decoration: none;}
+a:visited { color: black; text-decoration: none;}
+a:hover { color: black; text-decoration: underline;}
+h1, h2{ }
+h1{ font-size: 3rem;}
+h2{ font-size: 2rem;}
+div{
+  box-sizing: border-box;
+}
+header{
+  height: 10vh;
+  background-color: #818181;
+}
+.main_container {
+  width: 100%;
+  height: 90vh;
+  background-color: #616161;
+  padding: 0px;
+  margin: 0px;
+}
+.main_container .nav_container{
+  float: left;
+  width: 15%;
+  height: 100%;
+  background-color: #717171;
+}
+.main_container .section_container {
+  float: left;
+  width: 85%;
+  height: 100%;
+  background-color:  #ebebe0;
+}
+.main_container .section_container .text_container{
+  width: 80%;
+  height: 5%;
+  margin: 2% 10%;
+  box-sizing: border-box;
+}
+.main_container .section_container .check_container{
+  width: 90%;
+  min-height: 75px;
+  margin: 2% 5%;
+}
+.main_container .section_container .check_container .select_container{
+  width: 80%;
+  margin: 0px 10%;
+  height: 80%;
+}
+.main_container .section_container .check_container .btn_container{
+  width: 100%;
+  height: 20%;
+}
+.btn_container button{
+  float: right;
+  margin-right: 10%;
+  width: 100px;
+  height: 30px;
+
+}
+.main_container .section_container .table_container{
+  width: 100%;
+  height: 70%;
+
+}
+
+#data_table{
+  border: 1px solid black;
+  width: 80%;
+  margin: 0px 10%;
+  text-align: center;
+}
+.select_container .inner{
+  float: left;
+  width: 33.3%;
+  height: 100%;
+  padding: 1%;
+  box-sizing: border-box;
+}
+.select_container .inner select{
+  height: 30px;
+}
+.select_container #main_cate, #mid_cate, #small_cate{
+  width: 100%;
+}
+
+/*-- popup layer --*/
+.main_container .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 20%; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+/* Modal Content */
+.main_container .modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  height: 70%;
+  position: absolute;
+  top: 15%;
+  left: 10%
+}
+
+.modal-content span{
+  display: block;
+  float: left;
+  box-sizing: border-box;
+  text-align: center;
+  border : 1px solid black;
+  height: 50px;
+  padding-top: 15px;
+}
+.btndiv{
+  width: 50%;
+  float: left;
+  text-align: center;
+}
+.btndiv button{
+  width: 100px;
+  margin: 3%;
+}
+#modal_title{
+  width: 30%;
+  font-weight: bold;
+  background-color: #fffdde;
+}
+#modal_data{
+  width: 70%;
+}

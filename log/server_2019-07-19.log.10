@@ -1,0 +1,126 @@
+2019-07-19 11:40:36.700 +0900 - info:  state=true, list=[구분=1, 부서=영업, 발생일자=2019-07-18 18:02:21, 금액=200000, 대상=김범해, 항목=55, 구분=13, 부서=영업, 발생일자=2019-07-18 17:52:14, 금액=1000000, 대상=진현욱, 항목=11, 구분=2, 부서=영업, 발생일자=2019-07-18 17:48:55, 금액=1000000, 대상=노형래, 항목=2, 구분=1, 부서=영업, 발생일자=2019-07-18 17:48:46, 금액=100000, 대상=노형래, 항목=12, 구분=7, 부서=영업, 발생일자=2019-07-18 17:47:18, 금액=40000, 대상=임상혁, 항목=3], paging=12, text=
+2019-07-19 11:40:45.953 +0900 - info:  state=true, list=[구분=1, 부서=영업, 발생일자=2019-07-18 18:02:21, 금액=200000, 대상=김범해, 항목=55, 구분=13, 부서=영업, 발생일자=2019-07-18 17:52:14, 금액=1000000, 대상=진현욱, 항목=11, 구분=2, 부서=영업, 발생일자=2019-07-18 17:48:55, 금액=1000000, 대상=노형래, 항목=2, 구분=1, 부서=영업, 발생일자=2019-07-18 17:48:46, 금액=100000, 대상=노형래, 항목=12, 구분=7, 부서=영업, 발생일자=2019-07-18 17:47:18, 금액=40000, 대상=임상혁, 항목=3], paging=12, text=
+2019-07-19 11:40:45.958 +0900 - info:  state=true, list=[], paging=0, text=
+2019-07-19 11:52:24.525 +0900 - info: URL 모듈 시작
+2019-07-19 11:52:24.533 +0900 - info: path:/m0	page:7
+2019-07-19 11:52:24.534 +0900 - info:  
+2019-07-19 11:52:24.534 +0900 - info: path:/m1	page:0
+2019-07-19 11:52:24.535 +0900 - info:  
+2019-07-19 11:52:24.535 +0900 - info: path:/m2	page:0
+2019-07-19 11:52:24.535 +0900 - info:  
+2019-07-19 11:52:24.536 +0900 - info: path:/m3	page:12
+2019-07-19 11:52:24.537 +0900 - info:  
+2019-07-19 11:52:24.537 +0900 - info: path:/m4	page:0
+2019-07-19 11:52:24.537 +0900 - info:  
+2019-07-19 11:52:24.538 +0900 - info: path:/m5	page:0
+2019-07-19 11:52:24.538 +0900 - info:  
+2019-07-19 11:52:24.539 +0900 - info: path:/m6	page:2
+2019-07-19 11:52:24.539 +0900 - info:  
+2019-07-19 11:52:24.540 +0900 - info: path:/m7	page:0
+2019-07-19 11:52:24.540 +0900 - info:  
+2019-07-19 11:52:24.542 +0900 - info: path:/m8	page:0
+2019-07-19 11:52:24.542 +0900 - info:  
+2019-07-19 11:52:24.542 +0900 - info: path:/m9	page:0
+2019-07-19 11:52:24.543 +0900 - info:  
+2019-07-19 11:52:24.543 +0900 - info: path:/m10	page:0
+2019-07-19 11:52:24.543 +0900 - info:  
+2019-07-19 11:52:24.544 +0900 - info: path:/m11	page:0
+2019-07-19 11:52:24.544 +0900 - info:  
+2019-07-19 11:52:24.545 +0900 - info: path:/m12	page:0
+2019-07-19 11:52:24.545 +0900 - info:  
+2019-07-19 11:52:24.545 +0900 - info: path:/m13	page:0
+2019-07-19 11:52:24.546 +0900 - info:  
+2019-07-19 11:52:24.546 +0900 - info: path:/m14	page:0
+2019-07-19 11:52:24.546 +0900 - info:  
+2019-07-19 11:52:24.547 +0900 - info: path:/m15	page:0
+2019-07-19 11:52:24.547 +0900 - info:  
+2019-07-19 11:52:24.548 +0900 - info: path:/m16	page:0
+2019-07-19 11:52:24.548 +0900 - info:  
+2019-07-19 11:52:24.548 +0900 - info: path:/m17	page:0
+2019-07-19 11:52:24.549 +0900 - info:  
+2019-07-19 11:52:24.549 +0900 - info: path:/m18	page:0
+2019-07-19 11:52:24.549 +0900 - info:  
+2019-07-19 11:52:24.550 +0900 - info: path:/m19	page:0
+2019-07-19 11:52:24.550 +0900 - info:  
+2019-07-19 11:52:24.556 +0900 - info: 서버 준비완료!!
+2019-07-19 16:05:40.702 +0900 - info: URL 모듈 시작
+2019-07-19 16:05:40.710 +0900 - info: path:/m0	page:7
+2019-07-19 16:05:40.711 +0900 - info:  
+2019-07-19 16:05:40.711 +0900 - info: path:/m1	page:0
+2019-07-19 16:05:40.711 +0900 - info:  
+2019-07-19 16:05:40.712 +0900 - info: path:/m2	page:0
+2019-07-19 16:05:40.712 +0900 - info:  
+2019-07-19 16:05:40.713 +0900 - info: path:/m3	page:12
+2019-07-19 16:05:40.713 +0900 - info:  
+2019-07-19 16:05:40.714 +0900 - info: path:/m4	page:0
+2019-07-19 16:05:40.714 +0900 - info:  
+2019-07-19 16:05:40.715 +0900 - info: path:/m5	page:0
+2019-07-19 16:05:40.715 +0900 - info:  
+2019-07-19 16:05:40.716 +0900 - info: path:/m6	page:2
+2019-07-19 16:05:40.716 +0900 - info:  
+2019-07-19 16:05:40.717 +0900 - info: path:/m7	page:0
+2019-07-19 16:05:40.717 +0900 - info:  
+2019-07-19 16:05:40.719 +0900 - info: path:/m8	page:0
+2019-07-19 16:05:40.719 +0900 - info:  
+2019-07-19 16:05:40.727 +0900 - info: path:/m9	page:0
+2019-07-19 16:05:40.727 +0900 - info:  
+2019-07-19 16:05:40.727 +0900 - info: path:/m10	page:0
+2019-07-19 16:05:40.727 +0900 - info:  
+2019-07-19 16:05:40.728 +0900 - info: path:/m11	page:0
+2019-07-19 16:05:40.728 +0900 - info:  
+2019-07-19 16:05:40.729 +0900 - info: path:/m12	page:0
+2019-07-19 16:05:40.729 +0900 - info:  
+2019-07-19 16:05:40.730 +0900 - info: path:/m13	page:0
+2019-07-19 16:05:40.730 +0900 - info:  
+2019-07-19 16:05:40.731 +0900 - info: path:/m14	page:0
+2019-07-19 16:05:40.731 +0900 - info:  
+2019-07-19 16:05:40.732 +0900 - info: path:/m15	page:0
+2019-07-19 16:05:40.732 +0900 - info:  
+2019-07-19 16:05:40.733 +0900 - info: path:/m16	page:0
+2019-07-19 16:05:40.733 +0900 - info:  
+2019-07-19 16:05:40.733 +0900 - info: path:/m17	page:0
+2019-07-19 16:05:40.734 +0900 - info:  
+2019-07-19 16:05:40.734 +0900 - info: path:/m18	page:0
+2019-07-19 16:05:40.735 +0900 - info:  
+2019-07-19 16:05:40.735 +0900 - info: path:/m19	page:0
+2019-07-19 16:05:40.736 +0900 - info:  
+2019-07-19 16:05:40.742 +0900 - info: 서버 준비완료!!
+2019-07-19 16:40:21.726 +0900 - info:  message=(conn=3283, no: 1064, SQLState: 42000) You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-25, 5' at line 1
+sql: select budgets_id,DATE_FORMAT(date,'%Y-%m-%d') as date ,division,money from a_budgets order by budgets_id desc LIMIT ?, 5 - parameters:[-25], stack=Error: (conn=3283, no: 1064, SQLState: 42000) You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-25, 5' at line 1
+sql: select budgets_id,DATE_FORMAT(date,'%Y-%m-%d') as date ,division,money from a_budgets order by budgets_id desc LIMIT ?, 5 - parameters:[-25]
+    at Object.module.exports.createError (D:\node\node_modules\mariadb\lib\misc\errors.js:55:10)
+    at PacketNodeEncoded.readError (D:\node\node_modules\mariadb\lib\io\packet.js:510:19)
+    at Query.readResponsePacket (D:\node\node_modules\mariadb\lib\cmd\resultset.js:46:28)
+    at PacketInputStream.receivePacket (D:\node\node_modules\mariadb\lib\io\packet-input-stream.js:84:9)
+    at PacketInputStream.onData (D:\node\node_modules\mariadb\lib\io\packet-input-stream.js:140:20)
+    at Socket.emit (events.js:198:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17), fatal=false, errno=1064, sqlState=42000, code=ER_PARSE_ERROR
+2019-07-19 16:41:21.358 +0900 - info:  message=(conn=3283, no: 1064, SQLState: 42000) You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-25, 5' at line 1
+sql: select budgets_id,DATE_FORMAT(date,'%Y-%m-%d') as date ,division,money from a_budgets order by budgets_id desc LIMIT ?, 5 - parameters:[-25], stack=Error: (conn=3283, no: 1064, SQLState: 42000) You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-25, 5' at line 1
+sql: select budgets_id,DATE_FORMAT(date,'%Y-%m-%d') as date ,division,money from a_budgets order by budgets_id desc LIMIT ?, 5 - parameters:[-25]
+    at Object.module.exports.createError (D:\node\node_modules\mariadb\lib\misc\errors.js:55:10)
+    at PacketNodeEncoded.readError (D:\node\node_modules\mariadb\lib\io\packet.js:510:19)
+    at Query.readResponsePacket (D:\node\node_modules\mariadb\lib\cmd\resultset.js:46:28)
+    at PacketInputStream.receivePacket (D:\node\node_modules\mariadb\lib\io\packet-input-stream.js:84:9)
+    at PacketInputStream.onData (D:\node\node_modules\mariadb\lib\io\packet-input-stream.js:140:20)
+    at Socket.emit (events.js:198:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17), fatal=false, errno=1064, sqlState=42000, code=ER_PARSE_ERROR
+2019-07-19 16:41:38.622 +0900 - info:  message=(conn=3283, no: 1064, SQLState: 42000) You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-25, 5' at line 1
+sql: select budgets_id,DATE_FORMAT(date,'%Y-%m-%d') as date ,division,money from a_budgets order by budgets_id desc LIMIT ?, 5 - parameters:[-25], stack=Error: (conn=3283, no: 1064, SQLState: 42000) You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-25, 5' at line 1
+sql: select budgets_id,DATE_FORMAT(date,'%Y-%m-%d') as date ,division,money from a_budgets order by budgets_id desc LIMIT ?, 5 - parameters:[-25]
+    at Object.module.exports.createError (D:\node\node_modules\mariadb\lib\misc\errors.js:55:10)
+    at PacketNodeEncoded.readError (D:\node\node_modules\mariadb\lib\io\packet.js:510:19)
+    at Query.readResponsePacket (D:\node\node_modules\mariadb\lib\cmd\resultset.js:46:28)
+    at PacketInputStream.receivePacket (D:\node\node_modules\mariadb\lib\io\packet-input-stream.js:84:9)
+    at PacketInputStream.onData (D:\node\node_modules\mariadb\lib\io\packet-input-stream.js:140:20)
+    at Socket.emit (events.js:198:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17), fatal=false, errno=1064, sqlState=42000, code=ER_PARSE_ERROR

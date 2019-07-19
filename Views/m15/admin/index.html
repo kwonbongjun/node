@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/harin.css">
+	<link rel="stylesheet" href="../css/flex.css">
+	<link rel="stylesheet" href="../css/table.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<style media="screen">
+		.wrapper {
+			max-width: 980px;
+			margin: 0 auto;
+		}
+
+		.input-flex2 {
+			display: flex;
+			justify-content: center;
+			/* align-content: flex-start; */
+			height: 40px;
+		}
+
+		.input-flex2>button {
+			margin: 20px 30px;
+		}
+	</style>
+	<script>
+		$(function() {
+			$('input[name="filterCk"]').change(function() {
+				var value = $(this).val(); // value
+				var checkId = $(this).attr('id');
+				console.log(checkId);
+				var checked = $(this).prop('checked'); // checked 상태 (true, false)
+				var $label = $(this).next();
+				if (checkId == 'filterCheck_1') {
+
+					if (checked) {
+						$('input[name="filterCk"]').each(function() {
+							$(this).prop('checked', true);
+							$(this).next().css('background-color', '#0984e3');
+						})
+					} else {
+						$('input[name="filterCk"]').each(function() {
+							$(this).prop('checked', false);
+							$(this).next().css('background-color', '#74b9ff')
+						})
+					}
+					// checked ?$('.filter-div').prop('checked',true) :  $('.filter-div').prop('checked',false)
+					// checked ?$('label').css('background-color', 'rgb(42, 94, 230)') : $('label').css('background-color', 'rgb(180, 205, 224)')
+				} else {
+					checked ? $label.css('background-color', '#0984e3') : $label.css('background-color', '#74b9ff');
+				}
+			});
+
+			$("tr").click(function() {
+				console.log("1212");
+				console.log($(this)[0]);
+				console.log($(this).children("td").eq(0).text());
+				location.href = `index.html/${$(this).children("td").eq(0).text()}`
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<header class="color2">
+		<ul class="hlist">
+			<li>
+				<a href="index.html">공지사항</a>
+			</li>
+			<li>
+				<a href="faq.html">FAQ</a>
+			</li>
+			<li>
+				<a href="inquiryTable.html">문의하기</a>
+			</li>
+			<li>
+				<a href="deliveryConf.html">배송확인</a>
+			</li>
+			<li>
+				<a href="refundForm.html">반품확인</a>
+			</li>
+			<li>
+				<a href="serviceInfo.html">소개</a>
+			</li>
+		</ul>
+	</header>
+
+	<div class="wrapper">
+		<h2 class="wrapLogo">공지사항</h2>
+		<div class="flex-container2">
+			<!-- search -->
+			<span class="f2"></span>
+			<input type="text" class="f5" placeholder="제목 검색" />
+			<span class="f1"></span>
+			<button class="f1">검색</button>
+		</div>
+		<div class="flex-container2">
+			<table class="f1">
+				<caption></caption>
+				<thead>
+					<tr>
+						<th scope="col">글번호</th>
+						<th scope="col">제품명</th>
+						<th scope="col">내용</th>
+						<th scope="col">작성일시</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td data-label="작성자">3</td>
+						<td data-label="제목"><span style="background-color:rgb(165, 133, 172);padding:2px 2px;">고객지원 뉴스</span><br>굴단</td>
+						<td data-label="내용">♚♚히어로즈 오브 더 스☆톰♚♚가입시$$ 특정조건 즉시이동<a href="noticeDetail.html">http://kr.battle.net/heroes/ko/</a></td>
+
+						<td data-label="작성일시">2019/07/04</td>
+					</tr>
+					<tr>
+						<td data-label="작성자">2</td>
+						<td scope="row" data-label="제목"><span style="background-color:rgb(133, 172, 147);padding:2px 2px;">고객지원 소식</span><br>레이너</td>
+						<td data-label="내용">전원 카드팩☜☜뒷면100%증정※</td>
+						<td data-label="작성일시">2019/07/04</td>
+					</tr>
+					<tr>
+						<td data-label="작성자">1</td>
+						<td scope="row" data-label="제목">마린 피규어</td>
+						<td data-label="내용"> ♜월드오브 워크래프트♜펫 무료증정￥</td>
+
+						<td data-label="작성일시">2019/07/04</td>
+					</tr>
+					<tr>
+						<td data-label="작성자">0</td>
+						<td scope="row" data-label="제목">1234</td>
+						<td data-label="내용">§§디아블로3§§★공허의유산★초상화획득기회@@</td>
+
+						<td data-label="작성일시">2019/07/04</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+	<footer class="footer-flex">
+		<div class="footer-item" style="background-color:black;">1</div>
+	</footer>
+</body>
+
+</html>

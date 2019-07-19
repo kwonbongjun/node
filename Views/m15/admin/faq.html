@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- <link rel="stylesheet" href="css/common.css"> -->
+<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/harin.css">
+	<link rel="stylesheet" href="../css/flex.css">
+	<link rel="stylesheet" href="../css/faq.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<style>
+		.wrapper {
+			max-width: 980px;
+			margin: 0 auto;
+		}
+	</style>
+	<script>
+		var clics = 0;
+
+		$(document).ready(function() {
+
+			$('.respuesta').hide();
+			$('#cerrartodas').hide();
+
+			$('h3').click(function() {
+
+				$(this).next('.respuesta').toggle(function() {
+
+					$(this).next('.respuesta');
+
+				}, function() {
+
+					$(this).next('.respuesta').fadeIn('fast');
+
+				});
+
+				if ($(this).hasClass('cerrar')) {
+					$(this).removeClass('cerrar');
+				} else {
+					$(this).addClass('cerrar');
+				};
+
+				if ($('.cerrar').length >= 3) {
+
+					$('#cerrartodas').fadeIn('fast');
+
+				} else {
+					$('#cerrartodas').hide();
+					var abiertas = $('.cerrar').length;
+					console.log(abiertas);
+				}
+			}); //Close Function Click
+
+			$('#cerrartodas').click(function() {
+				$('.respuesta').fadeOut(200);
+				$('h3').removeClass('cerrar');
+				$('#cerrartodas').fadeOut('fast');
+			});
+		}); //Close Function Ready
+
+
+	</script>
+</head>
+
+<body>
+	<header class="color2">
+		<ul class="hlist">
+			<li>
+				<a href="index.html">공지사항</a>
+			</li>
+			<li>
+				<a href="faq.html">FAQ</a>
+			</li>
+			<li>
+				<a href="inquiryTable.html">문의하기</a>
+			</li>
+			<li>
+				<a href="deliveryConf.html">배송확인</a>
+			</li>
+			<li>
+				<a href="refundForm.html">반품확인</a>
+			</li>
+			<li>
+				<a href="serviceInfo.html">소개</a>
+			</li>
+		</ul>
+	</header>
+
+	<div class="wrapper">
+		<h2 class="wrapLogo">자주 묻는 질문 FaQ</h2>
+		<div id="preguntas">
+			<h3>배송조회를 어디서 할 수 있나요?</h3>
+			<div class="respuesta">
+				<p>1234</p>
+			</div>
+			<h3>배송조회를 해주는 기사님을 알고싶어요</h3>
+			<div class="respuesta">
+				<p>1234</p>
+			</div>
+			<h3>반품을 하려고 할때는 어떻게 하죠?</h3>
+			<div class="respuesta">
+				<p>1234</p>
+			</div>
+			<h3>이 회사는 어떤 회사인가요?</h3>
+			<div class="respuesta">
+				<p>1234</p>
+			</div>
+			<h3>배송확인이 최신화가 안되어있어요</h3>
+			<div class="respuesta">
+				<p>1234</p>
+			</div>
+			<h3>로그인하지 않은 상태에서 배송확인이 가능한가요?</h3>
+			<div class="respuesta">
+				<p>1234</p>
+			</div>
+			<h3>공지에 댓글을 달고 싶어요</h3>
+			<div class="respuesta">
+				<p>1234</p>
+			</div>
+			<h3>반품신청 등등등</h3>
+			<div class="respuesta">
+				<p>1234</p>
+			</div>
+
+			<a href="#" id="cerrartodas">Close all</a>
+		</div>
+	</div>
+
+	<footer class="footer-flex">
+		<div class="footer-item" style="background-color:black;">1</div>
+	</footer>
+</body>
+
+</html>

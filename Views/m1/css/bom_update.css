@@ -1,0 +1,80 @@
+html, body{
+  padding: 0;
+  margin: 0;
+}
+.title_outer_container{
+  width: 90%;
+  height: 70%;
+  padding-left: 10%;
+  display: table;
+}
+
+.title_inner_container{
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  padding: 30px;
+}
+.title_content{
+  display: inline-block;
+  width: 100%;
+  padding-top: 10px;
+}
+.data_container{
+  width: 90%;
+  height: 70%;
+  margin-left: 5%;
+}
+.title_content span{
+  padding-right: 20px;
+}
+
+.cate_title{
+  float: left;
+  width: 20%;
+}
+
+.cate_input{
+  float: left;
+  height: 20px;
+  width: 80%;
+}
+.cate_input input{
+    width: 95%;
+    float: left;
+}
+.cate_input .text{
+  float: left;
+  width: 70%;
+}
+.cate_input select{
+  float: left;
+  margin-left: 10px;
+  width: 20%;
+}
+button{
+  width: 100px;
+}
+
+.contents fieldset .out{
+  height: 50px;
+  padding-top: 15px;
+  border-bottom: 1px solid red;
+}
+.outer_container{
+  width: 90%;
+  height: 100%;
+  min-height: 400px;
+  margin-left: 5%;
+  display: table;
+}
+.inner_container{
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  min-height: 400px;
+}
+.contents{
+  display: inline-block;
+  min-width: 70%;
+}

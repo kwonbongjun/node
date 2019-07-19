@@ -1,0 +1,233 @@
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+           -webkit-appearance: none;
+           -webkit-border-radius: 0;
+        }
+
+
+        .bar {
+            width: 100%;
+            height: 50px;
+            border-bottom: 2px solid grey;
+        }
+
+        .logo {
+            font-size: 30px;
+            text-align: center;
+            width: 60px;
+            margin: 40px 0px 10px 120px
+
+        }
+
+        .login {
+            float: right;
+            padding: 10px 20px;
+            margin-right: 100px;
+            background-color: dodgerblue;
+            cursor: pointer;
+            border: none;
+            color: white;
+            border-radius: 8px;
+
+        }
+
+
+        .fgid {
+            border: 1px solid grey;
+            margin: 70px 0px 0px 3%;
+            padding: 15px 40px;
+            float: left;
+            background-color: grey;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .fgpwd {
+            border: 1px solid dodgerblue;
+            margin: 70px 25px 0px 0px;
+            padding: 15px 40px;
+            background-color: dodgerblue;
+            float: left;
+            border-radius: 8px;
+        }
+
+        a:link, a:visited, a:active {text-decoration: none; color: white;}
+
+/*
+          .edge {
+            position: inherit;
+            border: 1px solid pink;
+            height: 100%;
+            margin: 70px 50px 60px 50px;
+        }
+*/
+
+        .inneredge {
+            position: inherit;
+            border: 2px solid grey;
+            display: block;
+            height: 500px;
+            margin: 0px 20px 20px 20px;
+            padding: 70px 0px 0px 0px;
+        }
+
+        .tag2 {
+            margin: auto;
+            margin-left: 15%;
+            width: 60px;
+            color: white;
+            border-radius: 8px;
+            background-color: #538bc1;
+            cursor: pointer;
+            border: none;
+            display: none;
+        }
+        .tag4 {
+            margin: auto;
+            margin-left: 15%;
+            width: 100px;
+            color: white;
+            border-radius: 8px;
+            background-color: #538bc1;
+            cursor: pointer;
+            border: none;
+            display: none;
+        }
+
+        .input {
+            display: block;
+            background-color: aqua;
+        }
+
+        .findname {
+/*            display: inline-block;*/
+            box-sizing: border-box;
+            margin:40px 0px;
+/*            float: left;*/
+
+        }
+
+
+
+        .center {
+            text-align: center;
+        }
+
+        .inputname {
+            margin-left: 92px;
+            height: 30px;
+            width: 250px;
+            border-radius: 8px;
+        }
+
+        .inputcellp {
+            margin-left: 75px;
+            height: 30px;
+            width: 250px;
+            border-radius: 8px;
+        }
+
+        .ok {
+            float: right;
+            clear: both;
+            margin-top: 90px;
+            margin-right: 360px;
+            position: relative;
+        }
+
+        .button {
+            height: 50px;
+            width: 200px;
+            font-size: 20px;
+            color: white;
+            border-radius: 8px;
+            background-color: dodgerblue;
+            cursor: pointer;
+            border: none;
+/*            padding: 0px 300px !important;*/
+        }
+
+        @media screen and (max-width: 900px) {
+            .fgid {
+                margin: 20px 0px 0px 3%;
+            }
+            .fgpwd {
+                margin: 20px 0px 0px 0px;
+            }
+
+            .inneredge {
+                padding: 0;
+                height: 450px;
+            }
+        }
+
+
+        @media screen and (max-width: 600px) {
+
+            .logo {
+                display: none;
+            }
+
+            .login {
+                display: none;
+            }
+
+            .bar {
+                border-bottom: 0;
+            }
+
+            .inneredge {
+                height: 350px;
+            }
+
+            .findname {
+                float: none;
+            }
+
+            .fgid {
+                margin: 0px 0px 0px 20px;
+                padding: 15px 20px;
+            }
+            .fgpwd {
+                margin: 0px;
+                padding: 15px 20px;
+            }
+
+            .nametxt {
+                display: none;
+            }
+
+            .inputname {
+                width: 70%;
+               float: inherit;
+               text-align: center;
+               margin: 0;
+            }
+
+            .inputcellp {
+                width: 70%;
+               float: inherit;
+               text-align: center;
+               margin: 0;
+            }
+
+            .ok {
+               float: inherit;
+               text-align: center;
+               padding: 40px;
+            }
+
+            .tag2 {
+            display:block;
+            }
+
+            .tag4 {
+                display: block;
+            }
+
+        }

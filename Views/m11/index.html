@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../m11/css/common.css">
+    <link rel="stylesheet" href="../m11/css/style.css">
+    <link rel="stylesheet" href="../m11/css/mcss.css">
+    <title>경영 정보 관리</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="http://kit.fontawesome.com/8a7fdcda3d.js"></script>
+    <script src="../js/commons.js"></script>
+    <script src="./js/char_flag.js"></script>
+    <script>
+        var barcht = [
+          ['년도', '매출원가', '매출 총 이익', '영업 이익'],
+          ['2016년', 10, 100, 32],
+          ['2017년', 22, 111, 22],
+          ['2018년', 44, 44, 66],
+          ['2019년', 33, 22, 64]
+        ];
+        var datalist_1 = [];
+        var flag = 1;
+        function StartChart(){
+          google.charts.load('current', {'packages':['bar']});
+          google.charts.setOnLoadCallback(drawChart);
+        }
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable(barcht);
+            var options = {
+            };
+            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+          }
+
+        $(document).ready(function(){
+          $(function(){
+          //화면 클릭시 차트 비활성화
+          $(document).mousedown(function(e){
+
+            
+            if( $("#columnchart_material").is(":visible") ) {
+                $("#columnchart_material").each(function(){
+                  var l_position = $(this).offset();
+                      l_position.right = parseInt(l_position.left) + ($(this).width());
+                      l_position.bottom = parseInt(l_position.top) + parseInt($(this).height());
+
+            if( ( l_position.left <= e.pageX && e.pageX <= l_position.right )
+              && ( l_position.top <= e.pageY && e.pageY <= l_position.bottom ) ) {
+            }   else {
+                $(this).hide();
+                    }
+                });
+              }
+          });
+          });  
+
+         
+          
+
+          $("#swap select").change(function(){
+            var data_top = 0;
+            var data_bottom = 0;
+            if(flag == 1){
+              data_top = $("#y_y option:selected").val();
+              data_bottom = $("#y_y2 option:selected").val();
+              attitude(data_top, data_bottom);
+            }else{
+              
+            }
+          });
+          //a태그 클릭 시 차트 활성화
+          $("td a").click(function(){
+            $(".chart_box").attr('style','visibility:visible');
+            attitude();
+          })
+          //버튼 클릭시 월,년 변경
+          $(".month").click(function(){
+            $("#swap #m_m").removeClass("disNone");
+            $("#swap #m_y").removeClass("disNone");
+            $("#swap #m_v").removeClass("disNone");
+            $("#swap #y_y").addClass("disNone");
+            $("#swap #y_y2").addClass("disNone");
+            flag = 0;
+          });
+          $(".year").click(function(){
+            $("#swap #y_y").removeClass("disNone");
+            $("#swap #y_y2").removeClass("disNone");
+            $("#swap #m_m").addClass("disNone");
+            $("#swap #m_y").addClass("disNone");
+            $("#swap #m_v").addClass("disNone");
+            flag = 1;
+          });
+          //화면 크기 변경시 차트 재생성
+          $(window).resize(function(){
+              StartChart();
+          });
+        });
+        StartChart();
+    </script>
+  </head>
+  <body>
+    <header>
+        <div>
+        <h1>경영 정보 관리</h1>
+        </div>
+    </header>
+    <section>
+      <div class="main_box">
+        <div class="button_t">
+          <button type="button" name="button" class="month">월별로 보기</button>
+          <button type="button" name="button"class="year">년도 별로 보기</button>
+        </div>
+        <table border="1" width ="100%;"align = "center" >
+          <tr>
+            <td colspan = "5" class="list_table"><strong>테스트</strong></td>
+          </tr>
+          <tr>
+            <td rowspan="2">항 목</td>
+            <td>분석대상</td>
+            <td>비교대상</td>
+            <td rowspan="2">비교분석</td>
+            <td rowspan="2">증감율</td>
+          </tr>
+          <tr>
+            <td>
+              <div id="swap">
+                <select class="year_y" name="" id="y_y">
+                  <option value="2016">2016년</option>
+                  <option value="2017">2017년</option>
+                  <option value="2018">2018년</option>
+                  <option value="2019">2019년</option>
+                </select>
+              </div>
+              <div id="swap">
+                <select class="year_y disNone" name="" id="m_y">
+                  <option value="2016">2016년</option>
+                  <option value="2017">2017년</option>
+                  <option value="2018">2018년</option>
+                  <option value="2019">2019년</option>
+                </select>
+                <select class="year_y disNone" name="" id="m_m">
+                  <option value="1">1월</option>
+                  <option value="2">2월</option>
+                  <option value="3">3월</option>
+                  <option value="4">4월</option>
+                  <option value="5">5월</option>
+                  <option value="6">6월</option>
+                  <option value="7">7월</option>
+                  <option value="8">8월</option>
+                  <option value="9">9월</option>
+                  <option value="10">10월</option>
+                  <option value="11">11월</option>
+                  <option value="12">12월</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div id="swap">
+                <select class="year_y2" name="" id="y_y2">
+                  <option value="2016">2016년</option>
+                  <option value="2017">2017년</option>
+                  <option value="2018">2018년</option>
+                  <option value="2019">2019년</option>
+                </select>
+                <div class="disNone" id="m_v">
+                  3개월평균
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan = "5" class="list_table"><strong>매출 분석</strong></td>
+          </tr>
+          <tr>
+            <td>매출 액</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>매출 원가</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>매출 총 이익</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>영업이익</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td colspan = "5" class="list_table"><strong>자  산</strong></td>
+          </tr>
+          <tr>
+            <td>재고</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>고정자산</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td colspan = "5" class="list_table"><strong>특성 별 매출 현황</strong></td>
+          </tr>
+          <tr>
+            <td colspan = "5" class="list_table_small"><a href="#Item_type"><strong>물품 종류</strong></a></td>
+          </tr>
+          <tr>
+            <td>원숭이 인형</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>강아지 인형</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>포켓몬 인형</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td colspan = "5"  class="list_table_small"><a href="#area"><strong>지역 별 매출</strong></a></td>
+          </tr>
+          <tr>
+            <td>경기도</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>충청도</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>경상도</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td colspan = "5" class="list_table_small"><a href="#purchase"><strong>구매처</strong></a></td>
+          </tr>
+          <tr>
+            <td>뽀끼뽀끼</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>인형뽑기방</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>오락실</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td colspan = "5" class="list_table_small"><a href="#object"><strong>대상</strong></a></td>
+          </tr>
+          <tr>
+            <td>일반사업자</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>기업</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>일반인</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td colspan = "5" class="list_table">특성 별 근태현황</td>
+          </tr>
+          <tr>
+            <td colspan = "5" class="list_table_small"><a href="#gender"><strong>성별</strong></a></td>
+          </tr>
+          <tr>
+            <td>남성</td>
+            <td class="gender_male_top">0</td>
+            <td class="gender_male_bottom">0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>여성</td>
+            <td class="gender_female_top">0</td>
+            <td class="gender_female_bottom">0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td colspan = "5" class="list_table_small"><a href="#age"><strong>연령</strong></a></td>
+          </tr>
+          <tr>
+            <td>20~29세</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>30~39세</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>40~49세</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>50~59세</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td colspan = "5" class="list_table_small"><a href="#education"><strong>학력</strong></a></td>
+          </tr>
+          <tr>
+            <td>고등학교 졸업</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>전문대(2~3년제)</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>대학교 졸업(4년제)</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>대학원 이상</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td colspan = "5" class="list_table_small"><a href="#department"><strong>부서</strong></a></td>
+          </tr>
+          <tr>
+            <td>인사</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>영업</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>서비스</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>회계</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>경영</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>무역</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>운송</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+        </table>
+      </div>
+        <div id="columnchart_material" class="chart_box chart_position"></div>
+    </section>
+    <footer>
+    </footer>
+  </body>
+</html>

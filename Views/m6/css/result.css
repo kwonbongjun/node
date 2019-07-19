@@ -1,0 +1,136 @@
+       html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+           -webkit-appearance: none;
+           -webkit-border-radius: 0;
+        }
+
+.bar {
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid grey;
+}
+
+.logo {
+    font-size: 30px;
+    text-align: center;
+    width: 60px;
+    margin: 40px 0px 10px 120px
+
+}
+
+.login {
+    float: right;
+    padding: 10px 20px;
+    margin-right: 100px;
+    background-color: dodgerblue;
+    cursor: pointer;
+    border: none;
+    color: white;
+    border-radius: 8px;
+
+}
+
+
+
+
+
+.inneredge {
+            position: inherit;
+            border: 2px solid grey;
+            display: block;
+            height: 500px;
+            margin: 123px 20px 20px 20px;
+            padding: 70px 0px 0px 0px;
+        }
+
+
+.resultbox {
+    border: 1px solid lightgrey;
+    background-color: lightgrey;
+    width: 60%;
+    height: 300px;
+
+}
+
+.resulttxt {
+    text-align: center;
+    margin-top: 50px;
+    line-height: 3.5;
+}
+
+.ok {
+
+            clear: both;
+            margin: 40px;
+            position: relative;
+            top: 20%
+        }
+
+.button {
+            height: 50px;
+            width: 150px;
+            font-size: 20px;
+            color: white;
+            border-radius: 8px;
+            background-color: dodgerblue;
+            cursor: pointer;
+            border: none;
+        }
+
+@media screen and (max-width: 900px) {
+    .subject {
+        margin: 0px 0px 0px 3%;
+    }
+
+    .inneredge {
+        padding: 30px;
+        height: 420px;
+        margin: 40px 20px 20px 20px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+            .logo {
+                display: none;
+            }
+            .inneredge {
+                height: 350px;
+                margin: 50px 20px 20px 20px;
+                padding:20px 0px;
+                position: relative;
+
+            }
+            .login {
+                display: none;
+            }
+
+            .bar {
+                border-bottom: none;
+            }
+
+            .resultbox {
+                width: 80%;
+                height: 350px;
+            }
+
+            .ok {
+
+/*            clear: both;*/
+            margin: 0px;
+/*            position: relative;*/
+            top: 0px;
+            }
+
+            .button {
+               margin-top: -300px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,350%);
+            }
+/*    처음부터 resultbox 안에 넣고 배경색을 다르게 해서 했어야 했다*/

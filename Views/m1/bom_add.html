@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/commons.css">
+    <link rel="stylesheet" href="./css/bom_add.css">
+    <link rel="stylesheet" media="only screen and (max-width: 768px)" href="./css/bom_add_768.css">
+    <link rel="stylesheet" media="only screen and (max-width: 576px)" href="./css/bom_add_576.css">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src='../js/commons.js'></script>
+    <script src="./js/bom_add.js"></script>
+    <script>
+      $(document).ready(function(){  
+        maincate();
+        var collums = {};
+        $("#main_cate").on("change", function(){
+          if($("#main_cate Option:selected").val() != 0){
+            var key ={
+              "key" : $("#main_cate Option:selected").text()
+            };
+            midcate(key);
+            $("#aa").css("display","none");
+            $("#bb").css("display","block");
+            
+          } else {
+            $("#aa").css("display","block");
+            $("#bb").css("display","none");
+            $("#cc").css("display","none");
+            $("#mid_cate").empty();
+            $("#small_cate").empty();
+          }
+        });
+        $("#mid_cate").on("change", function(){
+          if($("#mid_cate Option:selected").val() != 0){
+            var key ={
+              "key" : $("#mid_cate Option:selected").text()
+            };
+            smallcate(key);
+            $("#bb").css("display","none");
+            $("#cc").css("display","block");
+            console.log("ASDASDAS");
+          }else{
+            console.log("aaaa");
+            $("#aa").css("display","none");
+            $("#bb").css("display","block");
+            $("#cc").css("display","none");
+            $("#small_cate").empty();
+          }
+        });
+        
+        $("#mainCateAdd").on("click", function(){
+          collums = {
+            catelevel : 1, catenm: $("#maincatename").val(), catecode: $("#catecode").val()
+          }
+          fNet('/m1/insert', 'POST', collums, fSet);
+        });
+        $("#midCateAdd").on("click", function(){
+          collums = {
+            upno: $("#main_cate Option:selected").text(),
+            catelevel : 2, 
+            catenm: $("#midcatename").val(),
+            catecode: $("#midcatecode").val(),
+            price: $("#price").val(),
+            spec: $("#spec").val(),
+            unit: $("#unit").val()
+          };
+          fNet('/m1/insert', 'POST', collums, fSet);
+        });
+        $("#smallCateAdd").on("click", function(){
+          collums = {
+            upno : $("#mid_cate Option:selected").text(), 
+            catelevel : 3, 
+            catenm: $("#smallcatename").val(), 
+            catecode: $("#smallcatecode").val(), 
+            availstock: $("#smallcateavailstock").val(), 
+            price: $("#smallcateprice").val(), 
+            spec: $("#smallcatespec").val(),
+            unit: $("#smallcateunit").val()
+          };
+          fNet('/m1/insert', 'POST', collums, fSet);
+        });     
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1 style="color: white;">LOGO</h1>
+    </header>
+    <div class="main_container">
+      <div class="nav_container">
+        <nav>
+          <span id="nav_id">BOM</span>
+          <ul>
+            <li><a href="./"> 조회 </a></li>
+            <li><a href="./bomadd"> 등록 </a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="section_container">
+        <!-- 등록 관련 select  -->
+        <div class="text_container">
+          <h2>등록</h2>
+        </div>
+        <div class="check_container">
+          <div class="select_container">
+            <div class="inner">
+              <p style="text-align: center; margin : 0; padding: 0;">대분류 :</p>
+              <select id="main_cate" name="main_cate">
+              </select>
+            </div>
+            <div class="inner">
+              <p style="text-align: center; margin : 0; padding: 0;">중분류 :</p>
+              <select id="mid_cate" name="mid_cate">
+              </select>
+            </div>
+            <div class="inner">
+              <p style="text-align: center; margin : 0; padding: 0;">소분류 :</p>
+              <select id="small_cate" name="small_cate">
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="data_container">
+          <div class="outer_container">
+              <div class="inner_container">
+                <!-- 대분류 -->
+                <div id="aa">
+                <div class="contents">
+                  <fieldset>
+                    <legend> 대분류 </legend>
+                    <div>
+                      <div class="out" style="border-top: 1px solid red;">
+                        <div class="cate_title">
+                          <label for="code" style="width:100%;">품명</label>
+                        </div>
+                        <div class="cate_input">
+                          <input type="text" name="maincatename" id="maincatename">
+                        </div>
+                      </div>
+                      <div class="out">
+                        <div class="cate_title">
+                          <label for="code">품목코드</label>
+                        </div>
+                        <div class="cate_input">
+                          <input type="text" name="catecode" id="catecode">
+                        </div>
+                      </div>
+                      <div class="out">
+                          <!--<button type="submit">등록</button>-->
+                          <button id="mainCateAdd">등록</button>
+                          <button >취소</button>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+                </div>
+                <!-- 중분류 -->
+                <div id="bb">
+                  <div class="contents">
+                    <fieldset>
+                      <legend> 대분류 > 중분류 </legend>
+                      <div>
+                        <div class="out" style="border-top: 1px solid red;">
+                          <div class="cate_title">
+                            <label for="code" style="width:100%;">품명</label>
+                          </div>
+                          <div class="cate_input">
+                            <input type="text" name="midcatename" id="midcatename" >
+                          </div>
+                        </div>
+                        <div class="out">
+                          <div class="cate_title">
+                            <label for="code">품목코드</label>
+                          </div>
+                          <div class="cate_input">
+                            <input type="text" name="midcatecode" id="midcatecode" >
+                          </div>
+                        </div>
+                        <div class="out">
+                          <div class="cate_title">
+                            <label for="code" >금액</label>
+                          </div>
+                          <div class="cate_input">
+                            <input type="text" name="price" id="price" >
+                          </div>
+                        </div>
+                        <div class="out">
+                          <div class="cate_title">
+                            <label for="standard">규격</label>
+                          </div>
+                          <div class="cate_input">
+                            <input type="text" name="spec" id="spec" class="text">
+                            <select class="" name="">
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="out">
+                          <div class="cate_title">
+                            <label for="standard">단위</label>
+                          </div>
+                          <div class="cate_input">
+                            <input type="text" name="unit" id="unit" class="text">
+                            <select class="d" name="">
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="out">
+                            <button id="midCateAdd">등록</button>
+                            <button>취소</button>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+                <!-- 소분류 -->
+                <div id="cc">
+                <div class="contents">
+                  <fieldset>
+                    <legend> 대분류 > 중분류 > 소분류 </legend>
+                    <div>
+                      <div class="out" style="border-top: 1px solid red;">
+                        <div class="cate_title">
+                          <label for="code" style="width:100%;">품명</label>
+                        </div>
+                        <div class="cate_input">
+                          <input type="text" id="smallcatename" >
+                        </div>
+                      </div>
+                      <div class="out">
+                        <div class="cate_title">
+                          <label for="code">품목코드</label>
+                        </div>
+                        <div class="cate_input">
+                          <input type="text" id="smallcatecode" >
+                        </div>
+                      </div>
+                      <div class="out">
+                        <div class="cate_title">
+                          <label for="code">소요수량</label>
+                        </div>
+                        <div class="cate_input">
+                          <input type="text" id="smallcateavailstock" >
+                        </div>
+                      </div>
+                      <div class="out">
+                        <div class="cate_title">
+                          <label for="code">금액</label>
+                        </div>
+                        <div class="cate_input">
+                          <input type="text" id="smallcateprice">
+                        </div>
+                      </div>
+                      <div class="out">
+                        <div class="cate_title">
+                          <label for="standard">규격</label>
+                        </div>
+                        <div class="cate_input">
+                          <input type="text" name="smallcatespec" id="smallcatespec" class="text">
+                          <select class="" name="">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="out">
+                        <div class="cate_title">
+                          <label for="standard">단위</label>
+                        </div>
+                        <div class="cate_input">
+                          <input type="text" name="smallcateunit" id="smallcateunit" class="text">
+                          <select class="" name="">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="out">
+                          <button id="smallCateAdd">등록</button>
+                          <button >취소</button>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

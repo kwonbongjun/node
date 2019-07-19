@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/m6/css/forgotten.css">
+    <title>아이디 찾기</title>
+</head>
+
+<body>
+    <header>
+        <div class = "bar">
+        <input type="button" value = "로그인" class = "login">
+        <div class = "logo">로고</div>
+        </div>
+    </header>
+    <div style="max-width: 980px;margin: 0 auto;">
+        <div class="fgid">아이디 찾기</div>
+        <a href="/m6/v/forgottenpwd"><div class="fgpwd">비밀번호 찾기</div></a>
+        <div class="inneredge" style="clear: both">
+            <form action = "/m6/d/forgotten" style="text-align: center" method="POST">
+            <div class="findname">
+                <span class = "tag2">이름</span>
+                <span class = "nametxt">이름</span>
+                <input type="text" placeholder="이름을 입력하세요 (홍길동)" class="inputname">
+            </div>
+            <div class="findname" style="clear: both">
+                <span class = "tag4">연락처</span>
+                <span class = "nametxt">연락처</span>
+                <input type="text" placeholder="연락처를 입력하세요 (0212341234)" class="inputcellp">
+            </div>
+
+            <br>
+
+                <input type = "submit" value = "확인" class = "button">
+            </form>
+
+
+
+        </div>
+    </div>
+</body>
+
+</html>

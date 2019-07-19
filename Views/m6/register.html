@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/m6/css/register.css">
+    <script src="/m6/js/common.js"></script>
+    <title>타사 회원 가입</title>
+    <script>
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="bar">
+            <input type="button" value="로그인" class="login" onclick="login()">
+            <div class="logo">로고</div>
+        </div>
+    </header>
+    <div style="max-width: 980px;margin: 0 auto;">
+        <div class="subject"><b>타사 회원 가입</b></div>
+        <div class="inneredge">
+            <form action="/m6/d/register" class="inputthings" method="POST">
+                <!--
+                <div style="float: left;">
+                <span>
+                    회사 명
+                    대표자 성명<br>
+                    전화 번호<br>
+                    팩스 (선택)<br>
+                    메일<br>
+                    사업자 번호<br>
+                </span>
+                </div>
+-->
+
+                <div>
+                    <div class = "m10">
+                      <span class = "tag4">회사 명</span>
+                        <span class="haha">회사 명</span><input type="text" name="corperation" placeholder="회사 명을 입력하세요 (구디아카데미)" class="inputtxt"></div>
+                    <div class = "m10">
+                      <span class = "tag4">대표자 성명</span>
+                        <span class="haha">대표자 성명</span><input type="text" name="ceo" placeholder="대표자 성명을 입력하세요 (홍길동)" class="inputtxt">
+                    </div>
+                    <div class = "m10">
+                      <span class = "tag4">연락처</span>
+                        <span class="haha">연락처</span><input id="tel" type="text" name="tel" placeholder="연락처를 입력하세요(0212341234)" class="inputtxt">
+                    </div>
+                    <!-- <div class = "m10">
+                        <span class="haha">팩스 (선택)</span><input type="text" placeholder="선택* 팩스 번호 입력하세요(0212341234)" class="inputtxt">
+                    </div>
+                    <div class = "m10">
+                        <span class="haha">메일</span><input type="text" placeholder="메일 주소를 입력하세요 (abc@mail.com)" class="inputtxt">
+                    </div> -->
+
+                    <div  class = "m10">
+                      <span class = "tag4">사업자 번호</span>
+                        <span class="haha">사업자 번호</span><input type="text" name="reg_number" placeholder="사업자 번호를 입력하세요" class="inputtxt">
+                    </div>
+
+                    <div class = "m10">
+                      <span class = "tag4">국내외 여부</span>
+                      <span class="haha">국내외 여부</span>
+                        <input type="radio" name="in_out_flag" value="0" class = "radiobutton"> 국내
+                        <input type="radio" name="in_out_flag" value="1" > 국외
+                    </div>
+
+                <input type="hidden" name="flag" value="SET">
+                <input type="hidden" name="viewDirect" value="/">
+                <input type="submit" value="가입하기" class="button">
+                <!--
+                <div>
+                    <span>회사 명</span>
+                    <input type="text" placeholder="구디아카데미" class="inputtxt">
+                </div>
+                <div>
+                    <span>대표자 성명</span>
+                    <input type="text" placeholder="홍길동" class="inputtxt">
+                </div>
+                <div>
+                    <span>전화 번호</span>
+                    <input type="text" placeholder="0212341234" class="inputtxt">
+                </div>
+                <div>
+                    <span>팩스 (선택)</span>
+                    <input type="text" placeholder="0212341234" class="inputtxt">
+                </div>
+                <div>
+                    <span>메일</span>
+                    <input type="text" placeholder="abc@mail.com" class="inputtxt">
+                </div>
+                <div>
+                    <span>사업자 번호</span>
+                    <input type="text" placeholder="12345678" class="inputtxt">
+                </div>
+-->
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

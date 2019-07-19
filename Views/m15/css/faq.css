@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap:200,300,400,500,700');
+
+
+
+body {
+	background-color: lighten(@color0, 10%);
+	color: darken(@color0, 20%);
+  font-family: 'Nanum Pen Script', cursive!important;
+	/* font-family: Raleway; */
+	/* font-size: 1.188em;
+	font-weight: 400; */
+	padding-bottom: 90px;
+	-webkit-font-smoothing: antialiased;
+}
+a,a:visited{
+  color:inherit;
+}
+
+h1 {
+	font-size: 2.1em;
+	//font-weight: 400;
+	margin-bottom: 40px;
+	letter-spacing: -1px;
+}
+
+h3 {
+	-moz-transition: all 0.35s ease;
+	-ms-transition: all 0.35s ease;
+	-o-transition: all 0.35s ease;
+	-webkit-transition: all 0.35s ease;
+	background-color:#9dccec;
+	border-bottom: 3px solid #1b4162;
+	margin: 0;
+	margin: 0;
+	padding: 18px 15px;
+	transition: all 0.35s ease;
+	font-weight: 500;
+	font-size: 2em;
+}
+
+h3.cerrar {
+	cursor: pointer;
+}
+
+h4 {
+	font-size: 21px;
+	font-weight: 400;
+	margin: 0 auto;
+	width: 70%;
+	border-bottom: 1px dotted #2DCB89;
+	padding-bottom: 20px;
+}
+
+div {
+	margin: 0;
+}
+
+img {
+	height: 16px;
+	width: 16px;
+}
+
+div.respuesta {
+	background: #2DCB89;
+	margin-bottom: 20px;
+	line-height: 1.8em;
+
+
+}
+div.respuesta p{
+	font-weight: 400;
+	margin: 0;
+	font-size: 20px;
+	padding: 25px 50px;
+}
+#header {
+	background: lighten(@color0, 2%);
+	margin: 0 0 20px 0;
+	padding: 30px;
+	text-align: center;
+	overflow: hidden;
+}
+
+#header a {
+	color: lighten(@color0, 40%);
+	text-decoration: none;
+}
+
+#preguntas {
+	margin: 40px auto 0;
+	//width: 90%;
+	padding: 0 5%;
+}
+
+#cerrartodas {
+	background-color:#ed1409;
+	bottom: 30px;
+	color: #2DCB89;
+	font-size: 14px;
+	padding: 5px 10px;
+	position: fixed;
+	right: 10%;
+	text-decoration: none;
+	z-index: 1;
+}

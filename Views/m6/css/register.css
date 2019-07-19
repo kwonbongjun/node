@@ -1,0 +1,186 @@
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+           -webkit-appearance: none;
+           -webkit-border-radius: 0;
+        }
+        input[type="checkbox"] {-webkit-appearance:checkbox; -moz-appearance:checkbox;}
+        input[type="radio"] {-webkit-appearance:radio; -moz-appearance:radio;}
+
+.bar {
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid grey;
+}
+
+.logo {
+    font-size: 30px;
+    text-align: center;
+    width: 60px;
+    margin: 40px 0px 10px 120px
+
+}
+
+.login {
+    float: right;
+    padding: 10px 20px;
+    margin-right: 100px;
+    background-color: dodgerblue;
+    cursor: pointer;
+    border: none;
+    color: white;
+    border-radius: 8px;
+
+}
+
+.subject {
+            margin: 70px 0px 10px 3%;
+            padding: 0px 40px;
+            float: left;
+            font-size: 32px;
+
+        }
+
+        .inneredge {
+            position: inherit;
+            border: 2px solid grey;
+            display: block;
+            height: 500px;
+            margin: 0px 20px 20px 20px;
+            padding: 70px 0px 0px 0px;
+            clear: both;
+        }
+
+
+
+.inputthings {
+
+            box-sizing: border-box;
+            margin:40px 0px;
+            text-align: center;
+}
+
+
+
+.inputtxt {
+            margin-left: 40px;
+            height: 30px;
+            width: 250px;
+            border-radius: 8px;
+        }
+
+
+.radiobutton {
+  margin-left: 40px;
+  clear: none;
+  text-align: inherit;
+}
+
+.haha{
+    display: inline-block;
+    width: 130px;
+    max-width: 130px;
+    min-width: 130px;
+/*    background-color: #ceb9b9;*/
+    text-align: left;
+}
+
+.tag4 {
+    margin: auto;
+    margin-left: 15%;
+    width: 100px;
+    color: white;
+    border-radius: 8px;
+    background-color: #538bc1;
+    cursor: pointer;
+    border: none;
+    display: none;
+}
+.tag8 {
+    margin: auto;
+    margin-left: 15%;
+    width: 140px;
+    color: white;
+    border-radius: 8px;
+    background-color: #538bc1;
+    cursor: pointer;
+    border: none;
+    display: none;
+}
+
+.m10 {
+    margin-bottom: 10px;
+}
+
+        .button {
+            height: 50px;
+            width: 200px;
+            font-size: 20px;
+            color: white;
+            border-radius: 8px;
+            background-color: dodgerblue;
+            cursor: pointer;
+            border: none;
+            margin-top: 40px;
+        }
+
+@media screen and (max-width: 900px) {
+    .subject {
+        margin: 0px 0px 0px 3%;
+    }
+
+    .inneredge {
+        padding: 0;
+        height: 450px;
+    }
+
+
+}
+
+@media screen and (max-width: 600px) {
+            .logo {
+                display: none;
+            }
+            .inneredge {
+                height: 420px;
+                padding: 0;
+                margin: 40px;
+                border-bottom-color: white;
+                border-left-color: white;
+                border-right-color: white;
+            }
+            .login {
+                display: none;
+            }
+
+            .bar {
+                border-bottom: none;
+            }
+
+    .inputtxt {
+      width: 70%;
+      float: inherit;
+      text-align: center;
+      margin: 0;
+    }
+
+    .tag4 {
+      display: block;
+    }
+    .tag8 {
+      display: block;
+    }
+
+    .subject {
+        margin: 0px 0px 10px 3%;
+    }
+
+    .haha {
+        display:none;
+    }
+
+}

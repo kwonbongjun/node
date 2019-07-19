@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/m15/css/main.css">
+  <link rel="stylesheet" href="/m15/css/common.css">
+  <link rel="stylesheet" href="/m15/css/harin.css">
+  <link rel="stylesheet" href="/m15/css/flex.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <style media="screen">
+    .wrapper {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .input-flex2 {
+      display: flex;
+      justify-content: center;
+      /* align-content: flex-start; */
+      height: 40px;
+    }
+
+    .input-flex2>button {
+      margin: 20px 30px;
+    }
+  </style>
+  <script>
+    $(function() {
+      $('input[name="filterCk"]').change(function() {
+        var value = $(this).val(); // value
+        var checkId = $(this).attr('id');
+        console.log(checkId);
+        var checked = $(this).prop('checked'); // checked 상태 (true, false)
+        var $label = $(this).next();
+        if (checkId == 'filterCheck_1') {
+
+          if (checked) {
+            $('input[name="filterCk"]').each(function() {
+              $(this).prop('checked', true);
+              $(this).next().css('background-color', '#0984e3');
+            })
+          } else {
+            $('input[name="filterCk"]').each(function() {
+              $(this).prop('checked', false);
+              $(this).next().css('background-color', '#74b9ff')
+            })
+          }
+          // checked ?$('.filter-div').prop('checked',true) :  $('.filter-div').prop('checked',false)
+          // checked ?$('label').css('background-color', 'rgb(42, 94, 230)') : $('label').css('background-color', 'rgb(180, 205, 224)')
+        } else {
+          checked ? $label.css('background-color', '#0984e3') : $label.css('background-color', '#74b9ff');
+        }
+      });
+      $(".row").click(function() {
+        $('.wrapper').css('display', 'none');
+        $('.saveThis').css('display', 'block');
+        var tic = $(this).children("span").text();
+        location.hash = `${$(this).children("span").text()}`;
+        console.log($(this).children("div"));
+        $(".putHere1").val($(this).children("div")[0].innerHTML);
+        $(".putHere2").val($(this).children("p")[0].innerHcTML);
+        // $(".putHere2").attr("value")="1234";
+        $.ajax({
+          url: '/harin/inquiryGet/' + tic, //request 보낼 서버의 경로
+          type: 'get', // 메소드(get, post, put 등)
+          success: function(data) {
+            var html = '';
+            for (let j = 0; j < data.data.length; j++) {
+              html += '<div class="f1 rowH4" style="height:50px;">';
+              html += `<span class="border1">${data.data[j].register}</span>`;
+              html += `<span class="border2">${data.data[j].content}</span><br>`;
+              html += `<button class="delComment" value="${data.data[j].notice_comment_id}">삭제</button>`
+              html += '</div>'
+            }
+            $("#comments").empty().append(html);
+            $(".delComment").click(function(e){
+                e.preventDefault();
+                var result = confirm("삭제하시겠습니까?");
+                if(result){
+                  console.log($(this).val());
+                  console.log($(".delComment"));
+                  $.ajax({
+                    url: '/harin/noticeDeleteC/'+$(this).val(), //request 보낼 서버의 경로
+                    type: 'post', // 메소드(get, post, put 등)
+                    success: function(data) {
+                      console.log(data);
+                      alert("수정되었습니다.");
+                      location.reload();
+                      // var html='<div style="">수정되었습니다.</div>';
+                      // $(".blin").empty().append(html);
+                      console.log("!1");
+                    }
+                  });
+                  // alert("삭제되었습니다.");
+                // location.href="/faq";
+                }
+            });
+            console.log(html);
+            // console.log(data.data);
+
+          }
+        });
+
+
+      });
+      $("#returnList").click(function() {
+        location.href = "/inquiry";
+      });
+      $(".writeForm").click(function() {
+        $('.wrapper').css('display', 'none');
+        $('.saveThis2').css('display', 'block');
+      });
+      $("#writeForm2").click(function() {});
+
+      $("#cancelTo").click((e) => {
+        e.preventDefault();
+        location.href = "/inquiry";
+      });
+
+      $("#pushComment").click(function() {
+        let x = $("#push1")[0].innerHTML;
+        let z = $("#push2").val();
+        $.ajax({
+          url: '/harin/noticeDetail/' + location.hash.replace("#",""), //request 보낼 서버의 경로
+          type: 'post', // 메소드(get, post, put 등)
+          data: {
+            'id': x,
+            'content': z,
+            'numb': location.pathname.split("/")[2]
+          }, //보낼 데이터
+          success: function(data) {
+            console.log(data);
+            var html = '';
+            for (let j = 0; j < data.data.length; j++) {
+              html += '<div class="f1 rowH4" style="height:50px;">';
+              html += `<span class="border1">${data.data[j].register}</span>`;
+              html += `<span class="border2">${data.data[j].content}</span><br>`;
+              html += `<button class="delComment" value="${data.data[j].notice_comment_id}">삭제</button>`
+              html += '</div>'
+            }
+            $("#comments").empty().append(html);
+            // location.href=""
+            $(".delComment").click(function(e){
+                e.preventDefault();
+                var result = confirm("삭제하시겠습니까?");
+                if(result){
+                  console.log($(this).val());
+                  console.log($(".delComment"));
+                  $.ajax({
+                    url: '/harin/noticeDeleteC/'+$(this).val(), //request 보낼 서버의 경로
+                    type: 'post', // 메소드(get, post, put 등)
+                    success: function(data) {
+                      console.log(data);
+                      alert("수정되었습니다.");
+                      // var html='<div style="">수정되었습니다.</div>';
+                      // $(".blin").empty().append(html);
+                      console.log("!1");
+                    }
+                  });
+                  // alert("삭제되었습니다.");
+                // location.href="/faq";
+                }
+            });
+            //서버로부터 정상적으로 응답이 왔을 때 실행
+          },
+          error: function(err) {
+            //서버로부터 응답이 정상적으로 처리되지 못햇을 때 실행
+          }
+        });
+
+      });
+
+      $(".delComment").click(function(e){
+          e.preventDefault();
+          var result = confirm("삭제하시겠습니까?");
+          if(result){
+            console.log($(this).val());
+            console.log($(".delComment"));
+            $.ajax({
+              url: '/harin/noticeDeleteC/'+$(this).val(), //request 보낼 서버의 경로
+              type: 'post', // 메소드(get, post, put 등)
+              success: function(data) {
+                console.log(data);
+                alert("수정되었습니다.");
+                location.reload();
+                // var html='<div style="">수정되었습니다.</div>';
+                // $(".blin").empty().append(html);
+                console.log("!1");
+              }
+            });
+            // alert("삭제되었습니다.");
+          // location.href="/faq";
+          }
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <header class="color2">
+		<ul class="hlist">
+			<li>
+				<a href="/m15/index">공지사항</a>
+			</li>
+			<li>
+				<a href="/m15/faq">FAQ</a>
+			</li>
+			<li>
+				<a href="/m15/inquiry">문의하기</a>
+			</li>
+			<li>
+				<a href="/m15/deliveryConf">배송확인</a>
+			</li>
+			<li>
+				<a href="/m15/refundForm">반품신청</a>
+			</li>
+			<li>
+				<a href="/m15/serviceInfo">소개</a>
+			</li>
+		</ul>
+	</header>
+
+  <div class="wrapper">
+    <h2 class="wrapLogo">전체 문의보기</h2>
+    <!-- <div class="flex-container2">
+			<span class="f2"></span>
+			<input type="text" class="f5" placeholder="제목 검색" />
+			<button class="f1">검색</button>
+			<span class="f1"></span>
+			<button class="f1 writeForm">작성하기</button>
+		</div> -->
+  </div>
+
+
+
+  <div class="wrapper" style="padding:20px 20px;background-color:rgb(195, 193, 178)">
+    <div class="input-flex">
+      <span class="flex-ss">Search</span><input type="text" name="" value="">
+    </div>
+    <div class="input-flex">
+      <span class="flex-ss">Filter</span>
+      <div class="div-flex filter-div">
+        <input type="checkbox" class="blind" name="filterCk" id="filterCheck_1" />
+        <label for="filterCheck_1">ALL</label>
+        <input type="checkbox" class="blind" name="filterCk" id="filterCheck_2" />
+        <label for="filterCheck_2">검색</label>
+        <input type="checkbox" class="blind" name="filterCk" id="filterCheck_3" />
+        <label for="filterCheck_3">제품 문의사항</label>
+        <input type="checkbox" class="blind" name="filterCk" id="filterCheck_4" />
+        <label for="filterCheck_4">Q&A</label>
+        <input type="checkbox" class="blind" name="filterCk" id="filterCheck_5" />
+        <label for="filterCheck_5">FaQ</label>
+        <input type="checkbox" class="blind" name="filterCk" id="filterCheck_6" />
+        <label for="filterCheck_6">제품</label>
+      </div>
+
+    </div>
+    <!-- 입력 버튼 넣기 -->
+    <div class="input-flex2">
+      <button style="flex=none;">검색하기</button>
+      <button style="flex=none;">초기화</button>
+    </div>
+  </div>
+
+  <!-- 게시판 글쓰기 -->
+
+  <div class="wrapper flex-container_them1 saveThis2">
+    <form action="/inquiry/add" method="POST">
+      <h2 class="wrapLogo">문의 글 작성하기</h2>
+      <div class=" input-flex">
+        <span class="flex-solo">제목</span>
+        <input class="putHere1" type="text" name="title">
+      </div>
+
+      <div class="input-flex">
+        <span class="flex-solo">내용</span>
+      </div>
+
+      <div class="input-flex flex-height">
+        <textarea class="flex-textarea putHere2" name="content" id=""></textarea>
+      </div>
+
+      <div class="input-flex flex-temp1">
+        <button type="submit" class="flex-right" id="writeForm2">작성하기</button>
+
+        <button class="flex-right" id="cancelTo">취소</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- 게시판 글쓰기 끝-->
+  <div class="wrapper saveThis">
+    <h2 class="wrapLogo">글 상세보기</h2>
+    <div class="flex_container2">
+      <div class="f1 rowH" style="justify-content:flex-end;"><button id="returnList">목록</button></div>
+      <div class="f2 rowH" style="margin:10px 10px;">
+        <div class="color1" style="padding:0px 10px;">제목</div>
+        <div class="f1 color2"><input class="putHere1" type="text" style="width:100%" value="" disabled></div>
+      </div>
+      <div class="f1 rowH">
+        <div class="color1" style="padding:0px 10px;">내용</div>
+      </div>
+      <div class="f1 rowH">
+        <textarea class="putHere2" name="name" style="width:100%" rows="20" disabled></textarea>
+      </div>
+      <br>
+      <div class="f1 rowH color3">댓글</div>
+      <div id="comments">
+
+      </div>
+      <div class="f1 rowH color4" style="height:80px;align-items:center!important;">
+        <span class="f1">
+          <button id="push1">이름</button>
+        </span>
+        <span class="f5">
+          <textarea name="" id="push2" style="width:90%;height:70px;"></textarea>
+        </span>
+        <span class="f1">
+          <button id="pushComment">입력</button>
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- table -->
+  <div class="wrapper">
+    <div class="limiter">
+      <div class="container-table100">
+        <div class="wrap-table100">
+          <div class="table">
+
+            <div class="row header">
+              <div class="cell">
+                제목
+              </div>
+              <div class="cell">
+                카테고리
+              </div>
+              <div class="cell">
+                아이디
+              </div>
+              <div class="cell">
+                작성일자
+              </div>
+              <div class="cell">
+                답변여부
+              </div>
+            </div>
+
+            <% for(let j=0;j < data.length;j++){%>
+            <div class="row">
+              <div class="cell" data-title="제목"><%=data[j].title%></div>
+              <div class="cell" data-title="문의사항"><%=data[j].subtitle%></div>
+              <div class="cell" data-title="아이디"><%=data[j].register%></div>
+              <div class="cell" data-title="작성일자"><%=data[j].regist_date%></div>
+              <div class="cell" data-title="답변"><%=data[j].type_flag%>N</div>
+              <p style="display:none;"><%=data[j].content%></p>
+              <span style="display:none;"><%=data[j].notice_id%></span>
+            </div>
+            <%}%>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- table End -->
+
+	<footer class="footer-flex">
+		<div class="footer-item" style="background-color:black;">1</div>
+	</footer>
+</body>
+
+</html>

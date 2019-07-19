@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="/m15/css/main.css">
+	<link rel="stylesheet" href="/m15/css/common.css">
+	<link rel="stylesheet" href="/m15/css/harin.css">
+	<link rel="stylesheet" href="/m15/css/flex.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="/m15/js/commons.js"></script>
+	<style media="screen">
+		.wrapper {
+			max-width: 980px;
+			margin: 0 auto;
+		}
+
+		.input-flex2 {
+			display: flex;
+			justify-content: center;
+			/* align-content: flex-start; */
+			height: 40px;
+		}
+
+		.input-flex2>button {
+			margin: 20px 30px;
+		}
+	</style>
+	<script>
+		$(function () {
+			$("#pushComment").click(function () {
+				let temp1 = $("#push1")[0].innerHTML;
+				let temp2 = $("#push2").val();
+				init4(temp1, temp2);
+				location.reload();
+			});
+
+			$("#returnList").click(function () {
+				location.href = "/m15/index"
+			});
+			$("#updateThis").click(function () {
+				location.href = "/m15/index/update/" + location.pathname.split("/")[3];
+			});
+			$("#deleteThis").click(function (e) {
+				e.preventDefault();
+				init2();
+			});
+
+			function init() {
+				fNet("/m15/index/" + location.pathname.split("/")[3], "POST", {}, function (data) {
+					if (data.state) {
+						var rows = data.rows;
+						console.log(rows[0].title);
+						console.log(rows[0].content);
+						$("#title").val(rows[0].title);
+						$("#content").val(rows[0].content);
+					} else {
+						alert(data.text);
+						history.back();
+					}
+				});
+
+				fNet("/m15/index/comment/" + location.pathname.split("/")[3], "POST", {}, function (data) {
+					if (data.state) {
+						var rows = data.rows;
+						for (var i = 0; i < rows.length; i++) {
+							let html = "";
+							html += `<div class="f1 rowH4" style="height:50px;">`;
+							html += `<span class="border1">${rows[i].modifier}</span>`;
+							html += `<span class="border2">${rows[i].content}</span><br>`;
+							html += `<button class="delComment" value="${rows[i].notice_comment_id}">삭제</button></div>`;
+							$("#comments").append(html);
+						}
+						$(".delComment").click(function (e) {
+							e.preventDefault();
+							let ids = $(this).val();
+							init3(ids);
+						});
+					} else {
+						alert(data.text);
+						history.back();
+					}
+				});
+			}
+			init();
+
+			function init2() {
+				var result = confirm("정말로 삭제하시겠습니까?");
+				if (result) {
+					fNet("/m15/index/delete/" + location.pathname.split("/")[3], "POST", {}, function (data) {
+						if (data.state) {
+							var rows = data.rows;
+							alert("뿅");
+							location.href = "/m15/index";
+						} else {
+							alert(data.text);
+							history.back();
+						}
+					});
+				} else {
+					alert("빵");
+				}
+
+			}
+
+			function init3(comment_id) {
+				var result = confirm("정말로 삭제하시겠습니까?");
+				if (result) {
+					fNet("/m15/index/deleteC/" + comment_id, "POST", {}, function (data) {
+						if (data.state) {
+							var rows = data.rows;
+							location.reload();
+						} else {
+							alert(data.text);
+							history.back();
+						}
+					});
+				} else {
+					alert("빵");
+				}
+			}
+
+			function init4(temp1, temp2) {
+				fNet("/m15/index/commentUp/" + location.pathname.split("/")[3], "POST", { name: temp1, content: temp2 }, function (data) {
+					if (data.state) {
+						var rows = data.rows;
+						let html = "";
+						html += `<div class="f1 rowH4" style="height:50px;">`;
+						html += `<span class="border1">${rows[i].modifier}</span>`;
+						html += `<span class="border2">${rows[i].content}</span><br>`;
+						html += `<button class="delComment" value="${rows[i].notice_comment_id}">삭제</button></div>`;
+						$(".delComment").click(function (e) {
+							e.preventDefault();
+							let ids = $(this).val();
+							init3(ids);
+						});
+						$("#comments").append(html);
+						// init();
+					} else {
+						alert(data.text);
+						history.back();
+					}
+				});
+			}
+		});
+	</script>
+</head>
+
+<body>
+	<header class="color2">
+		<ul class="hlist">
+			<li>
+				<a href="/m15/index">공지사항</a>
+			</li>
+			<li>
+				<a href="/m15/faq">FAQ</a>
+			</li>
+			<li>
+				<a href="/m15/inquiry">문의하기</a>
+			</li>
+			<li>
+				<a href="/m15/deliveryConf">배송확인</a>
+			</li>
+			<li>
+				<a href="/m15/refundForm">반품신청</a>
+			</li>
+			<li>
+				<a href="/m15/serviceInfo">소개</a>
+			</li>
+		</ul>
+	</header>
+
+	<div class="wrapper">
+		<h2 class="wrapLogo">글 상세보기</h2>
+		<div class="flex_container2">
+			<div class="f1 rowH" style="justify-content:flex-end;">
+				<button id="returnList">목록</button><button id="updateThis">수정</button><button
+					id="deleteThis">삭제</button>
+			</div>
+			<div class="f2 rowH" style="margin:10px 10px;">
+				<div class="color1" style="padding:0px 10px;">제목</div>
+				<div class="f1 color2"><input id="title" type="text" style="width:100%" value="제목" disabled required>
+				</div>
+			</div>
+			<div class="f1 rowH">
+				<div class="color1" style="padding:0px 10px;">내용</div>
+			</div>
+			<div class="f1 rowH">
+				<textarea id="content" name="name" style="width:100%" rows="20" disabled>내용</textarea>
+			</div>
+			<br>
+
+			<div class="f1 rowH color3">댓글</div>
+			<div id="comments">
+			</div>
+			<div class="f1 rowH color4" style="height:80px;align-items:center!important;">
+				<span class="f1">
+					<button id="push1">이름</button>
+				</span>
+				<span class="f5">
+					<textarea name="" id="push2" style="width:90%;height:70px;"></textarea>
+				</span>
+				<span class="f1">
+					<button id="pushComment">입력</button>
+				</span>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<footer class="footer-flex">
+		<div class="footer-item" style="background-color:black;">1</div>
+	</footer>
+</body>
+
+</html>

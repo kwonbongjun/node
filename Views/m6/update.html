@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/m6/css/update.css">
+    <script src="/m6/js/common.js"></script>
+    <title>회원 관리</title>
+</head>
+
+<body>
+    <header>
+        <div class = "bar">
+        <input type="button" value = "로그아웃" class = "login" onclick="logout()">
+        <div class = "logo">로고</div>
+        </div>
+    </header>
+<div style="max-width: 980px;margin: 0 auto;">
+        <div class="subject"><b>회원 정보 입력</b></div>
+
+        <div class="inneredge" style="clear: both">
+            <form action="/m6/molelist.html" style="text-align:center" class="inputthings">
+
+                <div>
+                    <div class = "m10">
+                        <span class="haha">이름</span><input type="text" placeholder="이름을 입력하세요 (홍길동)" class="inputtxt"></div>
+                    <div class = "m10">
+                        <span class="haha">부서</span><input type="text" placeholder="부서를 입력하세요 (일자리정책관)" class="inputtxt">
+                    </div>
+                    <div class = "m10">
+                        <span class="haha">직급</span><input id="tel" type="text" placeholder="직급을 입력하세요 (대통령)" class="inputtxt">
+                    </div>
+                    <div class = "m10">
+                        <span class="haha">연락처</span><input type="text" placeholder="연락처를 입력하세요 (0212341234)" class="inputtxt">
+                    </div>
+                    <div class = "m10">
+                        <span class="haha">입사일</span><input type="text" placeholder="입사일을 입력하세요 (20001231)" class="inputtxt">
+                    </div>
+
+                </div>
+
+                <input type="submit" value="완료" class="button">
+
+            </form>
+
+
+        </div>
+    </div>
+</body>
+
+</html>

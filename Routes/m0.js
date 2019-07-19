@@ -8,6 +8,7 @@ m[0] = {                        // 모듈 리스트에 넣기
     fun: function(req, res){    // 실행 내용 정의
         commons.viewResult(req, res, "./dbTest.html");
     }
+    
 }
 
 m[1] = {                        // 모듈 리스트에 넣기

@@ -1,0 +1,115 @@
+table{
+  font-size: 10px;
+}
+h1 {
+  font-size: 2rem;
+}
+h2 {
+  font-size: 1.5rem;
+}
+
+/*-- Main_Container --*/
+.main_container {
+  width: 100%;
+  height: 90vh;
+  background-color: #616161;
+  padding: 0px;
+  margin: 0px;
+}
+
+/* -- modal -- */
+.main_container .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+/* Modal Content */
+.main_container .modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  height: 40%;
+  font-size: 10px;
+  overflow: scroll;
+  position: absolute;
+  top: 30%;
+  left: 10%;
+}
+
+.modal-content span{
+  height: 30px;
+  padding-top: 7px;
+}
+.btndiv{
+  width: 50%;
+  float: left;
+  text-align: center;
+}
+.btndiv button{
+  width: 100px;
+  margin: 3%;
+}
+/*-- Navigator --*/
+
+.main_container .nav_container{
+  width: 100%;
+  height: 10%;
+  background-color: #717171;
+}
+
+#aa{ display: block; }
+#bb{ display: none; }
+#cc{ display: none;}
+
+.title_content span{
+  padding-right: 20px;
+}
+ul, li {
+  margin: 0; padding: 0;
+}
+.main_container .nav_container nav ul{
+  width: 100%;
+  float: left;
+  box-sizing: border-box;
+  color: white;
+  list-style: none;
+  margin-top: 10px;
+}
+.main_container .nav_container nav ul li{
+  float: left;
+  text-align: center;
+  width: 40%;
+  border: 2px solid white;
+  box-sizing: border-box;
+  background-color: wheat;
+  margin-left: 6.6%;
+  margin-top: 1.5vh;
+}
+.main_container .nav_container nav #nav_id{
+  display: none;
+}
+/*-- Title Layout --*/
+.main_container .section_container .text_container{
+  width: 80%;
+  height: 5%;
+  margin: 2% 10%;
+  box-sizing: border-box;
+  text-align: center;
+}
+/*--Cate layout--*/
+.main_container .section_container {
+  float: left;
+  width: 100%;
+  height: 100%;
+  background-color:  #ebebe0;
+}

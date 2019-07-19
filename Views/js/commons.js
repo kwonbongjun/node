@@ -4,7 +4,7 @@ function fNet(url, type, data, callback){
 
 function fSet(data) {
     if(data.state) {
-        alert(data.text);
+        //alert(data.text);
         location.href = data.url;
     } else {
         alert(data.text);

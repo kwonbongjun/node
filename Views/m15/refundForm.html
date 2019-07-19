@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="/m15/css/main.css">
+	<link rel="stylesheet" href="/m15/css/common.css">
+	<link rel="stylesheet" href="/m15/css/harin.css">
+	<link rel="stylesheet" href="/m15/css/flex.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<style media="screen">
+		.wrapper {
+			max-width: 980px;
+			margin: 0 auto;
+		}
+
+		.input-flex2 {
+			display: flex;
+			justify-content: center;
+			/* align-content: flex-start; */
+			height: 40px;
+		}
+
+		.input-flex2>button {
+			margin: 20px 30px;
+		}
+	</style>
+	<script>
+		$(function() {
+			$('input[name="filterCk"]').change(function() {
+				var value = $(this).val(); // value
+				var checkId = $(this).attr('id');
+				console.log(checkId);
+				var checked = $(this).prop('checked'); // checked 상태 (true, false)
+				var $label = $(this).next();
+				if (checkId == 'filterCheck_1') {
+
+					if (checked) {
+						$('input[name="filterCk"]').each(function() {
+							$(this).prop('checked', true);
+							$(this).next().css('background-color', '#0984e3');
+						})
+					} else {
+						$('input[name="filterCk"]').each(function() {
+							$(this).prop('checked', false);
+							$(this).next().css('background-color', '#74b9ff')
+						})
+					}
+					// checked ?$('.filter-div').prop('checked',true) :  $('.filter-div').prop('checked',false)
+					// checked ?$('label').css('background-color', 'rgb(42, 94, 230)') : $('label').css('background-color', 'rgb(180, 205, 224)')
+				} else {
+					checked ? $label.css('background-color', '#0984e3') : $label.css('background-color', '#74b9ff');
+				}
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<header class="color2">
+		<ul class="hlist">
+			<li>
+				<a href="/m15/index">공지사항</a>
+			</li>
+			<li>
+				<a href="/m15/faq">FAQ</a>
+			</li>
+			<li>
+				<a href="/m15/inquiry">문의하기</a>
+			</li>
+			<li>
+				<a href="/m15/deliveryConf">배송확인</a>
+			</li>
+			<li>
+				<a href="/m15/refundForm">반품신청</a>
+			</li>
+			<li>
+				<a href="/m15/serviceInfo">소개</a>
+			</li>
+		</ul>
+	</header>
+
+	<div class="wrapper">
+		<h2 class="wrapLogo">반품 신청서</h2>
+		<div class="ui_box">
+			<div class="row_wrap">
+				<div class="rowH">
+					<span class="title_content">반품 제품명</span>
+					<select class="txtfield" name="" id="">
+						<option value="">------</option>
+						<option value="">2</option>
+						<option value="">3</option>
+					</select>
+				</div>
+				<div class="rowH">
+					<span class="title_content">이름</span>
+					<input class="txtfield" type="text" name="search" placeholder="키워드와 키워드 사이는 쉼표(콤마)로 구분해주세요.">
+				</div>
+				<div class="rowH">
+					<span class="title_content big">주소</span>
+					<input class="txtfield big" type="text" name="search" placeholder="키워드와 키워드 사이는 쉼표(콤마)로 구분해주세요.">
+				</div>
+				<div class="rowH">
+					<span class="title_content">신청일시</span>
+					<input class="txtfield" type="text" name="search" placeholder="키워드와 키워드 사이는 쉼표(콤마)로 구분해주세요.">
+				</div>
+				<div class="rowH">
+					<span class="title_content">전화번호</span>
+					<input class="txtfield" type="text" name="search" placeholder="키워드와 키워드 사이는 쉼표(콤마)로 구분해주세요.">
+				</div>
+				<div class="rowH">
+					<span class="title_content big">반품사유</span>
+					<input class="txtfield big" type="text" name="search" placeholder="키워드와 키워드 사이는 쉼표(콤마)로 구분해주세요.">
+				</div>
+			</div>
+		</div>
+		<div class="flex-container2" style="justify-content:flex-end">
+			<button>신청하기</button>
+			<button>취소</button>
+		</div>
+	</div>
+
+	<footer class="footer-flex">
+		<div class="footer-item" style="background-color:black;">1</div>
+	</footer>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/m6/css/editprofile.css">
+    <title>회원 정보 수정</title>
+</head>
+
+<body>
+    <header>
+        <div class = "bar">
+        <input type="button" value = "로그아웃" class = "login">
+        <div class = "logo">로고</div>
+        </div>
+    </header>
+<div style="max-width: 980px;margin: 0 auto;">
+        <div class="subject"><b>회원 정보 수정</b></div>
+
+        <div class="inneredge" style="clear: both">
+            <form action="/m6/profile.html" style="text-align:center" class="inputthings">
+
+                <div>
+                    <div class = "m10">
+                        <span class = "tag4">우편번호</span>
+                        <span class="haha">우편번호</span><input type="text" placeholder="우편번호" class="inputtxt"></div>
+                    <div class = "m10">
+                        <span class = "tag8">도로명/지번 주소</span>
+                        <span class="haha">도로명/지번 주소</span><input type="text" placeholder="도로명/지번 주소" class="inputtxt">
+                    </div>
+                    <div class = "m10">
+                        <span class = "tag4">상세 주소</span>
+                        <span class="haha">상세 주소</span><input id="tel" type="text" placeholder="상세 주소" class="inputtxt">
+                    </div>
+                    <div class = "m10">
+                        <span class = "tag4">연락처</span>
+                        <span class="haha">연락처</span><input type="text" placeholder="연락처를 입력하세요 (0212341234)" class="inputtxt">
+                    </div>
+                    <!-- <div class = "m10">
+                        <span class = "tag4">입사일</span>
+                        <span class="haha">입사일</span><input type="text" placeholder="입사일을 입력하세요 (20001231)" class="inputtxt">
+                    </div> -->
+                    <!-- <div class = "m10">
+                        <span class = "tag4">최종 학력</span>
+                        <span class="haha">비밀번호</span><input type="text" placeholder="비밀번호를 입력하세요" class="inputtxt">
+                    </div> -->
+                    <div class = "m10">
+                    <span class="haha">최종 학력</span>
+                    <select class = "selectbox">
+                        <option value="최종 학력">최종 학력</option>
+                        <option value="고등학교졸업">고등학교졸업</option>
+                        <option value="대학졸업(2, 3년)">대학졸업(2, 3년)</option>
+                        <option value="대학교졸업(4년)">대학교졸업(4년)</option>
+                        <option value="대학원 석사졸업">대학원 석사졸업</option>
+                        <option value="대학원 박사졸업">대학원 박사졸업</option>
+                    </select>
+                    </div>
+
+                </div>
+
+                <input type="submit" value="완료" class="button">
+
+            </form>
+
+
+        </div>
+    </div>
+</body>
+
+</html>

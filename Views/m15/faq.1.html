@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- <link rel="stylesheet" href="/m15/css/common.css"> -->
+	<link rel="stylesheet" href="/m15/css/common.css">
+	<link rel="stylesheet" href="/m15/css/harin.css">
+	<link rel="stylesheet" href="/m15/css/flex.css">
+	<link rel="stylesheet" href="/m15/css/faq.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<style>
+		.wrapper {
+			max-width: 980px;
+			margin: 0 auto;
+		}
+	</style>
+	<script>
+		var clics = 0;
+
+		$(document).ready(function() {
+
+			$('.respuesta').hide();
+			$('#cerrartodas').hide();
+
+			$('h3').click(function() {
+
+				$(this).next('.respuesta').toggle(function() {
+
+					$(this).next('.respuesta');
+
+				}, function() {
+
+					$(this).next('.respuesta').fadeIn('fast');
+
+				});
+
+				if ($(this).hasClass('cerrar')) {
+					$(this).removeClass('cerrar');
+				} else {
+					$(this).addClass('cerrar');
+				};
+
+				if ($('.cerrar').length >= 3) {
+
+					$('#cerrartodas').fadeIn('fast');
+
+				} else {
+					$('#cerrartodas').hide();
+					var abiertas = $('.cerrar').length;
+					console.log(abiertas);
+				}
+			}); //Close Function Click
+
+			$('#cerrartodas').click(function() {
+				$('.respuesta').fadeOut(200);
+				$('h3').removeClass('cerrar');
+				$('#cerrartodas').fadeOut('fast');
+			});
+			$(".faqB").click(function(e){
+				e.preventDefault();
+				var result = confirm("삭제하시겠습니까?");
+				if(result){
+					console.log($(this).val());
+					console.log($(".faqB"));
+					$.ajax({
+						url: '/m15/faqDelete/'+$(this).val(), //request 보낼 서버의 경로
+						type: 'post', // 메소드(get, post, put 등)
+						success: function(data) {
+							console.log(data);
+							alert("수정되었습니다.");
+							// var html='<div style="">수정되었습니다.</div>';
+							// $(".blin").empty().append(html);
+							location.href="/m15/faq";
+							console.log("!1");
+						}
+					});
+					// alert("삭제되었습니다.");
+				// location.href="/faq";
+				}else{
+				}
+			});
+			$("#faqUpdate").click(()=>{
+				controlFaq();
+			});
+			$("#questAdd").click(function(){
+				 let html="";
+		 		 html+=`<h3 class="rowH"><input class="f1" type="text" name=""></h3>
+				 <div class="respuesta rowH"><input class="f1" type="text" name="">
+				 </div>`
+				 $("#preguntass").append(html);
+				 $('h3').off().click(function() {
+
+					 $(this).next('.respuesta').toggle(function() {
+
+						 $(this).next('.respuesta');
+
+					 }, function() {
+
+						 $(this).next('.respuesta').fadeIn('fast');
+
+					 });
+
+					 if ($(this).hasClass('cerrar')) {
+						 $(this).removeClass('cerrar');
+					 } else {
+						 $(this).addClass('cerrar');
+					 };
+
+					 if ($('.cerrar').length >= 3) {
+
+						 $('#cerrartodas').fadeIn('fast');
+
+					 } else {
+						 $('#cerrartodas').hide();
+						 var abiertas = $('.cerrar').length;
+						 console.log(abiertas);
+					 }
+				 }); //Close Function Click
+			});
+			function controlFaq(){
+				let size = $("#preguntass").children("h3").length;
+				let adata={};
+				let tic=$("#preguntas").children("h3").length;
+				let data2=[];
+				for(let j=0;j<size;j++){
+					data2[j]={question:$("#preguntass").children("h3").children("input").eq(j).val(),
+	   				 answer:$("#preguntass").children("div").children("input").eq(j).val()
+					 };
+				}
+				console.log(adata);
+				$.ajax({
+					url: '/m15/faqUpdate/'+tic+"/"+size, //request 보낼 서버의 경로
+					type: 'post', // 메소드(get, post, put 등)
+					data: {'main':data2},
+					success: function(data) {
+						console.log(data);
+						alert("수정되었습니다.");
+						// var html='<div style="">수정되었습니다.</div>';
+						// $(".blin").empty().append(html);
+						location.href="/faq";
+						console.log("!1");
+					}
+				});
+			}
+
+		}); //Close Function Ready
+	</script>
+</head>
+
+<body>
+	<header class="color2">
+		<ul class="hlist">
+			<li>
+				<a href="/m15/index">공지사항</a>
+			</li>
+			<li>
+				<a href="/m15/faq">FAQ</a>
+			</li>
+			<li>
+				<a href="/m15/inquiry">문의하기</a>
+			</li>
+			<li>
+				<a href="/m15/deliveryConf">배송확인</a>
+			</li>
+			<li>
+				<a href="/m15/refundForm">반품신청</a>
+			</li>
+			<li>
+				<a href="/m15/serviceInfo">소개</a>
+			</li>
+		</ul>
+	</header>
+
+	<div class="wrapper">
+		<h2 class="wrapLogo">자주 묻는 질문 FaQ</h2>
+		<div id="preguntas">
+			<% for(let j=0; j < data.rows.length; j++){%>
+			<h3><%= data.rows[j].question %></h3>
+			<div class="respuesta">
+				<p><%= data.rows[j].answer %></p>
+			</div>
+			<% } %>
+			<a href="#" id="cerrartodas">Close all</a>
+		</div>
+	</div>
+
+	<div class="blin">
+		<div class="wrapper">
+			<h2 class="wrapLogo">자주 묻는 질문 FaQ</h2>
+			<div id="preguntass">
+				<% for(let j=0; j < data.rows.length; j++){%>
+				<h3 class="rowH"><input class="f1" type="text" name="" value="<%= data.rows[j].question %>"><button class="faqB" value="<%=data.rows[j].faq_id%>">삭제</button></h3>
+				<div class="respuesta rowH">
+					<input class="f1" type="text" name="" value="<%= data.rows[j].answer %>">
+				</div>
+				<% } %>
+				<!-- <a href="#" id="cerrartodas">Close all</a> -->
+			</div>
+			<button id="faqUpdate">수정</button>
+			<button id="questAdd">추가</button>
+		</div>
+	</div>
+	<footer class="footer-flex">
+		<div class="footer-item" style="background-color:black;">1</div>
+	</footer>
+</body>
+
+</html>

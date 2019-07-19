@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
+  <link rel="stylesheet" href="./css/commons.css">
+  <link rel="stylesheet" media="only screen and (max-width: 768px)" href="./css/main_768.css">
+	<link rel="stylesheet" media="only screen and (max-width: 576px)" href="./css/main_576.css">
+  <!--<link rel="stylesheet" media="only screen and (max-height: 414px)" href="./css/main_414.css">-->
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  
+  <script>
+    function fn_select(query){
+      $.ajax({
+                url: '/api/get',
+                dataType: 'json',
+                type: 'GET',
+                async:false,
+                data: {data:query},
+                success: function(result) {
+                    if (result) {
+                        console.log(result.result);
+                        //resSelect = result.result;
+                    }
+               }
+            });
+    }
+  document.addEventListener('DOMContentLoaded', function(){
+    $(".delete").on("click", function(){
+      var query ="UPDATE o_categories SET `delete_flag`='Y' WHERE catenm=";
+      query += '"' + $("span[name=detail_catename]").text()+ '"';
+      fn_select(query);
+      alert("삭제되었습니다.");
+      $("#myModal").hide();
+    });
+  });
+
+  </script>
+
+  <script>
+  $(document).ready(function(){
+    //페이지 로드 시, 대분류 카테고리 Listup
+    $('#mid_cate').attr('disabled', 'true');
+    $('#mid_cate').css('background-color', 'gray');
+    $('#small_cate').attr('disabled', 'true');
+    $('#small_cate').css('background-color', 'gray');
+
+    var select = 'select * from o_categories where upper_catecode ="0"';
+    var html = "";
+    var optionbox ="<option value=0>대분류</option>";
+    html = '<thead style="background-color: black; color: white">';
+    html +='<tr>'
+    html +='<th>No</th>'
+    html +='<th>품명</th>';
+    html +='<th>품목코드</th>';
+    html += '</tr>';
+    html +=' </thead>';
+    $.ajax({
+              url: '/api/get',
+              dataType: 'json',
+              type: 'GET',
+              data: {data:select},
+              success: function(result) {
+                  if (result) {
+                      console.log(result.result);
+                  }
+                  for(var i = 0; i < result.result.length; i++){
+                     html += '<tr><td>'+ (i+1) +'</td>';
+                     html += '<td class="list1">'+result.result[i].catenm+'</td>';
+                     optionbox += '<option value='+(i+1)+'>'+result.result[i].catenm+'</option>';
+                     html += '<td>'+result.result[i].catecode+'</td></tr>';
+                  }
+                  $("#main_cate").empty().append(optionbox);
+                  $("#data_table").empty().append(html);
+             }
+          });
+
+    // 대분류 리스트
+    $('#main_cate').change(function(e){
+      $("#data_table").empty();
+      optionbox ="<option value=0>중분류</option>";
+      html = '<thead style="background-color: black; color: white">';
+      html +='<tr>'
+      html +='<th>No</th>'
+      html +='<th>품명</th>';
+      html +='<th>품목코드</th>';
+      html +='<th>금액</th>';
+      html +='<th>규격</th>';
+      html +='<th>단위</th>';
+      html += '</tr>';
+      html +=' </thead>';
+      html +='<tbody>'
+
+      var q = 'select * from o_categories where upper_catecode=(select catecode from o_categories where catenm=\"';
+      q += $("#main_cate Option:selected").text();
+      q+= '\")';
+      $.ajax({
+                url: '/api/get',
+                dataType: 'json',
+                type: 'GET',
+                data: {data:q},
+                success: function(result) {
+                    if (result) {
+                        console.log(result.result);
+                    }
+                    for(var i = 0; i < result.result.length; i++){
+                       html += '<tr class="mybtn"><td>'+ (i+1) +'</td>';
+                       html += '<td class="list1">'+result.result[i].catenm+'</td>';
+                       optionbox += '<option value='+(i+1)+'>'+result.result[i].catenm+'</option>';
+                       html += '<td>'+result.result[i].catecode+'</td>';
+                       html += '<td>'+result.result[i].price+'</td>';
+                       html += '<td>'+result.result[i].spec+'</td>';
+                       html += '<td>'+result.result[i].unit+'</td></tr>';
+                    }
+                    html += '</tbody>';
+                    $("#mid_cate").empty().append(optionbox);
+                    $("#data_table").empty().append(html);
+                    $(".mybtn").click(function(){
+                      var tr = $(this);
+                      var td = tr.children();
+                      console.log("AASDASDASD")
+                      $("span[name=detail_index]").text(td.eq(0).text());
+                      $("span[name=detail_catename]").text(td.eq(1).text());
+                      $("span[name=detail_catecode]").text(td.eq(2).text());
+                      $("span[name=detail_availstock]").text(td.eq(3).text());
+                      $("span[name=detail_reqstock]").text("없음");
+
+                      $("span[name=detail_spec]").text(td.eq(4).text());
+                      $("span[name=detail_unit]").text(td.eq(5).text());
+
+                      $("#myModal").show();
+                      $(".close").off().on("click", function(){
+                          $("#myModal").hide();
+                      });
+                      $(".update").on("click", function(){
+                        var param = '?&catelevel=2';
+                        param += '&catenm='+td.eq(1).text();
+                        param += '&catecode='+td.eq(2).text();
+                        param += '&price='+ td.eq(3).text();
+                        param += '&spec='+ td.eq(4).text();
+                        param += '&unit='+ td.eq(5).text();
+                        
+                        alert(param)
+                        encodeURI(encodeURIComponent(param));
+                        location.href = 'bom_update.html'+param;
+                      });
+                    });
+            }
+      });
+      if($('#main_cate Option:selected').val() != 0){
+        $('#mid_cate').removeAttr('disabled');
+        $('#mid_cate').css('background-color', 'white');
+      }
+      else if($("#main_cate Option:selected").val() == 0){
+        select = 'select * from o_categories where upper_catecode ="0"';
+        $('#mid_cate').attr('disabled', 'true');
+        $('#mid_cate').css('background-color', 'gray');
+        $('#small_cate').attr('disabled', 'true');
+        $('#small_cate').css('background-color', 'gray');
+
+        var optionbox ="<option value=0>대분류</option>";
+        html = '<thead style="background-color: black; color: white">';
+        html +='<tr>'
+        html +='<th>No</th>'
+        html +='<th>품명</th>';
+        html +='<th>품목코드</th>';
+        html += '</tr>';
+        html +=' </thead>';
+        $.ajax({
+                  url: '/api/get',
+                  dataType: 'json',
+                  type: 'GET',
+                  data: {data:select},
+                  success: function(result) {
+                      if (result) {
+                          console.log(result.result);
+                      }
+                      for(var i = 0; i < result.result.length; i++){
+                         html += '<tr><td>'+ (i+1) +'</td>';
+                         html += '<td class="list1">'+result.result[i].catenm+'</td>';
+                         optionbox += '<option value='+(i+1)+'>'+result.result[i].catenm+'</option>';
+                         html += '<td>'+result.result[i].catecode+'</td></tr>';
+                      }
+                      $("#main_cate").empty().append(optionbox);
+                      $("#data_table").empty().append(html);
+                 }
+              }
+            );
+      };
+    });
+
+    // 중분류 리스트
+    $('#mid_cate').change(function(e){
+      $("#data_table").empty();
+      optionbox ="<option value=0>소분류</option>";
+      html = '<thead style="background-color: black; color: white">';
+      html +='<tr>'
+      html +='<th>No</th>'
+      html +='<th>품명</th>';
+      html +='<th>품목코드</th>';
+      html +='<th>소요수량</th>';
+      html +='<th>금액</th>';
+      html +='<th>규격</th>';
+      html +='<th>단위</th>';
+      html += '</tr>';
+      html +=' </thead>';
+
+      var select ='SELECT * FROM o_categories WHERE upper_catecode = (SELECT catecode FROM o_categories WHERE catenm = ';
+      select += '"' + $("#mid_cate Option:selected").text()+'")';
+      console.log(select);
+      $.ajax({
+                url: '/api/get',
+                dataType: 'json',
+                type: 'GET',
+                data: {data:select},
+                success: function(result) {
+                    if (result) {
+                        console.log(result.result);
+                    }
+                    for(var i = 0; i < result.result.length; i++){
+                      html += '<tr class="mybtn"><td>'+ (i+1) +'</td>';
+                       html += '<td>'+result.result[i].catenm+'</td>';
+                       optionbox += '<option value='+(i+1)+'>'+result.result[i].catenm+'</option>';
+                       html += '<td>'+result.result[i].catecode+'</td>';
+                       html += '<td>'+result.result[i].availstock+'</td>';
+                       html += '<td>'+result.result[i].price+'</td>';
+                       html += '<td>'+result.result[i].spec+'</td>';
+                       html += '<td>'+result.result[i].unit+'</td></tr>';
+                    }
+                    $("#small_cate").empty().append(optionbox);
+                    $("#data_table").empty().append(html);
+                    $(".mybtn").click(function(){
+                      var tr = $(this);
+                      var td = tr.children();
+
+                      $("span[name=detail_index]").text(td.eq(0).text());
+                      $("span[name=detail_catename]").text(td.eq(1).text());
+                      $("span[name=detail_catecode]").text(td.eq(2).text());
+                      $("span[name=detail_availstock]").text(td.eq(4).text());
+                      $("span[name=detail_reqstock]").text(td.eq(3).text());
+                      $("span[name=detail_spec]").text(td.eq(5).text());
+                      $("span[name=detail_unit]").text(td.eq(6).text());
+                      $("#myModal").show();
+                      $(".close").off().on("click", function(){
+                          $("#myModal").hide();
+                      });
+                      $(".update").on("click", function(){
+                        // 소분류 항목 클릭 후, 수정페이지
+
+                        var param = '?&catelevel=3';
+                        param += '?catenm='+td.eq(1).text();
+                        param += '&catecode='+td.eq(2).text();
+                        param += '&price='+ td.eq(3).text();
+                        param += '&availstock='+td.eq(4).text();
+                        param += '&spec='+ td.eq(5).text();
+                        param += '&unit='+ td.eq(6).text();
+
+                        alert(param)
+                        encodeURI(encodeURIComponent(param));
+
+                        location.href = 'bom_update.html'+param;
+                      });
+                    });
+               }
+            });
+      if($('#mid_cate Option:selected').val() != 0){
+        $('#small_cate').removeAttr('disabled');
+        $('#small_cate').css('background-color', 'white');
+      }
+      else {
+        $('#small_cate').attr('disabled', 'true');
+        $('#small_cate').css('background-color', 'gray');
+        $('#small_cate').empty();
+        $("#data_table").empty();
+        optionbox ="<option value=0>중분류</option>";
+        html = '<thead style="background-color: black; color: white">';
+        html +='<tr>'
+        html +='<th>No</th>'
+        html +='<th>품명</th>';
+        html +='<th>품목코드</th>';
+        html +='<th>금액</th>';
+        html +='<th>규격</th>';
+        html +='<th>단위</th>';
+        html += '</tr>';
+        html +=' </thead>';
+        html +='<tbody>'
+
+        var q = 'select * from o_categories where upper_catecode=(select catecode from o_categories where catenm=\"';
+        q += $("#main_cate Option:selected").text();
+        q+= '\")';
+        $.ajax({
+                  url: '/api/get',
+                  dataType: 'json',
+                  type: 'GET',
+                  data: {data:q},
+                  success: function(result) {
+                      if (result) {
+                          console.log(result.result);
+                      }
+                      for(var i = 0; i < result.result.length; i++){
+                         html += '<tr class="mybtn"><td>'+ (i+1) +'</td>';                              //  index
+                         html += '<td class="list1">'+result.result[i].catenm+'</td>';                  //  catenm
+                         optionbox += '<option value='+(i+1)+'>'+result.result[i].catenm+'</option>';
+                         html += '<td>'+result.result[i].catecode+'</td>';                              //  catecode
+                         html += '<td>'+result.result[i].price+'</td>';                                 //  price
+                         html += '<td>'+result.result[i].spec+'</td>';                                  //  spec
+                         html += '<td>'+result.result[i].unit+'</td></tr>';                             //  unit
+                      }
+                      html += '</tbody>';
+                      $("#mid_cate").empty().append(optionbox);
+                      $("#data_table").empty().append(html);
+                      $(".mybtn").click(function(){
+                        var tr = $(this);
+                        var td = tr.children();
+
+                        $("span[name=detail_index]").text(td.eq(0).text());                           
+                        $("span[name=detail_catename]").text(td.eq(1).text());
+                        $("span[name=detail_catecode]").text(td.eq(2).text());
+                        $("span[name=detail_availstock]").text(td.eq(3).text());
+                        $("span[name=detail_reqstock]").text(td.eq(4).text());
+                        $("span[name=detail_spec]").text(td.eq(5).text());
+                        $("span[name=detail_unit]").text(td.eq(6).text());
+                        $("#myModal").show();
+                        $(".close").off().on("click", function(){
+                            $("#myModal").hide();
+                        });
+                        $(".update").on("click", function(){
+                            location.href = 'bom_update.html';
+                        });
+                      });
+              }
+        });
+      }
+    });
+  });
+  </script>
+
+</head>
+<body>
+  <header>
+    <h1 style="color: white;">LOGO</h1>
+  </header>
+  <div class="main_container">
+    <div class="nav_container">
+      <nav>
+        <span id="nav_id">BOM</span>
+        <ul>
+          <li><a href="./Main.html"> 조회 </a></li>
+          <li><a href="./bom_add.html"> 등록 </a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="section_container">
+      <div class="text_container">
+        <h2>Main</h2>
+      </div>
+      <div class="check_container">
+        <div class="select_container">
+          <div class="inner">
+            <p style="text-align: center; margin : 0; padding: 0;">대분류 :</p>
+            <select id="main_cate" name="main_cate">
+            </select>
+          </div>
+          <div class="inner">
+            <p style="text-align: center; margin : 0; padding: 0;">중분류 :</p>
+            <select id="mid_cate" name="mid_cate">
+            </select>
+          </div>
+          <div class="inner">
+            <p style="text-align: center; margin : 0; padding: 0;">소분류 :</p>
+            <select id="small_cate" name="small_cate">
+            </select>
+          </div>
+        </div>
+      </div>
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+        <span id="modal_title">index</span><span name="detail_index" id="modal_data"></span>
+        <span id="modal_title">품명</span><span name="detail_catename" id="modal_data"></span>
+        <span id="modal_title">품목코드</span><span name="detail_catecode" id="modal_data"></span>
+        <span id="modal_title">소요수량</span><span name="detail_reqstock" id="modal_data"></span>
+        <span id="modal_title">금액</span><span name="detail_availstock" id="modal_data"></span>
+        <span id="modal_title">규격</span><span name="detail_spec" id="modal_data"></span>
+        <span id="modal_title">단위</span><span name="detail_unit" id="modal_data"></span>
+        <span style="width: 100%; border: 0;">
+          <button class="update">수정</button>
+          <button class="delete">삭제</button>
+          <button class="close">닫기</button>
+        </span>
+        </div>
+      </div>
+      <table id="data_table" style="width: 80%; margin-left:10%;">
+
+      </table>
+    </div>
+  </div>
+</body>
+</html>

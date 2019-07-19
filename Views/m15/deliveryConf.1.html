@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="/m15/css/common.css">
+	<link rel="stylesheet" href="/m15/css/harin.css">
+	<link rel="stylesheet" href="/m15/css/flex.css">
+	<link rel="stylesheet" href="/m15/css/table.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+</head>
+
+<body>
+	<header class="color2">
+		<ul class="hlist">
+			<li>
+				<a href="/m15/index">공지사항</a>
+			</li>
+			<li>
+				<a href="/m15/faq">FAQ</a>
+			</li>
+			<li>
+				<a href="/m15/inquiry">문의하기</a>
+			</li>
+			<li>
+				<a href="/m15/deliveryConf">배송확인</a>
+			</li>
+			<li>
+				<a href="/m15/refundForm">반품신청</a>
+			</li>
+			<li>
+				<a href="/m15/serviceInfo">소개</a>
+			</li>
+		</ul>
+	</header>
+
+	<div class="wrapper">
+		<h2 class="wrapLogo">배송확인하기</h2>
+		<div class="flex-container2">
+			<table class="f1">
+				<caption>나의 배송현황</caption>
+				<thead>
+					<tr>
+						<th scope="col">배송번호</th>
+						<th scope="col">제품명</th>
+						<th scope="col">배송현황</th>
+						<th scope="col">기간/완료일</th>
+						<th scope="col">보기</th>
+					</tr>
+				</thead>
+				<tbody class="ttbody">
+					<% for(let j=0;j< data.length;j++){%>
+					<tr>
+						<td data-label="Account"><%=data[j].sale_id%></td>
+						<td data-label="Due Date"><%=data[j].businessnumber%></td>
+						<td data-label="Amount"><%=data[j].app_status%>1</td>
+						<td data-label="Period"><%=data[j].app_date%></td>
+						<td data-label="Period"><button type="button"
+								onClick="location.href='deliveryDetail/<%=data[j].sale_id%>'">자세히 보기</button></td>
+					</tr>
+					<%}%>
+					<!-- <tr>
+						<td scope="row" data-label="Account">10015</td>
+						<td data-label="Due Date">♚♚히어로즈 오브 더 스☆톰♚♚가입시$$ 특정조건  즉시이동</td>
+						<td data-label="Amount">배송중</td>
+						<td data-label="Period">2019/07/04</td>
+						<td data-label="Period"><button type="button" onClick="location.href='engineerDetail.html'">자세히 보기</button></td>
+					</tr>
+					<tr>
+						<td scope="row" data-label="Account">10019</td>
+						<td data-label="Due Date"> ♜월드오브 워크래프트♜펫 무료증정￥</td>
+						<td data-label="Amount">배송완료</td>
+						<td data-label="Period">2019/07/04</td>
+						<td data-label="Period"><button type="button" onClick="location.href='engineerDetail.html'">자세히 보기</button></td>
+					</tr>
+					<tr>
+						<td scope="row" data-label="Acount">10033</td>
+						<td data-label="Due Date">§§디아블로3§§★공허의유산★초상화획득기회@@</td>
+						<td data-label="Amount">환불</td>
+						<td data-label="Period">2019/07/04</td>
+						<td data-label="Period"><button type="button" onClick="location.href='engineerDetail.html'">자세히 보기</button></td>
+					</tr> -->
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+	<footer class="footer-flex">
+		<div class="footer-item" style="background-color:black;">1</div>
+	</footer>
+</body>
+
+</html>

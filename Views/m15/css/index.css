@@ -1,0 +1,242 @@
+html, body {margin: 0; padding: 0;}
+
+.headNm {font-family: cursive; text-align: center; font-size: 50px; background-color: #f1f1f1; padding: 10px 0;}
+
+.nav1{
+    position: fixed;
+    width: 20vw;
+/*// 반응형에 필요할 수도있음! //*/
+/*    min-width: 100px;*/
+/*    padding: 0 1%;*/
+    height: 100%;
+    display: block;
+    background-color: rgba(229, 223, 223, 0.32);
+    overflow-y: scroll;
+
+}
+.nav1 div {text-align: center; font-family: cursive; font-size: 20px;}
+.nav1 div:hover{cursor: pointer; opacity: 0.5; background-color: lightgray;}
+
+.nav2{
+    display: none;
+    width: 80%;
+    float: right;
+    background-color: rgba(255, 255, 255, 0);
+
+}
+
+h2{
+    text-align: center;
+}
+
+section {
+    float: right;
+    width: 80%;
+    height: 100%;
+    min-height: 755px;
+}
+
+footer {
+    float: right;
+    clear: both;
+    width: 80%;
+    height: 200px;
+    background-image: url(../img/배경images.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+/********************************************************************/
+/* a태그 밑줄 없애주기*/
+a{ text-decoration: none;}
+/* nav1안에 간격주기 */
+nav {padding: 0 1%;}
+
+
+.dropbtn {
+    width: 25vw;
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid gray;
+    border-radius: 5%;
+    font-size: 25px;
+    cursor: pointer;
+
+}
+
+.dropdown {
+  position: relative;
+  padding-left: 5%;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  width: 18vw;
+/*  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
+/*  z-index: 1;*/
+    background-color: gray;
+    text-align: center;
+}
+
+.dropdown-content a {
+  padding: 10px 0;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover
+.dropdown-content {
+  background-color: gray;
+  display: block;
+}
+
+.dropdown:hover
+.dropbtn {
+  background-color: cornflowerblue;
+}
+
+/******************************************************************/
+#estimate {
+    background-color: ;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border:  1px solid black;
+    padding: 8px;
+}
+/* 라인구분을 위한 색넣기 */
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.right {float: right;}
+.left {float: left;}
+.padding {padding: 0 15px; box-sizing: border-box;}
+
+/**************************************************************************/
+#order {
+    background-color: ;
+}
+
+/**************************************************************************/
+#purchase {
+    background-color: ;
+}
+/************************************************************************/
+ul {list-style: none; padding-left: 0;}
+.body::after, .col-body::after {content: ""; display: table; clear: both;}
+.col-body li {width: calc(100% / 6); float: left; text-align: center; padding: 10px 0; border: px solid gray; box-sizing: border-box; height: 100%;}
+.dn {display: none;}
+.tc {text-align: center; display: none;}
+.bg {background-color: #b7eaff;}
+.body {width: 98%; padding: 0 1%;}
+#check-body {width: calc(100% - 50px); float: left;}
+#checkbox {width: 50px; float: right;}
+
+/************************************************************************/
+footer h3{text-align: center;}
+.footContainer{padding: 0 5%;}
+.footContainer div {font-size: 17px; float: left;}
+.footContainer div div{clear: both;  margin-bottom: 5px; margin-left: 10px;}
+.footContainer div a{cursor: pointer;}
+.foot20{width: 20%; float: left;}
+.foot20::after{clear: both;}
+.foot80{width: 80%}
+
+
+
+
+/**************************************************************************/
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+/**************************************************************************/
+
+@media screen and  (max-width: 768px) {
+    section {
+        min-height: 824px;
+    }
+    .textSize1 {width: 100%;}
+    .col-body li {
+      width: calc(100% / 4);
+      float: left;
+      text-align: center;
+      align-content: center;
+      padding: 15px 0;
+      font-size: 15px;
+      height: 100%;
+    }
+    .col-body li strong {height: 100%;}
+    .footContainer div {font-size: 13px;}
+}
+
+
+@media screen and (max-width: 578px) {
+    section {
+        min-height: 440px;
+    }
+    .nav1{display: none;}
+    .nav2{
+        display: block;
+    /*    float: left;*/
+        width: 20%;
+        padding-top: 0;
+        margin-top: 0;
+    }
+
+    .col-body li {width: calc(100% / 3); font-size: 13px; height: 5vh;}
+    .headNm {font-family: cursive;  font-size: 30px; background-color: #f1f1f1; text-align: center; padding-left: 80px;}
+    .textSize1 {width: 100%;}
+    .dropbtn {
+        width: 100%;;
+        padding: 0;
+        border: 0;
+        cursor: pointer;
+    }
+    section{
+        width: 100%;
+    }
+    .footContainer div {font-size: 12px;}
+    footer{width: 100%;}
+}

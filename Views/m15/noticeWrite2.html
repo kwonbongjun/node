@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>글생성하는 폼</title>
+  <link rel="stylesheet" href="/m15/css/main.css">
+  <link rel="stylesheet" href="/m15/css/common.css">
+  <link rel="stylesheet" href="/m15/css/harin.css">
+  <link rel="stylesheet" href="/m15/css/flex.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="/m15/js/commons.js"></script>
+  <style media="screen">
+    .wrapper {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .input-flex2 {
+      display: flex;
+      justify-content: center;
+      /* align-content: flex-start; */
+      height: 40px;
+    }
+
+    .input-flex2>button {
+      margin: 20px 30px;
+    }
+  </style>
+  <script>
+    $(function () {
+      $("#returnList").click(function (e) {
+        e.preventDefault();
+        location.href = "/m15/index"
+      });
+      $("#submitNew").click((e) => {
+        console.log("눌림");
+        e.preventDefault();
+        init();
+      })
+      function init() {
+        fNet("/m15/index/writeNew", "POST",
+        {title:$("#title").val(),content:$("#content").val(),subtitle:"서비스 뉴스",type_flag:1}, function (data) {
+          if (data.state) {
+            alert("글쓰기 성공하였습니다.");
+            location.href = "/m15/index";
+          } else {
+            alert(data.text);
+            history.back();
+          }
+        });
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <header class="color2">
+    <ul class="hlist">
+      <li>
+        <a href="/m15/index">공지사항</a>
+      </li>
+      <li>
+        <a href="/m15/faq">FAQ</a>
+      </li>
+      <li>
+        <a href="/m15/inquiry">문의하기</a>
+      </li>
+      <li>
+        <a href="/m15/deliveryConf">배송확인</a>
+      </li>
+      <li>
+        <a href="/m15/refundForm">반품신청</a>
+      </li>
+      <li>
+        <a href="/m15/serviceInfo">소개</a>
+      </li>
+    </ul>
+  </header>
+
+  <div class="wrapper">
+    <h2 class="wrapLogo">글 상세보기</h2>
+    <div class="flex_container2">
+      <form action="/m15/index/writeNew" method="POST">
+
+
+        <div class="f2 rowH" style="margin:10px 10px;">
+          <div class="color1" style="padding:0px 10px;">제목</div>
+          <div class="f1 color2"><input id="title" name="title" type="text" style="width:100%"></div>
+        </div>
+        <div class="f1 rowH">
+          <div class="color1" style="padding:0px 10px;">제목</div>
+        </div>
+        <div class="f1 rowH">
+          <textarea id="content" name="content" style="width:100%" rows="20"></textarea>
+        </div>
+        <br>
+        <div class="f1 rowH" style="justify-content:flex-end;">
+          <button id="submitNew" type="submit">입력</button><button id="returnList">취소</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+
+
+  <footer class="footer-flex">
+    <div class="footer-item" style="background-color:black;">1</div>
+  </footer>
+</body>
+
+</html>

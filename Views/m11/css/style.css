@@ -1,0 +1,42 @@
+.main_box{
+padding: 8%;
+}
+ .list_table{
+   background-color: #B3CBFF;
+   height: 30px;
+ }
+ .list_table_small{
+   background-color: #BFF5FF;
+   height: 30px;
+ }
+.year_y{
+  height: 30px;
+  width: 100%;
+}
+.year_y2{
+  height: 30px;
+  width: 100%;
+}
+.disNone{
+  display: none;
+}
+.button_t{
+  float: right;
+}
+.button_t button{
+  height: 40px;
+}
+.chart_box{
+  width: 75%;
+  margin-left: : 25%;
+  text-align: center;
+  visibility: hidden;
+}
+.chart_position{
+  position: fixed;
+  top:300px;
+  left: 300px;
+  height: 400px;
+  width: 700px;
+}
+

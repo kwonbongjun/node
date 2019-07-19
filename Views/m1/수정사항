@@ -1,0 +1,9 @@
+Category Table -> 정렬 컬럼 추가.
+
+중분류 Angular 검색기능 추가 -> Filter
+아니면 jquery ui -> combobox
+->>>>https://jqueryui.com/autocomplete/#combobox
+https://offbyone.tistory.com/260
+
+table 을 좀더 예쁘게 꾸미고 싶을때,
+table style -> border-collspase > collspase; 추가

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <style media="screen">
+    body {
+      font: 12px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #505050;
+      font-weight: bold;
+    }
+
+    fieldset,
+    h4 {
+      border: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    input {
+      border: 0;
+      color: inherit;
+      font-family: inherit;
+      font-size: 100%;
+      line-height: normal;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    #chat {
+      bottom: 0;
+      font-size: 12px;
+      right: 24px;
+      position: fixed;
+      width: 300px;
+    }
+
+    #chat header {
+      background: #171717;
+      border-radius: 5px 5px 0 0;
+      color: #fff;
+      cursor: pointer;
+      padding: 16px 24px;
+    }
+
+    #chat h4:before {
+      background: #1a8a34;
+      border-radius: 50%;
+      content: "";
+      display: inline-block;
+      height: 8px;
+      margin: 0 8px 0 0;
+      width: 8px;
+    }
+
+    #chat h4 {
+      font-size: 12px;
+    }
+
+    #chat h5 {
+      font-size: 10px;
+    }
+
+    #chat form {
+      padding: 24px;
+    }
+
+    #chat input[type="text"] {
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 8px;
+      outline: none;
+      width: 234px;
+    }
+
+    .sayac {
+      background: #e62727;
+      border: 1px solid #fff;
+      border-radius: 50%;
+      display: none;
+      font-size: 12px;
+      font-weight: bold;
+      height: 28px;
+      left: 0;
+      line-height: 28px;
+      margin: -15px 0 0 -15px;
+      position: absolute;
+      text-align: center;
+      top: 0;
+      width: 28px;
+    }
+
+    .kapat {
+      background: #a00;
+      border-radius: 50%;
+      color: #fff;
+      display: block;
+      float: right;
+      font-size: 20px;
+      height: 16px;
+      line-height: 13px;
+      margin: 0px 0 0 0;
+      text-align: center;
+      width: 16px;
+      border: solid #a00 2px;
+
+    }
+
+    .kapat:hover {
+      background: #a00;
+      border: solid 2px rgba(255, 255, 255, 0.2);
+    }
+
+    .chat {
+      background: #fff;
+    }
+
+    .mesaj-gecmisi {
+      height: 252px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
+
+
+
+    .o,
+    .sen {
+      padding: 8px;
+      outline: none;
+      width: 270px;
+      border-bottom: solid 1px #eee;
+      color: #aaa;
+      position: relative;
+    }
+
+    .o {
+      text-align: right
+    }
+
+    .sen {
+      background-color: rgba(0, 0, 0, 0.01);
+      text-align: left
+    }
+
+    .gizle {
+      margin-bottom: -350px;
+    }
+
+    img {
+      border-radius: 5px;
+      margin: 0 5px 0 5px;
+      top: 0;
+    }
+
+    .sil {
+      clear: both;
+    }
+
+    .islem {
+      color: #ccc;
+      margin: 0 0 -20px 25px;
+    }
+
+    /* Ayhan Altınok*/
+  </style>
+  <script>
+    $(function() {
+      $(".kapat").click(function() {
+        var durum = $(this).text(),
+          chat = $("#chat"),
+          yaz = $(this);
+        if (durum == "-") {
+          yaz.html("+");
+          chat.animate({
+            opacity: 0.50,
+            bottom: "-314px"
+          }, 1000);
+
+        } else {
+          yaz.html("-");
+          chat.animate({
+            opacity: 1,
+            bottom: "0px"
+          }, 1000);
+        }
+      });
+
+
+      $('#txt').keydown(function(e) {
+        if (e.keyCode == 13) {
+          console.log("1234");
+          var yaz = "<div class='o'><img align='right' src='http://gravatar.com/avatar/7124bc62949227ac21a52e9533e6d478?s=80' width='30px'>© 답변 준비중입니다. 잠시 기다려주세요",
+            yazi = $("#txt").val(),
+            output = $('.mesaj-gecmisi'),
+            img = "<img align='left' src='http://gravatar.com/avatar/5b4d09ae59d9935cffa9fc1a08b9ec12?s=80' width='30px'>",
+            sil = "<div class='sil'></div>";
+
+          console.log("여기임");
+          $("#sonuc").append("<div class='sen'>" + img + yazi + sil + "</div>" + sil + yaz + sil + "</div>");
+
+
+          output.scrollTop(
+            output[0].scrollHeight - output.height()
+          );
+
+          $("#form")[0].reset();
+
+        }
+
+      });
+
+      $("#txt").bind("click", function() {
+        $(".islem").html("입력");
+      });
+    })
+  </script>
+</head>
+
+<body>
+  <div id="chat">
+    <header class="baslik">
+      <div class="kapat">-</div>
+      <h4>상담원 이름 혹은 사용자 이름</h4>
+      <span class="sayac">3</span>
+    </header>
+
+    <div class="chat">
+      <div class="mesaj-gecmisi">
+        <div class="o">
+          <img align='right' src='http://gravatar.com/avatar/7124bc62949227ac21a52e9533e6d478?s=80' width='30px'>
+          © 어떤것을 도와드릴까요?
+          <div class="sil"></div>
+        </div>
+        <div class="o">
+          <img align='right' src='http://gravatar.com/avatar/7124bc62949227ac21a52e9533e6d478?s=80' width='30px'>
+          미리 질문해 주시면 최단시간 내에 처리해 드리겠네.
+          <div class="sil"></div>
+        </div>
+        <!-- <div class="o">
+          <img align='right' src='http://gravatar.com/avatar/7124bc62949227ac21a52e9533e6d478?s=80' width='30px'>
+          Destek yardım içim iletişime geç
+          <a href="https://www.facebook.com/AyhanALTINOKesk" title="Ayhan ALTINOK"> facebook.com/AyhanALTINOKesk</a>
+          <div class="sil"></div>
+        </div> -->
+
+        <div id="sonuc"></div>
+      </div>
+      <p class="islem"></p>
+      <form action="javascript:void(0)" method="post" id="form">
+        <fieldset>
+          <input type="text" id="txt" placeholder="입력하세요" autofocus>
+        </fieldset>
+      </form>
+
+    </div>
+  </div>
+
+</body>
+
+</html>

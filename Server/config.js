@@ -31,5 +31,10 @@ module.exports = {
         database:"hole",
         port: 53306,
         debug:false
+    },
+    server_error: {
+        static: {
+          "404":"./error/404.html"
+        }
     }
 }

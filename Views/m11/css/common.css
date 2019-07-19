@@ -1,0 +1,32 @@
+html, header, body, section, h1{
+  margin: 0;
+  padding: 0;
+}
+header{
+  height: 200px;
+  text-align: center;
+  background-image:url('../img/yjc_header.jpg');
+  background-size: cover;
+}
+section{
+  height: 100%;
+  width: 100%;
+}
+footer{
+  height: 200px;
+  background-color: black;
+}
+h1{
+  padding: 5%;
+}
+table td{
+  width: 20%;
+  text-align:center;
+}
+table{
+  border-collapse: collapse;
+}
+a{
+  text-decoration: none;
+  color: inherit;
+}

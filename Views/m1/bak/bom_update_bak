@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./css/commons.css">
+  <link rel="stylesheet" href="./css/bom_add.css">
+  <link rel="stylesheet" media="only screen and (max-width: 768px)" href="./css/bom_add_768.css">
+	<link rel="stylesheet" media="only screen and (max-width: 576px)" href="./css/bom_add_576.css">
+  <title>수정</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script>
+    var params = location.search.substr(1, location.search.length).split('?');
+    params = decodeURI(params);
+    params = params.split('&');
+    var get_url = location.href.substr(0, location.href.length);
+    if(get_url.indexOf('?') > 0) {
+        get_url = location.href.substr(0, get_url.indexOf('?'))
+    }
+    var url = get_url;
+    function get_data(params, index) {
+        if(params == "") {
+            return -1;
+        } else {
+            return params[index].substr(params[index].indexOf("=") + 1, params[index].length);
+        }
+    }
+    var resSelect = [];
+    function fn_select(query){
+      $.ajax({
+                url: '/api/get',
+                dataType: 'json',
+                type: 'GET',
+                async:false,
+                data: {data:query},
+                success: function(result) {
+                    if (result) {
+                        // /console.log(result.result);
+                        resSelect = result.result;
+                    }
+               }
+            });
+    }
+    function btn_cancel(){
+      location.href = "Main.html";
+    }
+
+  $(document).ready(function(){
+    $("#aa").css("display","none");
+    $("#bb").css("display","none");
+    $("#cc").css("display","none");
+    // &catelevel=2&catenm=원숭이&catecode=A1-01&price=15000&spec=30*30CM&unit=EA ->  중분류
+    // &catelevel=3?catenm=원숭이눈&catecode=A1-01-01&price=2&availstock=20&spec=2*2&unit=EA
+    console.log('test' ,get_data(params, 1));
+    
+    var catenm = get_data(params, 0);
+    var catecode = get_data(params, 1);
+    var price = get_data(params, 2);
+    var spec = get_data(params, 3);
+    var unit = get_data(params, 4);
+    var catelevel = get_data(params, 5);
+    
+    console.log(catenm, catecode, price, spec, unit, catelevel)
+
+    if(catelevel == 1){
+      $("#aa").css("display","block");
+    }
+    else if(catelevel == 2){
+      $("#bb").css("display","block");
+      $("#midcatename").val(catenm);
+      $("#midcatecode").val(catecode);
+      $("#price").val(price);
+      $("#spec").val(spec);
+      $("#unit").val(unit);
+    }
+    else {
+      $("#cc").css("display","block");
+      var availstock = get_data(params, 6);
+      $("#smallcatename").val(catenm);
+      $("#smallcatecode").val(catecode);
+      $("#smallcateavailstock").val(availstock);
+      $("#smallcateprice").val(price);
+      $("#smallcatespec").val(spec);
+      $("#smallcateunit").val(unit);
+    }
+  });
+  </script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var html = "";
+    
+    // 대분류
+    html += '<option value=0>대분류</option>';
+    fn_select('select catenm from o_categories where upper_catecode = "0"');
+    for(var i = 0; i < resSelect.length; i++){
+        html += '<option value='+(i+1)+'>'+ resSelect[i].catenm+'</option>';
+    }
+    $("#main_cate").append(html);
+    
+    // 중분류
+    html = '<option value=0>중분류</option>';
+    if()
+    fn_select('select catenm from o_categories where upper_catecode = (select upper_catecode from o_categories where catenm = "' + get_data(params, 0) +'");');
+    for(var i = 0; i < resSelect.length; i++){
+        if( get_data(params, 0) == resSelect[i].catenm){
+          
+          console.log("aaaa");
+        }
+        html += '<option value='+(i+1)+'>'+ resSelect[i].catenm+'</option>';
+    }
+    $("#mid_cate").append(html);
+    
+    
+    
+    // 소분류
+    html = '<option value=0>소분류</option>';
+    fn_select('select catenm from o_categories where upper_catecode = (select catecode from o_categories where catenm = "' + get_data(params, 0) +'");');
+    for(var i = 0; i < resSelect.length; i++){
+        html += '<option value='+(i+1)+'>'+ resSelect[i].catenm+'</option>';
+    }
+    $("#small_cate").append(html);
+
+
+    if($("#aa").css("display") == "block"){
+
+    }
+    else if($("#bb").css("display") == "block"){
+      $('#mid_cate option:contains('+get_data(params, 0)+')').attr('selected', true);
+
+    }
+    else if($("#cc").css("display") == "block"){
+      $('#small_cate option:contains('+get_data(params, 0)+')').attr('selected', true);
+    }
+
+  }, false);
+
+  </script>
+</head>
+<body>
+  <header>
+    <h1 style="color: white;">LOGO</h1>
+  </header>
+  <div class="main_container">
+    <div class="nav_container">
+      <nav>
+        <span id="nav_id">BOM</span>
+        <ul>
+          <li><a href="./Main.html"> 조회 </a></li>
+          <li><a href="./bom_add.html"> 등록 </a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="section_container">
+      <!-- 수정 관련 select  -->
+      <div class="text_container">
+        <h2>수정</h2>
+      </div>
+      <div class="check_container">
+        <div class="select_container">
+          <div class="inner">
+            <p style="text-align: center; margin : 0; padding: 0;">대분류 :</p>
+            <select id="main_cate" name="main_cate">
+            </select>
+          </div>
+          <div class="inner">
+            <p style="text-align: center; margin : 0; padding: 0;">중분류 :</p>
+            <select id="mid_cate" name="mid_cate">
+            </select>
+          </div>
+          <div class="inner">
+            <p style="text-align: center; margin : 0; padding: 0;">소분류 :</p>
+            <select id="small_cate" name="small_cate">
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="data_container">
+          <div class="outer_container">
+            <div class="inner_container">
+              <!-- 대분류 -->
+              <div id="aa">
+              <div class="contents">
+                <fieldset>
+                  <legend> 대분류 </legend>
+                  <!--<form action="/m1/bom_add" method="post" id="Myform" name="Main">-->
+                  <form action="" method="" id="Myform" name="Main">
+                    <div class="out" style="border-top: 1px solid red;">
+                      <div class="cate_title">
+                        <label for="code" style="width:100%;">품명</label>
+                      </div>
+                      <div class="cate_input">
+                        <input type="text" name="maincatename" id="maincatename">
+                      </div>
+                    </div>
+                    <div class="out">
+                      <div class="cate_title">
+                        <label for="code" style="">품목코드</label>
+                      </div>
+                      <div class="cate_input">
+                        <input type="text" name="catecode" id="catecode">
+                      </div>
+                    </div>
+                    <div class="out">
+                        <!--<button type="submit">등록</button>-->
+                        <button id="mainCateAdd">수정</button>
+                        <button onclick="btn_cancel()">취소</button>
+                    </div>
+                  </form>
+                </fieldset>
+              </div>
+              </div>
+              <!-- 중분류 -->
+              <div id="bb">
+              <div class="contents">
+              <fieldset>
+                <legend> 대분류 > 중분류 </legend>
+                <form action="" method="post">
+                  <div class="out" style="border-top: 1px solid red;">
+                    <div class="cate_title">
+                      <label for="code" style="width:100%;">품명</label>
+                    </div>
+                    <div class="cate_input">
+                      <input type="text" name="midcatename" id="midcatename" >
+                    </div>
+                  </div>
+                  <div class="out">
+                    <div class="cate_title">
+                      <label for="code" style="">품목코드</label>
+                    </div>
+                    <div class="cate_input">
+                      <input type="text" name="midcatecode" id="midcatecode" >
+                    </div>
+                  </div>
+                  <div class="out">
+                    <div class="cate_title">
+                      <label for="code" style="">금액</label>
+                    </div>
+                    <div class="cate_input">
+                      <input type="text" name="price" id="price" >
+                    </div>
+                  </div>
+                  <div class="out">
+                    <div class="cate_title">
+                      <label for="standard">규격</label>
+                    </div>
+                    <div class="cate_input">
+                      <input type="text" name="spec" id="spec"class="text">
+                      <select class="" name="">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="out">
+                    <div class="cate_title">
+                      <label for="standard">단위</label>
+                    </div>
+                    <div class="cate_input">
+                      <input type="text" name="unit" id="unit" class="text">
+                      <select class="d" name="">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+                  </div>
+                  </form>
+                  <div class="out">
+                      <button id="midCateAdd">수정</button>
+                      <button onclick="btn_cancel()">취소</button>
+                  </div>
+
+              </fieldset>
+
+              </div>
+              </div>
+              <!-- 소분류 -->
+              <div id="cc">
+              <div class="contents">
+                <fieldset>
+                  <legend> 대분류 > 중분류 > 소분류 </legend>
+                  <form action="" method="post">
+                    <div class="out" style="border-top: 1px solid red;">
+                      <div class="cate_title">
+                        <label for="code" style="width:100%;">품명</label>
+                      </div>
+                      <div class="cate_input">
+                        <input type="text" id="smallcatename" >
+                      </div>
+                    </div>
+                    <div class="out">
+                      <div class="cate_title">
+                        <label for="code" style="">품목코드</label>
+                      </div>
+                      <div class="cate_input">
+                        <input type="text" id="smallcatecode" >
+                      </div>
+                    </div>
+                    <div class="out">
+                      <div class="cate_title">
+                        <label for="code" style="">소요수량</label>
+                      </div>
+                      <div class="cate_input">
+                        <input type="text" id="smallcateavailstock" >
+                      </div>
+                    </div>
+                    <div class="out">
+                      <div class="cate_title">
+                        <label for="code" style="">금액</label>
+                      </div>
+                      <div class="cate_input">
+                        <input type="text" id="smallcateprice">
+                      </div>
+                    </div>
+                    <div class="out">
+                      <div class="cate_title">
+                        <label for="standard">규격</label>
+                      </div>
+                      <div class="cate_input">
+                        <input type="text" name="smallcatespec" id="smallcatespec" class="text">
+                        <select class="" name="">
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="out">
+                      <div class="cate_title">
+                        <label for="standard">단위</label>
+                      </div>
+                      <div class="cate_input">
+                        <input type="text" name="smallcateunit" id="smallcateunit" class="text">
+                        <select class="" name="">
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="out">
+                        <button id="smallCateAdd">수정</button>
+                        <button onclick="btn_cancel()">취소</button>
+                    </div>
+                  </form>
+                </fieldset>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

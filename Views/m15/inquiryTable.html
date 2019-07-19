@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="/m15/css/main.css">
+	<link rel="stylesheet" href="/m15/css/common.css">
+	<link rel="stylesheet" href="/m15/css/harin.css">
+	<link rel="stylesheet" href="/m15/css/flex.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="/m15/js/commons.js"></script>
+	<style media="screen">
+		.wrapper {
+			max-width: 980px;
+			margin: 0 auto;
+		}
+
+		.input-flex2 {
+			display: flex;
+			justify-content: center;
+			/* align-content: flex-start; */
+			height: 40px;
+		}
+
+		.input-flex2>button {
+			margin: 20px 30px;
+		}
+
+		.dn {
+			display: none;
+		}
+
+		#paging {
+			list-style: none;
+		}
+
+		#paging li {
+			width: 30px;
+			float: left;
+			text-align: center;
+			cursor: pointer;
+		}
+	</style>
+	<script>
+		$(function () {
+			var reTime;
+			var param = {};
+			var pagingIndex = 0;
+			$("form").submit(function (event) {
+				event.preventDefault();
+				var param = { "title": $("#putHere3").val(), "content": $("#putHere4").val() };
+				fNet("/m15/inquiry/insert", "POST", param, fSet);
+			});
+
+			$("#writeForm2").click(function () {
+				console.log($("#putHere3").val());
+				console.log($("#putHere4").val());
+			});
+			/*
+			$("form input[type=submit]").click(function () {
+				var index = $("form input[type=button]").index(this);
+				switch (index) {
+					case 0:
+						param.nm = $("#NM").val();
+						fNet("/m0/update", "POST", param, function (data) {
+							if (data.state) {
+								alert(data.text);
+							} else {
+								alert(data.text);
+							}
+						});
+						break;
+					case 1:
+						fNet("/m0/delete", "POST", param, function (data) {
+							if (!data.state) {
+								alert(data.text);
+							}
+						});
+						break;
+					default:
+						break;
+				}
+
+				$("form input[type=button]").addClass("dn");
+				$("form input[type=submit]").removeClass("dn");
+				$("#NM").val("");
+			});
+			*/
+			function init() {
+				//clearTimeout(reTime);
+				var param = { "index": pagingIndex };
+				fNet("/m15/inquiry/select", "POST", param, function (data) {
+					listView(data.list);
+					if (data.state) {
+						pagingView(data.paging);
+					} else {
+						pagingView(0);
+						pagingIndex = 0;
+						alert("네트워크 불안합니다.");
+					}
+					//startTime();
+				});
+			}
+
+			function listView(rows) {
+				$("#list").empty();
+				for (var i = 0; i < rows.length; i++) {
+					let html = `<div class="row rowplace">
+									<div class="cell" data-title="제목">${rows[i].title}</div>
+									<div class="cell" data-title="문의사항">${rows[i].subtitle}</div>
+									<div class="cell" data-title="아이디">${rows[i].modifier}</div>
+									<div class="cell" data-title="작성일자">${rows[i].modify_date}</div>
+									<div class="cell" data-title="답변">${rows[i].views}</div>
+								</div>`;
+					$("#list").prepend(html);
+				}
+				let html = `<div class="row header"><div class="cell">제목</div>
+									<div class="cell">카테고리</div>
+									<div class="cell">아이디</div>
+									<div class="cell">작성일자</div>
+									<div class="cell">답변여부</div></div>`;
+				$("#list").prepend(html);
+				/**/
+				$("#list div.rowplace").click(function () {
+					var t = $(this).children("div").eq(0).text();
+					console.log("t=", t);
+					var index = $("#list div.rowplace").index(this);
+					index = (rows.length - index) - 1;
+					// console.log(t, rows[index], rows[index].NO, rows[index].ID);
+					var title = rows[index].title;
+					var content = rows[index].content;
+					param = {
+						'title': title,
+						'content': content
+					}
+					$("#putHere1").val(rows[index].title);
+					$("#putHere2").val(rows[index].content);
+					$("#readHere").removeClass("dn");
+					$("#tableT").addClass("dn");
+				});
+			}
+
+			function pagingView(tot) {
+				var p = Math.ceil(tot / 5);
+				$("#paging").empty();
+				for (var i = 0; i < p; i++) {
+					var html = "<li>" + (i + 1) + "</li>";
+					$("#paging").append(html);
+				}
+				$("#paging li").removeClass("active");
+				$("#paging li").eq(pagingIndex / 5).addClass("active");
+				$("#paging li").click(function () {
+					var index = $("#paging li").index(this);
+					pagingIndex = index * 5;
+					init();
+				});
+			}
+			/**/
+			// function startTime() {
+			// 	reTime = setTimeout(function () {
+			// 		init();
+			// 	}, 500);
+			// }
+			$("#returnList").click(function () {
+				location.href = "/m15/inquiry";
+			});
+			$("#writeForm").click(function () {
+				$("#readHere").addClass("dn");
+				$("#tableT").addClass("dn");
+				$("#tableR").removeClass("dn");
+			});
+			$("#cancelTo").click(function () {
+				location.href = "/m15/inquiry";
+			});
+
+			init();
+		});
+	</script>
+</head>
+
+<body>
+	<header class="color2">
+		<ul class="hlist">
+			<li>
+				<a href="/m15/index">공지사항</a>
+			</li>
+			<li>
+				<a href="/m15/faq">FAQ</a>
+			</li>
+			<li>
+				<a href="/m15/inquiry">문의하기</a>
+			</li>
+			<li>
+				<a href="/m15/deliveryConf">배송확인</a>
+			</li>
+			<li>
+				<a href="/m15/refundForm">반품신청</a>
+			</li>
+			<li>
+				<a href="/m15/serviceInfo">소개</a>
+			</li>
+		</ul>
+	</header>
+
+	<div class="wrapper flex-container_them1 dn" id="tableR">
+		<form>
+			<h2 class="wrapLogo">문의 글 작성하기</h2>
+			<div class=" input-flex">
+				<span class="flex-solo">제목</span>
+				<input id="putHere3" type="text" name="title">
+			</div>
+
+			<div class="input-flex">
+				<span class="flex-solo">내용</span>
+			</div>
+
+			<div class="input-flex flex-height">
+				<textarea id="putHere4" class="flex-textarea" name="content" id=""></textarea>
+			</div>
+
+			<div class="input-flex flex-temp1">
+				<button type="submit" class="flex-right" id="writeForm2">작성하기</button>
+
+				<button type="button" class="flex-right" id="cancelTo">취소</button>
+			</div>
+		</form>
+	</div>
+
+	<!-- 게시판 글쓰기 끝-->
+	<div class="wrapper dn" id="readHere">
+		<h2 class="wrapLogo">글 상세보기</h2>
+		<div class="flex_container2">
+			<div class="f1 rowH" style="justify-content:flex-end;"><button id="returnList">목록</button></div>
+			<div class="f2 rowH" style="margin:10px 10px;">
+				<div class="color1" style="padding:0px 10px;">제목</div>
+				<div class="f1 color2"><input id="putHere1" type="text" style="width:100%" value="" disabled></div>
+			</div>
+			<div class="f1 rowH">
+				<div class="color1" style="padding:0px 10px;">내용</div>
+			</div>
+			<div class="f1 rowH">
+				<textarea id="putHere2" name="name" style="width:100%" rows="20" disabled></textarea>
+			</div>
+			<br>
+			<div class="f1 rowH color3">댓글</div>
+			<div class="f1 rowH color4" style="height:100px;">1
+			</div>
+		</div>
+	</div>
+
+
+	<!-- table -->
+	<div class="wrapper" id="tableT">
+		<div class="wrapper">
+			<h2 class="wrapLogo">문의보기</h2>
+			<div class="flex-container2">
+				<span class="f2"></span>
+				<input type="text" class="f5" placeholder="제목 검색" />
+				<button class="f1">검색</button>
+				<span class="f1"></span>
+				<button class="f1" id="writeForm">작성하기</button>
+			</div>
+		</div>
+		<div class="limiter">
+			<div class="container-table100">
+				<div class="wrap-table100">
+					<div class="table" id="list">
+					</div>
+				</div>
+				<ul id="paging"></ul>
+			</div>
+		</div>
+	</div>
+	
+	<!-- table End -->
+	<footer class="footer-flex">
+		<div class="footer-item" style="background-color:black;">1</div>
+	</footer>
+</body>
+
+</html>

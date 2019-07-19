@@ -1,0 +1,220 @@
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+           -webkit-appearance: none;
+           -webkit-border-radius: 0;
+        }
+
+
+
+        .bar {
+            width: 100%;
+            height: 50px;
+            border-bottom: 2px solid grey;
+        }
+
+        .logo {
+            font-size: 30px;
+            text-align: center;
+            width: 60px;
+            margin: 40px 0px 10px 120px
+
+        }
+
+        .login {
+            float: right;
+            padding: 10px 20px;
+            margin-right: 100px;
+            background-color: dodgerblue;
+            cursor: pointer;
+            border: none;
+            color: white;
+            border-radius: 8px;
+
+        }
+
+
+        .fgid {
+            border: 1px solid dodgerblue;
+            margin: 70px 0px 0px 3%;
+            padding: 15px 40px;
+            float: left;
+            background-color: dodgerblue;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .fgpwd {
+            border: 1px solid grey;
+            margin: 70px 25px 0px 0px;
+            padding: 15px 40px;
+            background-color: grey;
+            float: left;
+            border-radius: 8px;
+            color: white;
+        }
+
+        a:link, a:visited, a:active {text-decoration: none; color: white;}
+
+
+/*
+        .edge {
+            position: inherit;
+            border: 1px solid pink;
+            height: 100%;
+            margin: 70px 50px 60px 50px;
+        }
+*/
+
+        .inneredge {
+            position: inherit;
+            border: 2px solid grey;
+            display: block;
+            height: 500px;
+            margin: 0px 20px 20px 20px;
+            padding: 70px 0px 0px 0px;
+        }
+
+        .input {
+            display: block;
+            background-color: aqua;
+        }
+
+        .findpwd {
+/*            display: inline-block;*/
+/*            box-sizing: border-box;*/
+/*            float: left;*/
+            margin:40px 0px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .tag3 {
+            margin: auto;
+            margin-left: 15%;
+            width: 80px;
+            color: white;
+            border-radius: 8px;
+            background-color: #538bc1;
+            cursor: pointer;
+            border: none;
+            display: none;
+        }
+
+        .tag4 {
+            margin: auto;
+            margin-left: 15%;
+            width: 130px;
+            color: white;
+            border-radius: 8px;
+            background-color: #538bc1;
+            cursor: pointer;
+            border: none;
+            display: none;
+        }
+
+        .inputcell {
+            margin-left: 30px;
+            height: 30px;
+            width: 250px;
+            border-radius: 8px;
+        }
+
+        .inputno {
+            margin-left: 76px;
+            height: 30px;
+            width: 250px;
+            border-radius: 8px;
+        }
+
+        .ok {
+            float: right;
+            clear: both;
+            margin-top: 90px;
+            margin-right: 360px;
+            position: relative;
+        }
+
+        .button {
+            height: 50px;
+            width: 200px;
+            font-size: 20px;
+            color: white;
+            border-radius: 8px;
+            background-color: dodgerblue;
+            cursor: pointer;
+            border: none;
+        }
+
+@media screen and (max-width: 900px) {
+     .fgid {
+                margin: 20px 0px 0px 3%;
+            }
+            .fgpwd {
+                margin: 20px 0px 0px 0px;
+            }
+
+    .inneredge {
+        padding: 0;
+        height: 450px;
+    }
+}
+
+
+        @media screen and (max-width: 600px) {
+            .logo {
+                display: none;
+            }
+            .inneredge {
+                height: 350px;
+            }
+            .login {
+                display: none;
+            }
+
+            .bar {
+                border-bottom: none;
+            }
+
+            .fgid {
+                margin: 0px 0px 0px 20px;
+                padding: 15px 20px;
+            }
+            .fgpwd {
+                margin: 0px;
+                padding: 15px 20px;
+            }
+            .nametxt {
+                display: none;
+            }
+
+            .inputcell {
+                width: 70%;
+               float: inherit;
+               text-align: center;
+               margin: 0;
+            }
+
+            .inputno {
+                width: 70%;
+               text-align: center;
+                margin: 0;
+            }
+
+            .tag3 {
+
+                display: block;
+            }
+
+            .tag4 {
+                display: block;
+            }
+
+
+}

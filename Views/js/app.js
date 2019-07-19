@@ -5,13 +5,13 @@ angular.module("home", []).controller("HomeCtrl", function($scope,$http) {
 		  //console.log($scope.user);
 		  $http({
 			method : "POST",
-			url : "/m0/login",
+			url : "/login",
 			data : $scope.user
 		  }).then(function mySuccess(response) {
 			var data = response.data;
 			//console.log(data, data.rows, data.rows.length);
 			if(data.rows.length > 0){
-				alert("로그인 성공");
+				//alert("로그인 성공");
 				location.href = data.url;
 			} else {
 				alert("로그인 실패");

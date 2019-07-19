@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/main.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/harin.css">
+		<link rel="stylesheet" href="../css/flex.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <style media="screen">
+        .wrapper {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+				.input-flex2 {
+						display: flex;
+						justify-content: center;
+						/* align-content: flex-start; */
+						height: 40px;
+				}
+				.input-flex2>button{
+					margin:20px 30px;
+				}
+				.flex-row>img{
+					min-width:100%;
+				}
+    </style>
+    <script>
+        $(function() {
+            $('input[name="filterCk"]').change(function() {
+                var value = $(this).val(); // value
+                var checkId=$(this).attr('id');
+                console.log(checkId);
+                var checked = $(this).prop('checked'); // checked 상태 (true, false)
+                var $label = $(this).next();
+                if(checkId=='filterCheck_1'){
+
+                    if(checked){
+                        $('input[name="filterCk"]').each(function(){
+                            $(this).prop('checked', true);
+                            $(this).next().css('background-color', '#0984e3');
+                        })
+                    }else{
+                        $('input[name="filterCk"]').each(function(){
+                            $(this).prop('checked',false);
+                            $(this).next().css('background-color', '#74b9ff')
+                        })
+                    }
+                    // checked ?$('.filter-div').prop('checked',true) :  $('.filter-div').prop('checked',false)
+                    // checked ?$('label').css('background-color', 'rgb(42, 94, 230)') : $('label').css('background-color', 'rgb(180, 205, 224)')
+                }else{
+                    checked ? $label.css('background-color', '#0984e3') : $label.css('background-color', '#74b9ff');
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+  <header class="color2">
+    <ul class="hlist">
+      <li>
+        <a href="index.html">공지사항</a>
+      </li>
+      <li>
+        <a href="faq.html">FAQ</a>
+      </li>
+      <li>
+        <a href="inquiryTable.html">문의하기</a>
+      </li>
+      <li>
+        <a href="deliveryConf.html">배송확인</a>
+      </li>
+      <li>
+        <a href="refundForm.html">반품확인</a>
+      </li>
+      <li>
+        <a href="serviceInfo.html">소개</a>
+      </li>
+    </ul>
+  </header>
+
+	 <div class="wrapper">
+	 	<h2 class="wrapLogo">고객서비스센터 소개</h2>
+	 </div>
+
+	 <div class="wrapper flex-container">
+	 	<div class="flex-row">
+	 		<img src="img/product-02.gif" alt="">
+	 	</div>
+
+
+	 	<div class="flex-row flex-box">
+	 		<div class="flex-boxs">
+	 			<div class="center-box color1">
+	 				1
+	 			</div>
+	 		</div>
+	 		<div class="flex-boxs center2-box">
+	 			상담센터 운영
+	 		</div>
+	 		<div class="flex-boxs center4-box">
+	 			상담을 맛볼 수 있는 절호의 기회
+	 		</div>
+	 		<div class="flex-boxs">
+	 			<button class="center3-box">이동</button>
+	 		</div>
+	 	</div>
+
+
+	 	<div class="flex-row flex-box">
+	 		<div class="flex-boxs">
+	 			<div class="center-box color2">
+	 				2
+	 			</div>
+	 		</div>
+	 		<div class="flex-boxs center2-box">
+	 			실시간 상담 가능
+	 		</div>
+	 		<div class="flex-boxs center4-box">
+	 			상담사와 은밀한 대화가능
+	 		</div>
+	 		<div class="flex-boxs">
+	 			<button class="center3-box">이동</button>
+	 		</div>
+	 	</div>
+
+
+	 	<div class="flex-row flex-box">
+	 		<div class="flex-boxs">
+	 			<div class="center-box color3">
+	 				3
+	 			</div>
+	 		</div>
+	 		<div class="flex-boxs center2-box">
+	 			제품별 상담 가능
+	 		</div>
+	 		<div class="flex-boxs center4-box">
+	 			제품별 개인 상담을 통한<br>
+	 			문제해결 도움
+	 		</div>
+	 		<div class="flex-boxs">
+	 			<button class="center3-box">이동</button>
+	 		</div>
+	 	</div>
+	 </div>
+
+
+		<!-- table End -->
+
+    <footer class="footer-flex">
+        <div class="footer-item" style="background-color:black;">1</div>
+    </footer>
+</body>
+
+</html>

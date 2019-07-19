@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>메인화면</title>
+	<link rel="stylesheet" href="/m15/css/navi.css">
+	<link rel="stylesheet" href="/m15/css/common.css">
+	<link rel="stylesheet" href="/m15/css/harin.css">
+	<link rel="stylesheet" href="/m15/css/flex.css">
+	<link rel="stylesheet" href="/m15/css/table.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="/m15/js/commons.js"></script>
+	<style media="screen">
+		.wrapper {
+			max-width: 980px;
+			margin: 0 auto;
+		}
+
+		.input-flex2 {
+			display: flex;
+			justify-content: center;
+			/* align-content: flex-start; */
+			height: 40px;
+		}
+
+		.input-flex2>button {
+			margin: 20px 30px;
+		}
+	</style>
+	<script>
+		$(function () {
+			// $("tr").click(function () {
+			// 	console.log("1212");
+			// 	console.log($(this)[0]);
+			// 	console.log($(this).children("td").eq(0).text());
+			// 	location.href = `/m15/index/${$(this).children("td").eq(0).text()}`
+			// });
+
+			$("#writeNotice").click(function () {
+				location.href = "/m15/index/writeNew";
+			});
+
+
+
+
+			function init() {
+				fNet("/m15/index", "POST", {}, function (data) {
+					console.log(data);
+					if (data.state) {
+						$("#list").empty();
+						var rows = data.rows;
+						for (var i = 0; i < rows.length; i++) {
+							let html = "";
+							html += `<tr><td data-label="작성자">${rows[i].notice_id}</td>`;
+							html +=
+								`<td data-label="제목"><span style="background-color:rgb(165, 133, 172);padding:2px 2px;">${rows[i].subtitle} </span></td>`;
+							html += `<td data-label="내용">${rows[i].title}</td>`;
+							html += `<td data-label="작성일시">${rows[i].regist_date}</td>`;
+							$("#list").prepend(html);
+						}
+						$("tr").click(function () {
+							console.log("1212");
+							console.log($(this)[0]);
+							console.log($(this).children("td").eq(0).text());
+							location.href = `/m15/index/${$(this).children("td").eq(0).text()}`
+						});
+
+						/*
+						*여기부터 권한별 설정하기
+						*
+						*/
+
+						// $("#cnt").html(rows.length);
+					} else {
+						alert(data.text);
+						history.back();
+					}
+				});
+			}
+			/*
+			const reTime = setTimeout(function(){
+			}, 100);
+			*/
+			//init();
+		});
+	</script>
+</head>
+
+<body>
+<!--
+	<header class="color2">
+		<ul class="hlist">
+			<li>
+				<a href="/m15/index">공지사항</a>
+			</li>
+			<li>
+				<a href="/m15/faq">FAQ</a>
+			</li>
+			<li>
+				<a href="/m15/inquiry">문의하기</a>
+			</li>
+			<li>
+				<a href="/m15/deliveryConf">배송확인</a>
+			</li>
+			<li>
+				<a href="./refundForm">반품신청</a>
+			</li>
+			<li>
+				<a href="./serviceInfo">소개</a>
+			</li>
+		</ul>
+	</header>
+-->
+	<div style="display: flex;justify-content: center;align-items: center;height: 100px;">
+		<img src="img/logo.png" alt="" style="flex: 0 1 0;">
+	</div>
+	<nav class="main-navigation">
+		<ul class="menu">
+			<li class="menu-item-has-children"><a href="/m15/index/">서비스</a>
+				<ul class="sub-menu">
+					<li><a href="#">FAQ</a></li>
+					<li class="menu-item-has-children"><a href="#">문의</a>
+						<ul class="sub-menu">
+							<li><a href="#">1:1 문의</a></li>
+							<li><a href="#">다이렉트 문의</a></li>
+						</ul>
+					</li>
+					<li class="menu-item-has-children"><a href="#">배송</a>
+						<ul class="sub-menu">
+							<li><a href="#">배송확인</a></li>
+							<li><a href="#">반품신청</a></li>
+						</ul>
+					</li>
+					<li><a href="#">회사 소개</a></li>
+				</ul>
+			</li>
+			<li><a href="#">회계관리</a></li>
+			<li><a href="#">영업관리</a></li>
+			<li><a href="#">경영관리</a></li>
+			<li><a href="#">운송</a></li>
+			<li><a href="#">생산관리</a></li>
+			<li><a href="#">자재</a></li>
+			<li><a href="#">협력기업</a></li>
+			<li><a href="#">인사급여</a></li>
+		</ul>
+	</nav>
+
+
+	<div class="wrapper">
+		<h2 class="wrapLogo">공지사항</h2>
+		<div class="flex-container2">
+			<!-- search -->
+			<span class="f2"></span>
+			<input type="text" class="f5" placeholder="제목 검색" />
+			<span class="f1"></span>
+			<button class="f1">검색</button>
+			<span class="f1"></span>
+			<button id="writeNotice" class="f1">글 작성</button>
+		</div>
+		<div class="flex-container2">
+			<table class="f1">
+				<caption></caption>
+				<thead>
+					<tr>
+						<th scope="col">글번호</th>
+						<th scope="col">카테고리</th>
+						<th scope="col">제목</th>
+						<th scope="col">작성일시</th>
+					</tr>
+				</thead>
+				<tbody id="list">
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+	<footer class="footer-flex">
+		<div class="footer-item" style="background-color:black;">1</div>
+	</footer>
+</body>
+
+</html>

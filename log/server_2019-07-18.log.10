@@ -1,0 +1,103 @@
+2019-07-18 12:18:37.110 +0900 - info: URL 모듈 시작
+2019-07-18 12:18:37.118 +0900 - info: path:/m0	page:5
+2019-07-18 12:18:37.118 +0900 - info: method:GET	path:/m0/
+2019-07-18 12:18:37.119 +0900 - info: method:POST	path:/m0/select
+2019-07-18 12:18:37.119 +0900 - info: method:POST	path:/m0/insert
+2019-07-18 12:18:37.119 +0900 - info: method:POST	path:/m0/delete
+2019-07-18 12:18:37.119 +0900 - info: method:POST	path:/m0/update
+2019-07-18 12:18:37.119 +0900 - info:  
+2019-07-18 12:18:37.120 +0900 - info: path:/m1	page:0
+2019-07-18 12:18:37.120 +0900 - info:  
+2019-07-18 12:18:37.121 +0900 - info: path:/m2	page:0
+2019-07-18 12:18:37.121 +0900 - info:  
+2019-07-18 12:18:37.121 +0900 - info: path:/m3	page:0
+2019-07-18 12:18:37.121 +0900 - info:  
+2019-07-18 12:18:37.122 +0900 - info: path:/m4	page:0
+2019-07-18 12:18:37.122 +0900 - info:  
+2019-07-18 12:18:37.123 +0900 - info: path:/m5	page:0
+2019-07-18 12:18:37.123 +0900 - info:  
+2019-07-18 12:18:37.123 +0900 - info: path:/m6	page:0
+2019-07-18 12:18:37.123 +0900 - info:  
+2019-07-18 12:18:37.124 +0900 - info: path:/m7	page:0
+2019-07-18 12:18:37.124 +0900 - info:  
+2019-07-18 12:18:37.125 +0900 - info: path:/m8	page:0
+2019-07-18 12:18:37.125 +0900 - info:  
+2019-07-18 12:18:37.125 +0900 - info: path:/m9	page:0
+2019-07-18 12:18:37.126 +0900 - info:  
+2019-07-18 12:18:37.128 +0900 - info: path:/m10	page:0
+2019-07-18 12:18:37.128 +0900 - info:  
+2019-07-18 12:18:37.128 +0900 - info: path:/m11	page:0
+2019-07-18 12:18:37.129 +0900 - info:  
+2019-07-18 12:18:37.129 +0900 - info: path:/m12	page:0
+2019-07-18 12:18:37.130 +0900 - info:  
+2019-07-18 12:18:37.130 +0900 - info: path:/m13	page:0
+2019-07-18 12:18:37.131 +0900 - info:  
+2019-07-18 12:18:37.131 +0900 - info: path:/m14	page:0
+2019-07-18 12:18:37.132 +0900 - info:  
+2019-07-18 12:18:37.132 +0900 - info: path:/m15	page:1
+2019-07-18 12:18:37.133 +0900 - info: method:GET	path:/m15/
+2019-07-18 12:18:37.133 +0900 - info:  
+2019-07-18 12:18:37.134 +0900 - info: path:/m16	page:0
+2019-07-18 12:18:37.134 +0900 - info:  
+2019-07-18 12:18:37.135 +0900 - info: path:/m17	page:0
+2019-07-18 12:18:37.135 +0900 - info:  
+2019-07-18 12:18:37.137 +0900 - info: path:/m18	page:0
+2019-07-18 12:18:37.137 +0900 - info:  
+2019-07-18 12:18:37.138 +0900 - info: path:/m19	page:0
+2019-07-18 12:18:37.138 +0900 - info:  
+2019-07-18 12:18:37.146 +0900 - info: 서버 준비완료!!
+2019-07-18 12:18:43.639 +0900 - info:  state=true, rows=[user_id=1, id=ADMIN, password=ADMIN, delete_flag=N, birthday=Wed Jul 17 2019 17:53:17 GMT+0900 (GMT+09:00), authority_code=0], url=/m15/, text=
+2019-07-18 12:18:50.794 +0900 - info: /login
+2019-07-18 12:18:56.259 +0900 - info: /login
+2019-07-18 12:19:06.500 +0900 - info: /login
+2019-07-18 12:19:22.932 +0900 - info: /login
+2019-07-18 17:05:37.221 +0900 - info:  state=true, rows=[user_id=1, id=ADMIN, password=ADMIN, delete_flag=N, birthday=Wed Jul 17 2019 17:53:17 GMT+0900 (GMT+09:00), authority_code=0], url=/m15/, text=
+2019-07-18 17:06:09.615 +0900 - info: 로그인 중.. ./editprofile.html
+2019-07-18 17:17:56.495 +0900 - info:  state=true, rows=[user_id=1, id=ADMIN, password=ADMIN, delete_flag=N, birthday=Wed Jul 17 2019 17:53:17 GMT+0900 (GMT+09:00), authority_code=0], url=/m15/, text=
+2019-07-18 17:18:01.706 +0900 - info: 로그인 중.. ./m6/editprofile.html
+2019-07-18 17:33:36.419 +0900 - info: /logout
+2019-07-18 17:33:36.429 +0900 - info: /
+2019-07-18 17:33:42.034 +0900 - info:  state=true, rows=[user_id=7, id=M6, password=M6, delete_flag=N, birthday=Wed Jul 17 2019 17:53:17 GMT+0900 (GMT+09:00), authority_code=1], url=/m15/, text=
+2019-07-18 17:33:46.567 +0900 - info: 로그인 중.. ./m6/editprofile.html
+2019-07-18 17:33:52.878 +0900 - info: 로그인 중.. /logout
+2019-07-18 17:33:52.879 +0900 - info: /logout
+2019-07-18 17:33:52.882 +0900 - info: /
+2019-07-18 17:34:04.072 +0900 - info: /logout
+2019-07-18 17:34:04.075 +0900 - info: /
+2019-07-18 18:07:07.916 +0900 - info:  state=true, rows=[user_id=7, id=M6, password=M6, delete_flag=N, birthday=Wed Jul 17 2019 17:53:17 GMT+0900 (GMT+09:00), authority_code=1], url=/m15/, text=
+2019-07-18 18:07:12.393 +0900 - info: 로그인 중.. ./m6/editprofile.html
+2019-07-18 18:07:17.515 +0900 - info: 로그인 중.. ./m6/forgottenpwd.html
+2019-07-18 18:07:22.099 +0900 - info: 로그인 중.. ./m6/forgotten.html
+2019-07-18 18:09:05.514 +0900 - info: 로그인 중.. ./m6/profile.html
+2019-07-18 18:11:20.626 +0900 - info: 로그인 중.. ./m6/forgotten.html
+2019-07-18 18:11:38.403 +0900 - info: 로그인 중.. ./m6/molelist.html
+2019-07-18 18:11:47.249 +0900 - info: 로그인 중.. ./m6/register.html
+2019-07-18 18:53:06.968 +0900 - info:  state=true, rows=[user_id=7, id=M6, password=M6, delete_flag=N, birthday=Wed Jul 17 2019 17:53:17 GMT+0900 (GMT+09:00), authority_code=1], url=/m15/, text=
+2019-07-18 18:53:09.886 +0900 - info: 로그인 중.. ./m6/editprofile.html
+2019-07-18 18:53:12.994 +0900 - info: 로그인 중.. ./m6/register.html
+2019-07-18 18:54:04.497 +0900 - info: 로그인 중.. /m6/v/register
+2019-07-18 18:54:04.498 +0900 - info: /m6/v/register
+2019-07-18 18:54:04.501 +0900 - info: 로그인 중.. ./m6/register.html
+2019-07-18 18:55:56.272 +0900 - info: 로그인 중.. /m6/v/register
+2019-07-18 18:55:56.272 +0900 - info: /m6/v/register
+2019-07-18 18:55:56.276 +0900 - info: 로그인 중.. ./m6/register.html
+2019-07-18 18:56:40.302 +0900 - info: 로그인 중.. /m6/v/register
+2019-07-18 18:56:40.303 +0900 - info: /m6/v/register
+2019-07-18 18:56:40.305 +0900 - info: 로그인 중.. ./m6/register.html
+2019-07-18 19:32:41.113 +0900 - info:  state=true, rows=[user_id=7, id=M6, password=M6, delete_flag=N, birthday=Wed Jul 17 2019 17:53:17 GMT+0900 (GMT+09:00), authority_code=1], url=/m15/, text=
+2019-07-18 19:32:46.335 +0900 - info: 로그인 중.. ./m6/register.html
+2019-07-18 19:40:22.204 +0900 - info:  state=true, rows=[user_id=7, id=M6, password=M6, delete_flag=N, birthday=Wed Jul 17 2019 17:53:17 GMT+0900 (GMT+09:00), authority_code=1], url=/m15/, text=
+2019-07-18 19:40:25.276 +0900 - info: 로그인 중.. ./m6/register.html
+2019-07-18 19:45:19.618 +0900 - info:  state=true, rows=[user_id=7, id=M6, password=M6, delete_flag=N, birthday=Wed Jul 17 2019 17:53:17 GMT+0900 (GMT+09:00), authority_code=1], url=/m15/, text=
+2019-07-18 19:45:22.362 +0900 - info: 로그인 중.. ./m6/register.html
+2019-07-18 19:45:35.927 +0900 - info: 로그인 중.. /m6/v/register
+2019-07-18 19:45:35.928 +0900 - info: /m6/v/register
+2019-07-18 19:45:35.931 +0900 - info: 로그인 중.. ./m6/register.html
+2019-07-18 19:47:10.038 +0900 - info: 로그인 중.. /m6/v/register
+2019-07-18 19:47:10.038 +0900 - info: /m6/v/register
+2019-07-18 19:47:10.041 +0900 - info: 로그인 중.. ./m6/register.html
+2019-07-18 20:00:33.615 +0900 - info:  state=true, rows=[user_id=7, id=M6, password=M6, delete_flag=N, birthday=Wed Jul 17 2019 17:53:17 GMT+0900 (GMT+09:00), authority_code=1], url=/m15/, text=
+2019-07-18 20:00:36.341 +0900 - info: 로그인 중.. ./m6/register.html
+2019-07-18 20:00:57.546 +0900 - info: 로그인 중.. /m6/v/register
+2019-07-18 20:00:57.547 +0900 - info: /m6/v/register
+2019-07-18 20:00:57.551 +0900 - info: 로그인 중.. ./m6/register.html
