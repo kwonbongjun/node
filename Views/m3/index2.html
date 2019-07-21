@@ -44,6 +44,7 @@
         var dataperpage=5;
         var page=0;
         var pagingIndex=0;
+        var session;
         //데이터 가져오기
         $("#c1").on("click",".pageno",function(){
              if(whichpage==1) {
@@ -52,12 +53,12 @@
              }else{
               index= $(".pageno").index(this);
                getdata();
-               
+
              }
         });
         function getdata() {
           var v5=value;
-          
+
           whichpage=0;
 
           pagingIndex=index*dataperpage;
@@ -71,6 +72,9 @@
            }
           fNet("/m3/select", "POST", param, function (data) {
             d1=data;
+            if(data.login==0) {
+              location.href = "../m3/logout";
+            }
           if(data.state){
             page=Math.ceil(data.paging/dataperpage);
           }else {
@@ -79,6 +83,7 @@
           if(data.paging<dataperpage) {
             dataperpage=data.paging;
           }
+          //pageCount=data.list.length;
           //console.log(dataperpage);
           for(var i=0;i<data.list.length;i++) {
           v5+=`<tbody><tr><td>`+data.list[i].budgets_id+`</td><td>`+
@@ -217,7 +222,10 @@
             //contents3=d1.list[$("#cb").index(this)].budgets_id;
            //console.log(d1.list[index].budgets_id);
 
-            fNet("/m3/delete", "POST", param, function (data) {
+            fNet("/m3/delete", "POST", param, function(data){
+                if(!data.state){
+                    alert("권한없음");
+                }
                 getdata();
            });
         }
@@ -328,7 +336,12 @@
           event.preventDefault();
           var param = {"date" : $("#date").val(), "division" : $("#division").val(),
           "money" : $("#money").val() };
-          fNet("/m3/insert", "POST", param, fSet);
+          fNet("/m3/insert", "POST", param, function(data){
+              if(data.state){
+                  alert(data.text);
+              } else {
+                  alert("권한없음");
+              }});
       });
 
 
@@ -366,7 +379,7 @@
      //console.log(idx2,idx);
 
      if((1 <= idx2 && idx2 < idx-1) || b1 == 1 ) {
-      
+
        b1=0;
        data1=d1;
        console.log(a_budget);
@@ -380,7 +393,7 @@
        console.log(a_budget.list.length);
        if(idx3<a_budget.list.length ) {
          if(a_budget.list[idx3].budgets_id==data1.list[idx3].budgets_id) {
-       $(".popup input").eq(4).val(a_budget.list[idx3].add_budgets_id);    
+       $(".popup input").eq(4).val(a_budget.list[idx3].add_budgets_id);
        $(".popup input").eq(5).val(a_budget.list[idx3].budgets_id);
        $(".popup input").eq(6).val(a_budget.list[idx3].money);
        $(".popup input").eq(7).val(a_budget.list[idx3]["contents"]);
@@ -397,7 +410,7 @@
        //console.log(data1.list[idx3]["date"]);
        popup();
      }
-   
+
  //    var data1=JSON.parse(localStorage.getItem("list"));
 
    //console.log(data1[$("tr").index(this)-1]["time"]);
@@ -457,12 +470,24 @@
           event.preventDefault();
            parambudget = {"budgets_id" : $(".popup input").eq(0).val(), "date" : $(".popup input").eq(1).val(), "division" : $(".popup input").eq(2).val(),
               "money" : $(".popup input").eq(3).val() };
-           fNet("/m3/update", "POST", parambudget, fSet);
+           fNet("/m3/update", "POST", parambudget, function(data){
+             if(data.state){
+                 alert(data.text);
+             } else {
+                 alert("권한없음");
+             }
+           });
           //console.log(parambudget);
-          
+
           paramaddbudget = {"add_budgets_id":  $(".popup input").eq(4).val(), "budgets_id" : $(".popup input").eq(5).val(), "money" : $(".popup input").eq(6).val(),
           "contents" : $(".popup input").eq(7).val(), "flag" : $(".popup input").eq(8).val() };
-          setTimeout(fNet("/m3/insertaddbudget", "POST", paramaddbudget, fSet),1000);
+          setTimeout(fNet("/m3/insertaddbudget", "POST", paramaddbudget, function(data){
+              if(data.state){
+                  alert(data.text);
+              } else {
+                  alert("권한없음");
+              }
+          }),1000);
           $(".popup").css("display","none");
       });
 
@@ -494,12 +519,12 @@
 
      $("#c1").on("click",".page .leftpage",function() {
        //curPage=$(".page li").index(this);
-       curPage=parseInt(curPage-(5+(curPage+4)%5));
-       if(curPage<1) {
+      // curPage=parseInt(curPage-(5+(curPage+4)%5));
+       /*if(curPage<1) {
          curPage=1;
        }
        curData=(curPage-1)*2;
-       //getdata;
+
         if(parseInt(page)-5 >0) {
 
           if(whichpage==1) {
@@ -509,16 +534,40 @@
               index -= 5;
                getdata();
              }
-        }        
+        }*/
        //printPage();
+       console.log(index);
+       if(whichpage==1) {
+        ab_index = $(".pageno").index(this);
+          searchdate(sn);
+       }else{
+         if(index>=5) {
+          index-=5;
+        }
+         getdata();
+
+       }
      });
      $("#c1").on("click",".page .rightpage",function() {
        //curPage=$(".page li").index(this);
-       curPage=curPage-(curPage+(pageCount-1))%pageCount+pageCount;
-       console.log(curPage);
-       curData=(curPage-1)*2;
-       //getdata();
-       printPage();
+       // curPage=curPage-(curPage+(pageCount-1))%pageCount+pageCount;
+       // console.log(curPage);
+       // curData=(curPage-1)*2;
+       // //getdata();
+       // printPage();
+1 - 5
+5 - 1
+       if(whichpage==1) {
+        ab_index = $(".pageno").index(this);
+          searchdate(sn);
+       }else{
+         if((index+1+5-(index)%5)<=page ) {
+          index+=5;
+        }
+         getdata();
+
+       }
+       console.log(index,page);
      });
 
      //날짜검색

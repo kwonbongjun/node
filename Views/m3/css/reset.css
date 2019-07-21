@@ -5,8 +5,10 @@ html, body {margin :0; padding: 0};
   padding:0;
   background-color: #888888;
 }
-.m1 h2{
-
+.m1 h2 button{
+  margin-left: 100px;
+  width: 100px;
+  float: : right;
 }
 .m2 {
   width :50%;
@@ -157,6 +159,19 @@ img {
   display: none;
   <!-- display: none; -->
 
+}
+#c3 a,ul {
+  color: black !important;
+}
+#c3 li {
+  float: left;
+}
+#c3 .page{
+  display: inline-block;
+  margin-left: calc(30%);
+}
+#c3 .page a{
+  font-size: 16px;
 }
 table, th, tr, td {
   border-spacing: 0px;

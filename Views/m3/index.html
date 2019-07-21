@@ -15,12 +15,15 @@
         var v;
         var data1=[];
         var value="<div class=\"s1\">"+
-        "날짜 범위 <input id=\"sdate\" name=\"date\" type=\"date\" style=\"width: 200px; height:30px\">"+
-        "<input id=\"edate\" type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
-        "<input id=\"moneydatesearch\" type=\"submit\" value=\"검색\" style=\"width: 100px; height:30px\"></div>";
+        "날짜 범위 <input id=\"sdate\" class=\"sdate\" name=\"date\" type=\"date\" style=\"width: 200px; height:30px\">"+
+        "<input id=\"edate\" class=\"edate\" type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
+        "<input id=\"moneydatesearch\" class=\"search\" type=\"submit\" value=\"검색\" style=\"width: 100px; height:30px\"></div>";
+        value2=value+"<table id=\"page1\"><tr><td>구분</td><td>부서</td><td>발생일자</td><td>금액</td></tr>";//<td>수정</td><td>삭제</td></tr>"
 
         value+="<table id=\"page1\"><tr><td>구분</td><td>부서</td><td>발생일자</td><td>금액</td><td>대상</td><td>항목</td></tr>";//<td>수정</td><td>삭제</td></tr>";
-        value2="<table id=\"page1\"><tr><td>구분</td><td>부서</td><td>발생일자</td><td>금액</td></tr>";//<td>수정</td><td>삭제</td></tr>"
+
+        //
+
         var totaldata;
         var dataperpage=2;
         var pageCount=5;
@@ -134,7 +137,11 @@
                   "index": pagingIndex
               }
             fNet("/m3/createview", "POST", param, function (data) {
-              if(data.state){                            
+              console.log(data);
+              if(data.login==0) {
+                location.href = "../m3/logout";
+              }
+              if(data.state){
               page=Math.ceil(data.paging/dataperpage);
               }else {
                 page=0;
@@ -146,10 +153,10 @@
               for(var i=0;i<data.list.length;i++) {
               v5+=`<tbody><tr><td>`+data.list[i].구분+`</td><td>`+
               data.list[i].부서+`</td><td>`+data.list[i].발생일자+`</td><td>`+
-              data.list[i].금액+"</td><td>"+data.list[i].대상+"</td><td>"+data.list[i].항목;
+              data.list[i].금액+"</td><td>"+data.list[i].대상+"</td><td>"+data.list[i].항목+"</td></tr></tbody>";
               }
               v5+=`</table>`;
-              
+
               var page1="<div class=\"page\"><ul><li class=\"leftpage\"><a href=\"#c1\"><</a></li>"
               //console.log(curPage);
               // if((parseInt(curPage)+4)%5 != 0 ) {
@@ -157,7 +164,7 @@
               // }else {
               // }
               for(var i = 0; i < page; i++){
-                page1+="<li class=\"pageno\"><a href=\"#c1\">["+i+"]</a></li>";
+                page1+="<li class=\"pageno\"><a href=\"#c1\">["+(i+1)+"]</a></li>";
               }
               page1+="<li class=\"rightpage\"><a href=\"#c1\">></a></li></ul></div>"
               v5+=page1;
@@ -194,22 +201,35 @@
             });
         }
         function searchdate(sn) {
+          if(sn==1) {
           var v5=value;
+        }else{
+          var v5=value2;
+        }
           var dataperpage=5;
           var page=0;
           var pagingIndex=0;
-          
+
           pagingIndex=index*dataperpage;
               console.log(pagingIndex);
+          if(sn==1) {
            var param = {
               sn : sn,
-                 sdate:$("#sdate").val().replace("\"",""),
-                 edate:$("#edate").val().replace("\"",""),
+                 sdate:$(".sdate").val().replace("\"",""),
+                 edate:$(".edate").val().replace("\"",""),
                "index": pagingIndex
            }
+         }else {
+           var param = {
+              sn : sn,
+                 sdate:$("#c3 .sdate").val().replace("\"",""),
+                 edate:$("#c3 .edate").val().replace("\"",""),
+               "index": pagingIndex
+           }
+         }
            //console.log(param.sn);
           fNet("/m3/searchdate", "POST", param, function (data) {
-          
+
           if(data.state){
             page=Math.ceil(data.paging/dataperpage);
           }else {
@@ -228,14 +248,14 @@
           }
           }
           else {for(var i=0;i<data.list.length;i++) {
-          v5+=`<tbody><tr><td>`+data.list[i].budgets_id+`</td><td>`+
-          data.list[i].date+`</td><td>`+data.list[i].division+`</td><td>`+
-          data.list[i].money+"</td><td><button type=\"button\" class=\"btn\">수정</td>"+
-          "<td><button id=\"cb\" type=\"button\" class=\"btn2\">삭제</td></tr></tbody>";
+          v5+=`<tbody><tr><td>`+data.list[i].구분+`</td><td>`+
+          data.list[i].부서+`</td><td>`+data.list[i].발생일자+`</td><td>`+
+          data.list[i].금액;
           }
+          console.log(data.list);
         }
           v5+=`</table>`;
-          
+
 
           var page1="<div class=\"page\"><ul><li class=\"leftpage\"><a href=\"#c1\"><</a></li>"
           //console.log(curPage);
@@ -249,13 +269,16 @@
           page1+="<li class=\"rightpage\"><a href=\"#c1\">></a></li></ul></div>"
           v5+=page1;
           //
+          if(sn==1) {
           $("#c1").html(v5);
-          //console.log("1");
+        }else {
+          $("#c3").html(v5);
+        }//console.log("1");
           });
 
         }
         function monthmoney() {
-          var v5=value;
+          var v5=value2;
           var dataperpage=5;
           var page=0;
           var pagingIndex=0;
@@ -274,7 +297,10 @@
                   "index": pagingIndex
               }
             fNet("/m3/monthmoney", "POST", param, function (data) {
-              if(data.state){                            
+              //console.log(data);
+
+
+              if(data.state){
               page=Math.ceil(data.paging/dataperpage);
               }else {
                 page=0;
@@ -289,20 +315,21 @@
               data.list[i].금액;
               }
               v5+=`</table>`;
-              
-              var page1="<div class=\"page\"><ul><li class=\"leftpage\"><a href=\"#c1\"><</a></li>"
+
+              var page1="<div class=\"page\"><ul><li class=\"leftpage\"><a href=\"#c3\"><</a></li>"
               //console.log(curPage);
               // if((parseInt(curPage)+4)%5 != 0 ) {
               //   curPage=curPage-(parseInt(curPage)+4)%5;
               // }else {
               // }
               for(var i = 0; i < page; i++){
-                page1+="<li class=\"pageno\"><a href=\"#c1\">["+i+"]</a></li>";
+                page1+="<li class=\"pageno\"><a href=\"#c3\">["+(i+1)+"]</a></li>";
               }
-              page1+="<li class=\"rightpage\"><a href=\"#c1\">></a></li></ul></div>"
+              page1+="<li class=\"rightpage\"><a href=\"#c3\">></a></li></ul></div>"
               v5+=page1;
+              console.log(v5);
               //
-              $("#c1").html(v5);
+              $("#c3").html(v5);
               });
         }
 
@@ -621,7 +648,7 @@
       var key;var b1=0;
 
 
-        $("#c1 ").on("click","table tr",(function(e){
+    /*    $("#c1 ").on("click","table tr",(function(e){
 
           idx=($("tr").index(this))*colnm;
           var c1= "<ul><li>구분:<input name=\"no\" type=\"radio\" value=\"입금\" placeholder=\"구분\" style=\"\">입금"+
@@ -667,7 +694,7 @@
       }).fail(function(html){
         console.log(html);
       });
-*/
+
 
       $(".popup2").empty().append(c1);
 
@@ -677,7 +704,7 @@
       popup();
       }
 
-      }));
+    })); */
       var tdflag=0;
         $("#c1 ").on("click","td",(function(e){
 
@@ -752,7 +779,7 @@
               getdata(obj2);
         });*/
              //날짜검색
-     $("#c1").on("click","#moneydatesearch",function(){
+     $("#c1").on("click",".search",function(){
        var sn=1;
         var sdate;
         var edate;
@@ -760,13 +787,27 @@
         whichpage=1;
         console.log("검색");
         });
+
+      $("#c3").on("click",".search",function(){
+        sn=2;
+         var sdate;
+         var edate;
+         searchdate(sn);
+         whichpage=1;
+         console.log("검색");
+         });
+         $("#logout").click(function(){
+             location.href = "../m3/logout";
+         });
     });
+
   </script>
 </head>
 <body  data-ng-app="home" data-ng-controller="HomeCtrl">
     <hd></hd>
     <div class="m1">
-      <h2 style="text-align : center;">자금/예산관리 프로그램</h2>
+      <h2 style="text-align : center;">자금/예산관리 프로그램</h2><!--<button type="button" id="logout">로그아웃</button>-->
+
     <div class="m2">
     <a href="../m3/index.html"><h3>자금관리</h3></a>
     </div>
@@ -867,12 +908,6 @@
         <th>금액</th>
         <th>실적</th>
       </tr>
-      <tbody>
-        <td>입금</td>
-        <td>2019년07월</td>
-        <td>100000</td>
-        <td>110000</td>
-      </tbody>
     </thead>
     </table>
   </section>
