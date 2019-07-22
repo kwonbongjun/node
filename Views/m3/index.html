@@ -9,12 +9,13 @@
   <script src="../js/commons.js"></script>
   <title>자금관리</title>
   <script>
-    /*var param = {
+  var index=1;
+    var param = {
                   // 'budgets_id' : budgets_id,
                   // 'date' : date,
                   // 'division' : division,
                   // 'money' : money
-                  "index": 0
+                  "index": index
                     }
                   fNet("/m3/createview", "POST", param, function (data) {
                     console.log(data);
@@ -22,7 +23,7 @@
                       location.href = "../m3/logout";
                     }
                   });
-*/
+
       $(document).ready(function(){
         var id;
         var list = [];
@@ -45,7 +46,7 @@
         var curPageCount=totaldata/dataperpage;
         var curData=0;
         var obj2={};
-        var index=1;
+
         var sn;
         var whichpage;//페이지 종류(검색, 기본)
         var page=0;
@@ -141,7 +142,8 @@
              //index = $(".pageno").index(this);
              //console.log(index);
           });
-          pagingIndex=index*dataperpage;
+          if(index<1) index= 1;
+          pagingIndex=(index-1)*dataperpage;
           //console.log(pagingIndex);
             var param = {
                   // 'budgets_id' : budgets_id,

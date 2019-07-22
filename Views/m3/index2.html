@@ -9,12 +9,14 @@
   <script src="../js/commons.js"></script>
   <title>예산관리</title>
   <script>
+
+  var index=0;
     var param = {
                   // 'budgets_id' : budgets_id,
                   // 'date' : date,
                   // 'division' : division,
                   // 'money' : money
-                  "index": 0
+                  "index": index
               }
             fNet("/m3/select", "POST", param, function (data) {
               console.log(data);
@@ -47,7 +49,6 @@
         var curPageCount=totaldata/dataperpage;
         var curData=0;
         var obj2={};
-        var index=0;
         var ab_index=0;
         var d1;
         var searchflag=0;
