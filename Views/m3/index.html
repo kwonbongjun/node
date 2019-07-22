@@ -9,7 +9,7 @@
   <script src="../js/commons.js"></script>
   <title>자금관리</title>
   <script>
-    var param = {
+    /*var param = {
                   // 'budgets_id' : budgets_id,
                   // 'date' : date,
                   // 'division' : division,
@@ -22,7 +22,7 @@
                       location.href = "../m3/logout";
                     }
                   });
-
+*/
       $(document).ready(function(){
         var id;
         var list = [];
@@ -45,7 +45,7 @@
         var curPageCount=totaldata/dataperpage;
         var curData=0;
         var obj2={};
-        var index=0;
+        var index=1;
         var sn;
         var whichpage;//페이지 종류(검색, 기본)
         var page=0;
@@ -138,7 +138,7 @@
           var pagingIndex=0;
           whichpage=0;
           $("#c1").on("click",".pageno",function(){
-             index = $(".pageno").index(this);
+             //index = $(".pageno").index(this);
              //console.log(index);
           });
           pagingIndex=index*dataperpage;
@@ -297,7 +297,7 @@
           var pagingIndex=0;
           whichpage=0;
           $("#c1").on("click",".pageno",function(){
-             index = $(".pageno").index(this);
+             //index = $(".pageno").index(this);
              //console.log(index);
           });
           pagingIndex=index*dataperpage;
@@ -314,7 +314,7 @@
 
 
               if(data.state){
-              page=Math.ceil(data.paging/dataperpage);
+              page=Math.ceil(data.paging/dataperpage/2);
               }else {
                 page=0;
               }
@@ -771,8 +771,11 @@
             printPage();
         });*/
         $("#c1").on("click",".pageno",function(){
-             index = $(".pageno").index(this);
-          console.log(curPage+index);
+            var idx = $(".pageno").index(this);
+             index = $(".pageno a").eq(idx).text();
+             index=index.replace("[","");
+             index=index.replace("]","");
+          console.log(index);
              if(whichpage==1) {
                 searchdate(sn);
              }else{
@@ -798,18 +801,18 @@
              }
         }*/
        //printPage();
-       curPage+=5;
        if(whichpage==1) {
         ab_index = $(".pageno").index(this);
         curPage-=5;
         searchdate(sn);
        }else{
-         if(index>=5) {
+         if(index>=6) {
           index-=5;
-          //curPage-=5;
+          curPage-=5;
+          console.log(index);
         }
          getdata();
-
+        //console.log(index);
        }
      });
      $("#c1").on("click",".rightpage",function() {
@@ -819,20 +822,23 @@
        // curData=(curPage-1)*2;
        // //getdata();
        // printPage();
-       curPage-=5;
        if(whichpage==1) {
         ab_index = $(".pageno").index(this);
           curPage+=5;
           searchdate(sn);
        }else{
-         if((index+1+5-(index)%5)<=page ) {
-          index+=5;
+
+         if((parseInt(index)+5 - (parseInt(index)-1)%5) <= page ) {
+          index=parseInt(index) + 5;
           curPage+=5;
+
         }
+
+        console.log(index);
          getdata();
 
        }
-       console.log(index,page);
+       //console.log(index,page);
      });
 
         //날짜검색
