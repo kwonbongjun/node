@@ -35,7 +35,7 @@ m[1] = {                        // 모듈 리스트에 넣기
         var result = {state : true, login : 1};
         }else {
           var result = {state : true, login : 0};
-        }      console.log("111111111111",result);
+        }      //console.log("111111111111",result);
         db("GET", sql, [index]).then(function(rows){
             if(rows.state){
                 result.list = rows.rows;
@@ -207,7 +207,18 @@ m[8] = {
         });
         m[8].step1(req,res);
     },
-    step1: function(req, res){
+    step1: function (req,res) {
+        /*var sql=`truncate table a_statements`;
+        db("SET", sql, []).then(function(rows){ 
+            
+        });
+        var sql = 'insert into a_statements (`registrationdate`, `team`,`sort`,`amount`,`category`) SELECT 발생일자,부서,구분,금액,항목 from v_a_money';
+        db("SET", sql, []).then(function(rows){
+            //commons.msgResult(res, rows, "msg1", "../m3/index2.html#c1");//이동주소
+        });*/
+        m[8].step2(req,res); 
+    },
+    step2: function(req, res){
         var index = Number(req.body.index);
         var sql = `select * from v_a_money order by 발생일자 desc LIMIT ?, 5`;
         if(req.session.user) {
@@ -215,7 +226,7 @@ m[8] = {
         var result = {state : true, login : 1};
         }else {
           var result = {state : true, login : 0};
-        }      console.log("111111111111",result);
+        }      //console.log("111111111111",result);
         db("GET", sql, [index]).then(function(rows){
             if(rows.state){
                 result.list = rows.rows;
@@ -223,10 +234,10 @@ m[8] = {
                 result.list = [];
                 result.state = false;
             }
-            m[8].step2(req, res, result); // step2 호출
+            m[8].step3(req, res, result); // step2 호출
         });
     },
-    step2: function(req, res, result){
+    step3: function(req, res, result){
         sql = "select count(*) as cnt from v_a_money";
         db("GET", sql, []).then(function(rows){     // 함수 실행 후 동작 부분
             if(rows.state){

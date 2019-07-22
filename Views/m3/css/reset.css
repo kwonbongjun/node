@@ -245,7 +245,7 @@ button {
     opacity: 0.6;
   }
   nav li{
-    width :33.3333%;
+    width :50%;
     float:left;
     margin:0;
   }
@@ -369,9 +369,10 @@ button {
     display: none;
     <!-- display: none; -->
   }
-  form input{
-    width: 80px !important;
+  .s1 input{
+  width: 80px !important ;
   }
+
 /*
   form .s3{
     width:150px !important;
@@ -384,10 +385,10 @@ button {
   #page2 td:nth-child(5), th:nth-child(5){
     display: none !important;
   }*/
-  table[id="page1"] td:nth-child(8), th:nth-child(8) {
+  table[id="page2"] th:nth-child(5), table[id="page2"] td:nth-child(5) {
     display: none !important;
   }
-  table[id="page2"] td:nth-child(6), table[id="page2"] td:nth-child(6) {
+  table[id="page2"] th:nth-child(6), table[id="page2"] td:nth-child(6) {
     display: none !important;
   }
   table[id="page2"] td:nth-child(7),table[id="page2"]  td:nth-child(7) {
@@ -424,5 +425,9 @@ button {
     width: calc(100%);
     display: none;
     <!-- display: none; -->
+  }
+  .page{
+    margin-left: 15% !important;
+    padding:0;
   }
 }

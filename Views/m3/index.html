@@ -9,15 +9,29 @@
   <script src="../js/commons.js"></script>
   <title>자금관리</title>
   <script>
+    var param = {
+                  // 'budgets_id' : budgets_id,
+                  // 'date' : date,
+                  // 'division' : division,
+                  // 'money' : money
+                  "index": 0
+                    }
+                  fNet("/m3/createview", "POST", param, function (data) {
+                    console.log(data);
+                    if(data.login==0) {
+                      location.href = "../m3/logout";
+                    }
+                  });
+
       $(document).ready(function(){
         var id;
         var list = [];
         var v;
         var data1=[];
         var value="<div class=\"s1\">"+
-        "날짜 범위 <input id=\"sdate\" class=\"sdate\" name=\"date\" type=\"date\" style=\"width: 200px; height:30px\">"+
-        "<input id=\"edate\" class=\"edate\" type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
-        "<input id=\"moneydatesearch\" class=\"search\" type=\"submit\" value=\"검색\" style=\"width: 100px; height:30px\"></div>";
+        "날짜 범위 <input id=\"sdate\" class=\"sdate\" name=\"date\" type=\"date\" style=\"width:  150px; height:30px\">"+
+        "<input id=\"edate\" class=\"edate\" type=\"date\" placeholder=\"날짜검색\" style=\"width: 150px; height:30px\">"+
+        "<input id=\"moneydatesearch\" class=\"search\" type=\"submit\" value=\"검색\" style=\"width: 80px; height:30px\"></div>";
         value2=value+"<table id=\"page1\"><tr><td>구분</td><td>부서</td><td>발생일자</td><td>금액</td></tr>";//<td>수정</td><td>삭제</td></tr>"
 
         value+="<table id=\"page1\"><tr><td>구분</td><td>부서</td><td>발생일자</td><td>금액</td><td>대상</td><td>항목</td></tr>";//<td>수정</td><td>삭제</td></tr>";
@@ -34,6 +48,7 @@
         var index=0;
         var sn;
         var whichpage;//페이지 종류(검색, 기본)
+        var page=0;
         //페이지 출력
         function printPage(v){
           var page1="<div class=\"page\"><ul><li><a href=\"#c1\"><</a></li>"
@@ -120,7 +135,6 @@
             //var param = {"nm" : $("#NM").val()};
             var v5=value;
           var dataperpage=5;
-          var page=0;
           var pagingIndex=0;
           whichpage=0;
           $("#c1").on("click",".pageno",function(){
@@ -163,7 +177,7 @@
               //   curPage=curPage-(parseInt(curPage)+4)%5;
               // }else {
               // }
-              for(var i = 0; i < page; i++){
+              for(var i = curPage; i < curPage+5 && i< page; i++){
                 page1+="<li class=\"pageno\"><a href=\"#c1\">["+(i+1)+"]</a></li>";
               }
               page1+="<li class=\"rightpage\"><a href=\"#c1\">></a></li></ul></div>"
@@ -280,7 +294,6 @@
         function monthmoney() {
           var v5=value2;
           var dataperpage=5;
-          var page=0;
           var pagingIndex=0;
           whichpage=0;
           $("#c1").on("click",".pageno",function(){
@@ -759,12 +772,68 @@
         });*/
         $("#c1").on("click",".pageno",function(){
              index = $(".pageno").index(this);
+          console.log(curPage+index);
              if(whichpage==1) {
                 searchdate(sn);
              }else{
                getdata();
              }
         });
+        $("#c1").on("click",".leftpage",function() {
+       //curPage=$(".page li").index(this);
+      // curPage=parseInt(curPage-(5+(curPage+4)%5));
+       /*if(curPage<1) {
+         curPage=1;
+       }
+       curData=(curPage-1)*2;
+
+        if(parseInt(page)-5 >0) {
+
+          if(whichpage==1) {
+              ab_index -=5;
+                searchdate(sn);
+             }else{
+              index -= 5;
+               getdata();
+             }
+        }*/
+       //printPage();
+       curPage+=5;
+       if(whichpage==1) {
+        ab_index = $(".pageno").index(this);
+        curPage-=5;
+        searchdate(sn);
+       }else{
+         if(index>=5) {
+          index-=5;
+          //curPage-=5;
+        }
+         getdata();
+
+       }
+     });
+     $("#c1").on("click",".rightpage",function() {
+       //curPage=$(".page li").index(this);
+       // curPage=curPage-(curPage+(pageCount-1))%pageCount+pageCount;
+       // console.log(curPage);
+       // curData=(curPage-1)*2;
+       // //getdata();
+       // printPage();
+       curPage-=5;
+       if(whichpage==1) {
+        ab_index = $(".pageno").index(this);
+          curPage+=5;
+          searchdate(sn);
+       }else{
+         if((index+1+5-(index)%5)<=page ) {
+          index+=5;
+          curPage+=5;
+        }
+         getdata();
+
+       }
+       console.log(index,page);
+     });
 
         //날짜검색
         /*$("#c1").on("click","#moneydatesearch",function(){

@@ -9,17 +9,31 @@
   <script src="../js/commons.js"></script>
   <title>예산관리</title>
   <script>
+    var param = {
+                  // 'budgets_id' : budgets_id,
+                  // 'date' : date,
+                  // 'division' : division,
+                  // 'money' : money
+                  "index": 0
+              }
+            fNet("/m3/select", "POST", param, function (data) {
+              console.log(data);
+              if(data.login==0) {
+                location.href = "../m3/logout";
+              }
+            });
+
       $(document).ready(function(){
         var id;
         var list = [];
         var v;
         var data1=[];
         var value="<div class=\"s1\">"+
-        "날짜 범위 <input id=\"sdate\" name=\"date\" type=\"date\" style=\"width: 200px; height:30px\">"+
-        "<input id=\"edate\" type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
-        "<input id=\"moneydatesearch\" type=\"submit\" value=\"검색\" style=\"width: 100px; height:30px\"></div>";
+        "날짜 범위 <input id=\"sdate\" name=\"date\" type=\"date\" style=\"width: 150px; height:30px\">"+
+        "<input id=\"edate\" type=\"date\" placeholder=\"날짜검색\" style=\"width: 150px; height:30px\">"+
+        "<input id=\"moneydatesearch\" type=\"submit\" value=\"검색\" style=\"width: 80px; height:30px\"></div>";
 
-        value+="<table id=\"page1\"><thead><tr><th>번호</th><th>연도</th><th>부서</th><th>금액</th><th>수정</th><th>삭제</th></tr></thead>";
+        value+="<table id=\"page2\"><thead><tr><th>번호</th><th>연도</th><th>부서</th><th>금액</th><th>수정</th><th>삭제</th></tr></thead>";
         var value2="<div class=\"s1\">"+
         "날짜 범위 <input id=\"sdate\" name=\"date\" type=\"date\" style=\"width: 200px; height:30px\">"+
         "<input id=\"edate\" type=\"date\" placeholder=\"날짜검색\" style=\"width: 200px; height:30px\">"+
