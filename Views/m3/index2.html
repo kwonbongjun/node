@@ -595,12 +595,15 @@
         console.log("검색");
 
      });
+     $("#logout").click(function(){
+             location.href = "../m3/logout";
+         });
 });
 </script>
 </head>
 <body>
   <div class="m1">
-    <h2 style="text-align : center;">자금/예산관리 프로그램</h2>
+    <h2 style="text-align : center;">자금/예산관리 프로그램<button type="button" id="logout" style="float:right">로그아웃</button></h2>
   <div class="m2">
   <a href="index.html"><h3>자금관리</h3></a>
   </div>

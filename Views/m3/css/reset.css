@@ -5,6 +5,9 @@ html, body {margin :0; padding: 0};
   padding:0;
   background-color: #888888;
 }
+.m1 h2 {
+  padding-left:200px;
+}
 .m1 h2 button{
   margin-left: 100px;
   width: 100px;
